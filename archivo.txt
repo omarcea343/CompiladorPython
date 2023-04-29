@@ -1,3 +1,10 @@
 if (x == 10){
     compi1 = x * y;
 }
+
+int variable1,x,y,z;
+
+if(x==1)
+    x=1;
+else 
+    x=0;
