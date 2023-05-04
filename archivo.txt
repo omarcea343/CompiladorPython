@@ -10,6 +10,7 @@ main()
     }
     a++;
     b--;
+    int y1;
     int c = a + b;
     cout << "La suma de a y b es: " << c << endl;
 }

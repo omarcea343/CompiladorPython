@@ -68,28 +68,31 @@ b                    identificador        12         5
 -                    operador             12         7         
 ;                    punto y coma         12         8         
 int                  Palabra reservada    13         5         
-c                    identificador        13         9         
-=                    operador             13         11        
-a                    identificador        13         13        
-+                    operador             13         15        
-b                    identificador        13         17        
-;                    punto y coma         13         18        
-cout                 Palabra reservada    14         5         
-<                    operador             14         10        
-<                    operador             14         11        
-La                   identificador        14         14        
-suma                 identificador        14         17        
-de                   identificador        14         22        
-a                    identificador        14         25        
-y                    identificador        14         27        
-b                    identificador        14         29        
-es                   identificador        14         31        
-<                    operador             14         37        
-<                    operador             14         38        
-c                    identificador        14         40        
-<                    operador             14         42        
-<                    operador             14         43        
-endl                 identificador        14         45        
-;                    punto y coma         14         49        
-}                    llave cerrada        15         1         
-}                    Llave cerrada        15         1         
+y1                   identificador        13         9         
+;                    punto y coma         13         11        
+int                  Palabra reservada    14         5         
+c                    identificador        14         9         
+=                    operador             14         11        
+a                    identificador        14         13        
++                    operador             14         15        
+b                    identificador        14         17        
+;                    punto y coma         14         18        
+cout                 Palabra reservada    15         5         
+<                    operador             15         10        
+<                    operador             15         11        
+La                   identificador        15         14        
+suma                 identificador        15         17        
+de                   identificador        15         22        
+a                    identificador        15         25        
+y                    identificador        15         27        
+b                    identificador        15         29        
+es                   identificador        15         31        
+<                    operador             15         37        
+<                    operador             15         38        
+c                    identificador        15         40        
+<                    operador             15         42        
+<                    operador             15         43        
+endl                 identificador        15         45        
+;                    punto y coma         15         49        
+}                    llave cerrada        16         1         
+}                    Llave cerrada        16         1         
