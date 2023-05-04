@@ -16,12 +16,13 @@ PATRONES_TOKEN = {
     'comentario_de_linea': r"//.*?$",
     'comentario_de_bloque': r"/\*.*?\*/",
     'entero': r"\b\d+\b",
-    'real': r"\b\d+\.\d+\b"
+    'real': r"\b\d+\.\d+\b",
+    'incremento_decremento': r"\+\+|--"
 }
 
 # Enumeración para los tipos de token
 class TipoToken(Enum):
-    palabra = 1
+    palabra_reservada = 1
     operador = 2
     parentesis = 3
     coma = 4
@@ -31,30 +32,50 @@ class TipoToken(Enum):
     entero = 8
     real = 9
     identificador = 10
+    incremento_decremento = 11
 
 def procesar_tokens(contenido):
     """
-    Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token.
+    Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
+    ordenadas por orden de aparición en el archivo.
     """
     # Eliminar los comentarios de línea
     contenido = re.sub(PATRONES_TOKEN['comentario_de_linea'], "", contenido)
     # Eliminar los comentarios de bloque
     contenido = re.sub(PATRONES_TOKEN['comentario_de_bloque'], "", contenido, flags=re.DOTALL)
-    
-    tokens = []
+
+    # Crear una lista de tuplas que contengan el token, su tipo y su posición en el archivo
+    tokens_con_posicion = []
     for descripcion, patron in PATRONES_TOKEN.items():
         if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:
-            if descripcion == 'palabra':
-                tipo_token = TipoToken.identificador
+            if descripcion == 'identificador':
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    if token in PALABRAS_RESERVADAS:
+                        tipo_token = TipoToken.palabra_reservada
+                    else:
+                        tipo_token = TipoToken.identificador
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+            elif descripcion == 'incremento_decremento':
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    tipo_token = TipoToken.incremento_decremento
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             else:
                 tipo_token = TipoToken[descripcion.replace(" ", "_").lower()]
-            for token in re.findall(patron, contenido):
-                linea = contenido.count('\n', 0, contenido.find(token)) + 1
-                columna = contenido.rfind('\n', 0, contenido.find(token))
-                columna = len(contenido[columna+1:contenido.find(token)]) + 1 if columna != -1 else len(contenido[:contenido.find(token)]) + 1
-                tokens.append((token, tipo_token, linea, columna))
-    return tokens
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
 
+    # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
+    tokens_ordenados = [token for _, token in sorted(tokens_con_posicion)]
+    return tokens_ordenados
 
 if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
@@ -77,7 +98,7 @@ if __name__ == '__main__':
         archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format("Token", "Tipo", "Linea", "Columna"))
         archivo_salida.write("-" * 60 + "\n")
         for token, tipo_token, linea, columna in tokens:
-            tipo = "Palabra reservada" if tipo_token == TipoToken.palabra and token in PALABRAS_RESERVADAS else tipo_token.name.replace("_", " ").lower()
+            tipo = "Palabra reservada" if tipo_token == TipoToken.palabra_reservada else tipo_token.name.replace("_", " ").lower()
             archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format(token, tipo, linea, columna))
             print("{:<20} {:<20} {:<10} {:<10}".format(token, tipo, linea, columna))
             

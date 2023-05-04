@@ -1,39 +1,45 @@
 Token                Tipo                 Linea      Columna   
 ------------------------------------------------------------
-int                  identificador        2          1         
-main                 identificador        2          5         
-int                  identificador        2          1         
-a1                   identificador        3          9         
-int                  identificador        2          1         
-b2                   identificador        4          9         
-int                  identificador        2          1         
-c3                   identificador        5          9         
-a                    identificador        2          6         
-b                    identificador        4          9         
-cout                 identificador        6          5         
-c                    identificador        5          9         
-return               identificador        7          5         
-a                    identificador        2          6         
-b                    identificador        4          9         
-c                    identificador        5          9         
-Hola                 identificador        12         3         
-=                    operador             3          12        
-=                    operador             3          12        
-=                    operador             3          12        
-+                    operador             5          16        
-<                    operador             6          10        
-<                    operador             6          10        
-=                    operador             3          12        
-/                    operador             12         1         
-/                    operador             12         1         
-(                    parentesis           2          9         
-)                    parentesis           2          10        
-;                    punto y coma         3          15        
-;                    punto y coma         3          15        
-;                    punto y coma         3          15        
-;                    punto y coma         3          15        
-;                    punto y coma         3          15        
-;                    punto y coma         3          15        
-5                    entero               3          14        
-6                    entero               4          14        
-0                    entero               7          12        
+int                  Palabra reservada    1          1         
+main                 Palabra reservada    1          5         
+(                    parentesis           1          9         
+)                    parentesis           1          10        
+int                  Palabra reservada    2          5         
+x1                   identificador        2          9         
+=                    operador             2          12        
+1                    entero               2          14        
+;                    punto y coma         2          15        
+float                identificador        3          5         
+x1                   identificador        3          11        
+=                    operador             3          14        
+4                    entero               3          16        
+4.5                  real                 3          16        
+5                    entero               3          18        
+;                    punto y coma         3          19        
+x1                   identificador        4          5         
++                    operador             4          7         
+++                   incremento decremento 4          7         
++                    operador             4          8         
+;                    punto y coma         4          9         
+if                   Palabra reservada    5          5         
+(                    parentesis           5          8         
+x                    identificador        5          9         
+=                    operador             5          11        
+=                    operador             5          12        
+1                    entero               5          14        
+)                    parentesis           5          15        
+cout                 Palabra reservada    6          9         
+<                    operador             6          14        
+<                    operador             6          15        
+x                    identificador        6          18        
+es                   identificador        6          20        
+igual                identificador        6          23        
+a                    identificador        6          29        
+1                    entero               6          31        
+<                    operador             6          34        
+<                    operador             6          35        
+endl                 identificador        6          37        
+;                    punto y coma         6          41        
+return               identificador        8          5         
+0                    entero               8          12        
+;                    punto y coma         8          13        
