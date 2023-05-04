@@ -1,8 +1,8 @@
 /*Hola*/
 int main() {
     int a1 = 5;
-    int b = 6;
-    int c = a + b;
+    int b2 = 6;
+    int c3 = a + b;
     cout << c;
     return 0;
 }

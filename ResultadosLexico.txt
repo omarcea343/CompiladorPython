@@ -5,9 +5,9 @@ main                 identificador        2          5
 int                  identificador        2          1         
 a1                   identificador        3          9         
 int                  identificador        2          1         
-b                    identificador        4          9         
+b2                   identificador        4          9         
 int                  identificador        2          1         
-c                    identificador        5          9         
+c3                   identificador        5          9         
 a                    identificador        2          6         
 b                    identificador        4          9         
 cout                 identificador        6          5         
@@ -20,7 +20,7 @@ Hola                 identificador        12         3
 =                    operador             3          12        
 =                    operador             3          12        
 =                    operador             3          12        
-+                    operador             5          15        
++                    operador             5          16        
 <                    operador             6          10        
 <                    operador             6          10        
 =                    operador             3          12        
@@ -35,5 +35,5 @@ Hola                 identificador        12         3
 ;                    punto y coma         3          15        
 ;                    punto y coma         3          15        
 5                    entero               3          14        
-6                    entero               4          13        
+6                    entero               4          14        
 0                    entero               7          12        
