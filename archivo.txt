@@ -1,10 +1,13 @@
-if (x == 10){
-    compi1 = x * y;
+/*Hola*/
+int main() {
+    int a1 = 5;
+    int b = 6;
+    int c = a + b;
+    cout << c;
+    return 0;
 }
 
-int variable1,x,y,z;
+a = b & c;
 
-if(x==1)
-    x=1;
-else 
-    x=0;
+//Hola
+

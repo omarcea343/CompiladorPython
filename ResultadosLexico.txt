@@ -1,0 +1,39 @@
+Token                Tipo                 Linea      Columna   
+------------------------------------------------------------
+int                  identificador        2          1         
+main                 identificador        2          5         
+int                  identificador        2          1         
+a1                   identificador        3          9         
+int                  identificador        2          1         
+b                    identificador        4          9         
+int                  identificador        2          1         
+c                    identificador        5          9         
+a                    identificador        2          6         
+b                    identificador        4          9         
+cout                 identificador        6          5         
+c                    identificador        5          9         
+return               identificador        7          5         
+a                    identificador        2          6         
+b                    identificador        4          9         
+c                    identificador        5          9         
+Hola                 identificador        12         3         
+=                    operador             3          12        
+=                    operador             3          12        
+=                    operador             3          12        
++                    operador             5          15        
+<                    operador             6          10        
+<                    operador             6          10        
+=                    operador             3          12        
+/                    operador             12         1         
+/                    operador             12         1         
+(                    parentesis           2          9         
+)                    parentesis           2          10        
+;                    punto y coma         3          15        
+;                    punto y coma         3          15        
+;                    punto y coma         3          15        
+;                    punto y coma         3          15        
+;                    punto y coma         3          15        
+;                    punto y coma         3          15        
+5                    entero               3          14        
+6                    entero               4          13        
+0                    entero               7          12        
