@@ -1,45 +1,95 @@
 Token                Tipo                 Linea      Columna   
 ------------------------------------------------------------
-int                  Palabra reservada    1          1         
-main                 Palabra reservada    1          5         
-(                    parentesis           1          9         
-)                    parentesis           1          10        
-int                  Palabra reservada    2          5         
-x1                   identificador        2          9         
-=                    operador             2          12        
-1                    entero               2          14        
-;                    punto y coma         2          15        
-float                identificador        3          5         
-x1                   identificador        3          11        
-=                    operador             3          14        
-4                    entero               3          16        
-4.5                  real                 3          16        
-5                    entero               3          18        
-;                    punto y coma         3          19        
-x1                   identificador        4          5         
-+                    operador             4          7         
-++                   incremento decremento 4          7         
-+                    operador             4          8         
-;                    punto y coma         4          9         
+main                 Palabra reservada    1          1         
+(                    parentesis           1          5         
+)                    parentesis           1          6         
+{                    llave abierta        2          1         
+{                    Llave abierta        2          1         
+int                  Palabra reservada    3          5         
+a                    identificador        3          9         
+=                    operador             3          11        
+5                    entero               3          13        
+;                    punto y coma         3          14        
+int                  Palabra reservada    4          5         
+b                    identificador        4          9         
+=                    operador             4          11        
+10                   entero               4          13        
+;                    punto y coma         4          15        
 if                   Palabra reservada    5          5         
 (                    parentesis           5          8         
-x                    identificador        5          9         
-=                    operador             5          11        
-=                    operador             5          12        
-1                    entero               5          14        
-)                    parentesis           5          15        
+a                    identificador        5          9         
+<                    operador             5          11        
+b                    identificador        5          13        
+b                    identificador        5          18        
+>                    operador             5          20        
+a                    identificador        5          22        
+)                    parentesis           5          23        
+{                    llave abierta        5          25        
+{                    Llave abierta        5          25        
 cout                 Palabra reservada    6          9         
 <                    operador             6          14        
 <                    operador             6          15        
-x                    identificador        6          18        
+a                    identificador        6          18        
 es                   identificador        6          20        
-igual                identificador        6          23        
-a                    identificador        6          29        
-1                    entero               6          31        
-<                    operador             6          34        
-<                    operador             6          35        
-endl                 identificador        6          37        
-;                    punto y coma         6          41        
-return               identificador        8          5         
-0                    entero               8          12        
-;                    punto y coma         8          13        
+menor                identificador        6          23        
+que                  identificador        6          29        
+b                    identificador        6          33        
+<                    operador             6          36        
+<                    operador             6          37        
+endl                 identificador        6          39        
+;                    punto y coma         6          43        
+}                    llave cerrada        7          5         
+}                    Llave cerrada        7          5         
+else                 Palabra reservada    8          5         
+{                    llave abierta        8          10        
+{                    Llave abierta        8          10        
+cout                 Palabra reservada    9          9         
+<                    operador             9          14        
+<                    operador             9          15        
+b                    identificador        9          18        
+es                   identificador        9          20        
+menor                identificador        9          23        
+que                  identificador        9          29        
+a                    identificador        9          33        
+<                    operador             9          36        
+<                    operador             9          37        
+endl                 identificador        9          39        
+;                    punto y coma         9          43        
+}                    llave cerrada        10         5         
+}                    Llave cerrada        10         5         
+a                    identificador        11         5         
++                    operador             11         6         
+++                   incremento           11         6         
++                    operador             11         7         
+;                    punto y coma         11         8         
+b                    identificador        12         5         
+-                    operador             12         6         
+--                   decremento           12         6         
+-                    operador             12         7         
+;                    punto y coma         12         8         
+int                  Palabra reservada    13         5         
+c                    identificador        13         9         
+=                    operador             13         11        
+a                    identificador        13         13        
++                    operador             13         15        
+b                    identificador        13         17        
+;                    punto y coma         13         18        
+cout                 Palabra reservada    14         5         
+<                    operador             14         10        
+<                    operador             14         11        
+La                   identificador        14         14        
+suma                 identificador        14         17        
+de                   identificador        14         22        
+a                    identificador        14         25        
+y                    identificador        14         27        
+b                    identificador        14         29        
+es                   identificador        14         31        
+<                    operador             14         37        
+<                    operador             14         38        
+c                    identificador        14         40        
+<                    operador             14         42        
+<                    operador             14         43        
+endl                 identificador        14         45        
+;                    punto y coma         14         49        
+}                    llave cerrada        15         1         
+}                    Llave cerrada        15         1         

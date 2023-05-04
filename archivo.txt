@@ -1,9 +1,15 @@
-int main() {
-    int x1 = 1;
-    float x1 = 4.5;
-    x1++;
-    if (x == 1) {
-        cout << "x es igual a 1" << endl;
+main()
+{
+    int a = 5;
+    int b = 10;
+    if (a < b && b > a) {
+        cout << "a es menor que b" << endl;
     }
-    return 0;
+    else {
+        cout << "b es menor que a" << endl;
+    }
+    a++;
+    b--;
+    int c = a + b;
+    cout << "La suma de a y b es: " << c << endl;
 }
