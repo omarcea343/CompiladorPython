@@ -1,94 +1,200 @@
 Token                Tipo                 Linea      Columna   
 ------------------------------------------------------------
-main                 Palabra reservada    1          1         
-(                    parentesis           1          5         
-)                    parentesis           1          6         
-{                    llave abierta        2          1         
-{                    Llave abierta        2          1         
-int                  Palabra reservada    3          5         
-a                    identificador        3          9         
-=                    operador             3          11        
-5                    entero               3          13        
-;                    punto y coma         3          14        
-int                  Palabra reservada    4          5         
-b                    identificador        4          9         
-=                    operador             4          11        
-10                   entero               4          13        
-;                    punto y coma         4          15        
-if                   Palabra reservada    5          5         
-(                    parentesis           5          8         
-a                    identificador        5          9         
-<                    operador             5          11        
-b                    identificador        5          13        
-b                    identificador        5          18        
->                    operador             5          20        
-a                    identificador        5          22        
-)                    parentesis           5          23        
-{                    llave abierta        5          25        
-{                    Llave abierta        5          25        
-cout                 Palabra reservada    6          9         
-<                    operador             6          14        
-<                    operador             6          15        
-a                    identificador        6          18        
-es                   identificador        6          20        
-menor                identificador        6          23        
-que                  identificador        6          29        
-b                    identificador        6          33        
-<                    operador             6          36        
-<                    operador             6          37        
-endl                 identificador        6          39        
-;                    punto y coma         6          43        
-}                    llave cerrada        7          5         
-}                    Llave cerrada        7          5         
-else                 Palabra reservada    8          5         
-{                    llave abierta        8          10        
-{                    Llave abierta        8          10        
-cout                 Palabra reservada    9          9         
-<                    operador             9          14        
-<                    operador             9          15        
-b                    identificador        9          18        
-es                   identificador        9          20        
-menor                identificador        9          23        
-que                  identificador        9          29        
-a                    identificador        9          33        
-<                    operador             9          36        
-<                    operador             9          37        
-endl                 identificador        9          39        
-;                    punto y coma         9          43        
-}                    llave cerrada        10         5         
-}                    Llave cerrada        10         5         
-a                    identificador        11         5         
-++                   operador             11         6         
-;                    punto y coma         11         8         
-b                    identificador        12         5         
---                   operador             12         6         
-;                    punto y coma         12         8         
-int                  Palabra reservada    13         5         
-y1                   identificador        13         9         
-;                    punto y coma         13         11        
-int                  Palabra reservada    14         5         
-c                    identificador        14         9         
-=                    operador             14         11        
-a                    identificador        14         13        
-+                    operador             14         15        
-b                    identificador        14         17        
-;                    punto y coma         14         18        
-cout                 Palabra reservada    15         5         
-<                    operador             15         10        
-<                    operador             15         11        
-La                   identificador        15         14        
-suma                 identificador        15         17        
-de                   identificador        15         22        
-a                    identificador        15         25        
-y                    identificador        15         27        
-b                    identificador        15         29        
-es                   identificador        15         31        
-<                    operador             15         37        
-<                    operador             15         38        
-c                    identificador        15         40        
-<                    operador             15         42        
-<                    operador             15         43        
-endl                 identificador        15         45        
-;                    punto y coma         15         49        
-}                    llave cerrada        16         1         
-}                    Llave cerrada        16         1         
+int                  Palabra reservada    1          1         
+vector               identificador        1          5         
+,                    coma                 1          11        
+su                   identificador        1          13        
+mas                  identificador        1          16        
+,                    coma                 1          19        
+res                  identificador        1          21        
+tas                  identificador        1          25        
+,                    coma                 1          28        
+suma1                identificador        1          29        
+,                    coma                 1          34        
+suma2                identificador        1          35        
+,                    coma                 1          40        
+;                    punto y coma         1          46        
+main                 Palabra reservada    2          1         
+if                   Palabra reservada    2          6         
+(                    parentesis           2          8         
+while                Palabra reservada    2          9         
+)                    parentesis           2          14        
+if                   Palabra reservada    2          15        
++                    operador             2          17        
+34                   entero               2          18        
+34.34                real                 2          18        
+34                   entero               2          21        
+34                   entero               2          24        
+34.34                real                 2          24        
+34                   entero               2          27        
+34                   entero               2          30        
+-                    operador             2          32        
+34                   entero               2          33        
+++                   operador             2          35        
+++                   operador             2          37        
++-                   operador             2          39        
+--                   operador             2          41        
+--                   operador             2          43        
+cin                  Palabra reservada    3          1         
+>                    operador             3          5         
+>                    operador             3          6         
+>                    operador             3          7         
+=                    operador             3          8         
+<                    operador             3          9         
+<                    operador             3          10        
+<                    operador             3          11        
+=                    operador             3          12        
+=                    operador             3          13        
+=                    operador             3          14        
+=                    operador             3          15        
+=                    operador             3          17        
+{                    llave abierta        4          1         
+{                    Llave abierta        4          1         
+int                  Palabra reservada    5          1         
+x                    identificador        5          5         
+,                    coma                 5          6         
+y                    identificador        5          7         
+,                    coma                 5          8         
+z                    identificador        5          9         
+;                    punto y coma         5          10        
+real                 Palabra reservada    6          1         
+a                    identificador        6          6         
+,                    coma                 6          7         
+b                    identificador        6          9         
+,                    coma                 6          10        
+c                    identificador        6          12        
+;                    punto y coma         6          13        
+cin                  Palabra reservada    7          1         
+gfkh                 identificador        8          1         
+int                  Palabra reservada    9          2         
+real                 Palabra reservada    10         1         
+x                    identificador        12         1         
+=                    operador             12         2         
+23                   entero               12         3         
+;                    punto y coma         12         5         
+y                    identificador        13         1         
+=                    operador             13         2         
+2                    entero               13         3         
++                    operador             13         4         
+3                    entero               13         5         
+-                    operador             13         6         
+1                    entero               13         7         
+;                    punto y coma         13         8         
+z                    identificador        14         1         
+=                    operador             14         2         
+y                    identificador        14         3         
++                    operador             14         4         
+7                    entero               14         5         
+;                    punto y coma         14         6         
+a                    identificador        15         1         
+=                    operador             15         2         
+24                   entero               15         3         
+24.0                 real                 15         3         
+0                    entero               15         6         
++                    operador             15         7         
+4                    entero               15         8         
+-                    operador             15         9         
+1                    entero               15         10        
+*                    operador             15         11        
+3                    entero               15         12        
+/                    operador             15         13        
+2                    entero               15         14        
++                    operador             15         15        
+34                   entero               15         16        
+-                    operador             15         18        
+1                    entero               15         19        
+;                    punto y coma         15         20        
+if                   Palabra reservada    16         1         
+(                    parentesis           16         4         
+2                    entero               16         5         
+>                    operador             16         6         
+3                    entero               16         7         
+)                    parentesis           16         8         
+y                    identificador        17         9         
+=                    operador             17         10        
+a                    identificador        17         11        
++                    operador             17         12        
+3                    entero               17         13        
+;                    punto y coma         17         14        
+else                 Palabra reservada    18         3         
+if                   Palabra reservada    19         7         
+(                    parentesis           19         9         
+4                    entero               19         10        
+>                    operador             19         11        
+2                    entero               19         12        
+)                    parentesis           19         13        
+b                    identificador        20         14        
+=                    operador             20         15        
+3                    entero               20         16        
+3.2                  real                 20         16        
+2                    entero               20         18        
+;                    punto y coma         20         19        
+else                 Palabra reservada    21         8         
+b                    identificador        22         12        
+=                    operador             22         13        
+5                    entero               22         14        
+5.0                  real                 22         14        
+0                    entero               22         16        
+;                    punto y coma         22         17        
+end                  Palabra reservada    23         8         
+;                    punto y coma         23         11        
+y                    identificador        24         8         
+=                    operador             24         9         
+y                    identificador        24         10        
++                    operador             24         11        
+1                    entero               24         12        
+;                    punto y coma         24         13        
+end                  Palabra reservada    25         1         
+;                    punto y coma         25         4         
+do                   Palabra reservada    26         1         
+y                    identificador        27         1         
+=                    operador             27         2         
+(                    parentesis           27         3         
+y                    identificador        27         4         
++                    operador             27         5         
+1                    entero               27         6         
+)                    parentesis           27         7         
+*                    operador             27         8         
+2                    entero               27         9         
++                    operador             27         10        
+1                    entero               27         11        
+;                    punto y coma         27         12        
+until                Palabra reservada    28         1         
+(                    parentesis           28         6         
+y                    identificador        28         7         
+=                    operador             28         8         
+=                    operador             28         9         
+5                    entero               28         10        
+)                    parentesis           28         11        
+;                    punto y coma         28         12        
+while                Palabra reservada    29         1         
+(                    parentesis           29         6         
+y                    identificador        29         7         
+=                    operador             29         8         
+=                    operador             29         9         
+0                    entero               29         10        
+)                    parentesis           29         11        
+{                    llave abierta        29         12        
+{                    Llave abierta        29         12        
+cout                 Palabra reservada    30         1         
+x                    identificador        30         6         
+;                    punto y coma         30         7         
+}                    llave cerrada        31         1         
+}                    Llave cerrada        31         1         
+;                    punto y coma         31         2         
+}                    llave cerrada        32         1         
+}                    Llave cerrada        32         1         
+if                   Palabra reservada    38         1         
+ya                   identificador        38         4         
+se                   identificador        38         7         
+termino              identificador        38         10        
+while                Palabra reservada    39         1         
+int                  Palabra reservada    40         1         
+45                   entero               40         14        
+45.67                real                 40         14        
+67                   entero               40         17        
+;                    punto y coma         40         19        
+then                 Palabra reservada    41         1         
+mas                  identificador        42         1         
+lienas               identificador        42         5         
+while                Palabra reservada    43         1         
