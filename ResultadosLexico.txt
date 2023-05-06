@@ -30,11 +30,20 @@ if                   Palabra reservada    2          15
 34                   entero               2          30        
 -                    operador             2          32        
 34                   entero               2          33        
-++                   operador             2          35        
-++                   operador             2          37        
-+-                   operador             2          39        
---                   operador             2          41        
---                   operador             2          43        
++                    operador             2          35        
+++                   incremento           2          35        
++                    operador             2          36        
++                    operador             2          37        
+++                   incremento           2          37        
++                    operador             2          38        
++                    operador             2          39        
+-                    operador             2          40        
+--                   decremento           2          40        
+-                    operador             2          41        
+-                    operador             2          42        
+--                   decremento           2          42        
+-                    operador             2          43        
+-                    operador             2          44        
 cin                  Palabra reservada    3          1         
 >                    operador             3          5         
 >                    operador             3          6         

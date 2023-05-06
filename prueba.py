@@ -9,7 +9,7 @@ PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repe
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
     'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'operador': r"\+\+|--|\+\-|\-\+|\+\*|\-\*|/\*|\*/|:=|[\+\-\*/=<>]",
+    'operador':r"\+\+|--|\+\*|\-\*|/\*|\*/|==|[+\-]|\*|/|=|<|>",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
@@ -20,7 +20,7 @@ PATRONES_TOKEN = {
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'asignacion': r":="
+    'asignacion': r"=="
 
 }
 
