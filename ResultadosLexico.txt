@@ -58,14 +58,10 @@ endl                 identificador        9          39
 }                    llave cerrada        10         5         
 }                    Llave cerrada        10         5         
 a                    identificador        11         5         
-+                    operador             11         6         
-++                   incremento           11         6         
-+                    operador             11         7         
+++                   operador             11         6         
 ;                    punto y coma         11         8         
 b                    identificador        12         5         
--                    operador             12         6         
---                   decremento           12         6         
--                    operador             12         7         
+--                   operador             12         6         
 ;                    punto y coma         12         8         
 int                  Palabra reservada    13         5         
 y1                   identificador        13         9         
