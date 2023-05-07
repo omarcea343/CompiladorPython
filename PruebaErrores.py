@@ -6,8 +6,10 @@ from string import digits
 
 # Definir patrones para los tokens
 PATRONES_TOKENS = {
-    'IDENTIFICADOR': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
+    'IDENTIFICADOR': r"\b[a-zA-Z]([a-zA-Z\d_])*\b",
     'OPERADOR': r"\-\*|/\*|\*/|\*|/|\+|-",
+    'INCREMENTO': r"\+\+",
+    'DECREMENTO': r"--",
     'PARENTESIS': r"[()]",
     'COMA': r",",
     'PUNTO_Y_COMA': r";",
@@ -24,8 +26,6 @@ PATRONES_TOKENS = {
     'IGUAL_IGUAL': r"==",
     'DIFERENTE_DE': r"!=",
     'ASIGNACION': r":=",
-    'INCREMENTO': r"\+\+",
-    'DECREMENTO': r"--",
 }
 
 # Enumeración para los tipos de token
@@ -81,15 +81,37 @@ def procesar_token(patron, tipo_token, contenido, errores_lexicos):
         elif tipo_token == 'REAL' and not re.match(r"\d+\.\d+\b", token):
             errores_lexicos.append(f"Error lexico: '{token}' no es un numero real valido en la linea {linea}, columna {columna}.")
             continue
-
-        tokens.append({
-            "token": token,
-            "tipo": tipo_token,
-            "linea": linea,
-            "columna": columna,
-        })
+        elif tipo_token == 'OPERADOR':
+            tokens.append({
+                "token": token,
+                "tipo": "OPERADOR",
+                "linea": linea,
+                "columna": columna,
+            })
+        elif tipo_token == 'INCREMENTO':
+            tokens.append({
+                "token": token,
+                "tipo": "INCREMENTO",
+                "linea": linea,
+                "columna": columna,
+            })
+        elif tipo_token == 'DECREMENTO':
+            tokens.append({
+                "token": token,
+                "tipo": "DECREMENTO",
+                "linea": linea,
+                "columna": columna,
+            })
+        else:
+            tokens.append({
+                "token": token,
+                "tipo": tipo_token,
+                "linea": linea,
+                "columna": columna,
+            })
 
     return tokens
+
 
 def procesar_tokens(contenido):
     tokens = []

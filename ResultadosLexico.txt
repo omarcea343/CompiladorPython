@@ -1,6 +1,5 @@
 Token                Tipo                 Linea      Columna   
 ------------------------------------------------------------
-int                  Palabra reservada    1          1         
 vector               Palabra reservada    1          5         
 ,                    coma                 1          11        
 su                   Palabra reservada    1          13        
