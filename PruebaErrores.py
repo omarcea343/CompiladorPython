@@ -56,11 +56,32 @@ class TipoToken(Enum):
 PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
 
 def eliminar_comentarios(contenido):
+    """
+    Elimina los comentarios del contenido del archivo.
+
+    Args:
+        contenido (str): El contenido del archivo.
+
+    Returns:
+        str: El contenido del archivo sin comentarios.
+    """
     contenido = re.sub(r"//.*?", "", contenido)
     contenido = re.sub(r"\/\*.*?\*\/", "", contenido, flags=re.DOTALL)
     return contenido
 
 def procesar_token(patron, tipo_token, contenido, errores_lexicos):
+    """
+    Procesa un token utilizando un patrón de expresión regular.
+
+    Args:
+        patron (str): El patrón de expresión regular.
+        tipo_token (str): El tipo de token.
+        contenido (str): El contenido del archivo.
+        errores_lexicos (list): La lista de errores léxicos.
+
+    Returns:
+        list: Una lista de objetos de token.
+    """
     tokens = []
     for match in re.finditer(patron, contenido):
         token = match.group(0)
@@ -114,6 +135,15 @@ def procesar_token(patron, tipo_token, contenido, errores_lexicos):
 
 
 def procesar_tokens(contenido):
+    """
+    Procesa los tokens del contenido del archivo.
+
+    Args:
+        contenido (str): El contenido del archivo.
+
+    Returns:
+        tuple: Una tupla que contiene una lista de objetos de token y una lista de errores léxicos.
+    """
     tokens = []
     errores_lexicos = []
 
@@ -124,6 +154,15 @@ def procesar_tokens(contenido):
     return tokens_ordenados, errores_lexicos
 
 def leer_archivo(nombre_archivo):
+    """
+    Lee el contenido de un archivo.
+
+    Args:
+        nombre_archivo (str): El nombre del archivo.
+
+    Returns:
+        str: El contenido del archivo.
+    """
     if not os.path.isfile(nombre_archivo):
         print("El archivo especificado no existe.")
         sys.exit(1)
@@ -132,10 +171,23 @@ def leer_archivo(nombre_archivo):
     return contenido
 
 def escribir_archivo(nombre_archivo, contenido):
+    """
+    Escribe el contenido en un archivo.
+
+    Args:
+        nombre_archivo (str): El nombre del archivo.
+        contenido (str): El contenido a escribir en el archivo.
+    """
     with open(nombre_archivo, "w") as archivo_salida:
         archivo_salida.write(contenido)
 
 def imprimir_tokens(tokens):
+    """
+    Imprime los tokens en la consola.
+
+    Args:
+        tokens (list): La lista de objetos de token.
+    """
     print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
     print("-" * 60)
     for token_tipo in tokens:
