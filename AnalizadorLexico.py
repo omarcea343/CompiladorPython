@@ -49,9 +49,8 @@ class TipoToken(Enum):
     ASIGNACION = 22
 
 def eliminar_comentarios(contenido):
-    """
-    Elimina los comentarios de línea y de bloque del contenido.
-    """
+    #Elimina los comentarios de línea y de bloque del contenido.
+
     contenido = re.sub(PATRONES_TOKEN['comentario_de_linea'], "", contenido)
     contenido = re.sub(PATRONES_TOKEN['comentario_de_bloque'], "", contenido, flags=re.DOTALL)
     return contenido
@@ -61,23 +60,20 @@ def procesar_token(descripcion, patron, contenido):
     Procesa los tokens de un tipo específico en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
     ordenadas por orden de aparición en el archivo.
     """
-    tokens_con_posicion = []
     tipo_token = next((t for t in TipoToken if t.name.lower() == descripcion.replace(" ", "_").lower()), None)
     for match in re.finditer(patron, contenido):
         token = match.group(0)
         linea = contenido.count('\n', 0, match.start()) + 1
         columna = match.start() - contenido.rfind('\n', 0, match.start())
 
-        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        
-    return tokens_con_posicion
+        yield (match.start(), (token, tipo_token, linea, columna))
 
 def procesar_tokens(contenido):
     """
     Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
     ordenadas por orden de aparición en el archivo.
     """
-    contenido = eliminar_comentarios(contenido)
+
     tokens_con_posicion = []
     for descripcion, patron in PATRONES_TOKEN.items():
         if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:
@@ -202,8 +198,6 @@ def procesar_tokens(contenido):
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
 
-
-
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
@@ -249,11 +243,12 @@ if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
     nombre_archivo = sys.argv[1] if len(sys.argv) > 1 else input("Introduce el nombre del archivo: ")
     contenido = leer_archivo(nombre_archivo)
-
+    contenido_sin_comentarios = eliminar_comentarios(contenido)
+    
     try:
-        # Procesar los tokens en el contenido del archivo
-        tokens = procesar_tokens(contenido)
-
+        # Procesar los tokens en el contenido del archivo sin comentarios
+        tokens = procesar_tokens(contenido_sin_comentarios)
+        
         # Imprimir y guardar los tokens encontrados
         imprimir_tokens(tokens)
         escribir_tokens_en_archivo(tokens)
