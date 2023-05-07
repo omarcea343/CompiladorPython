@@ -200,12 +200,8 @@ def leer_archivo(nombre_archivo):
     return contenido
 
 def imprimir_tokens(tokens):
-    """
-    Imprime los tokens encontrados.
+    #Imprime los tokens encontrados.
 
-    Args:
-        tokens (list): Una lista de tuplas de tokens.
-    """
     print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
     print("-" * 60)
     for token, tipo_token, linea, columna in tokens:
@@ -213,12 +209,8 @@ def imprimir_tokens(tokens):
         print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
 
 def escribir_tokens_en_archivo(tokens):
-    """
-    Escribe los tokens encontrados en un archivo de texto.
+    #Escribe los tokens encontrados en un archivo de texto.
 
-    Args:
-        tokens (list): Una lista de tuplas de tokens.
-    """
     with open("ResultadosLexico.txt", "w") as archivo_salida:
         archivo_salida.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
         archivo_salida.write("-" * 60 + "\n")
