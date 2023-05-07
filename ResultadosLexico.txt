@@ -4,7 +4,6 @@ int                  Palabra reservada    1          1
 vector               Palabra reservada    1          5         
 ,                    coma                 1          11        
 su                   Palabra reservada    1          13        
-&                    operador             1          15        
 mas                  Palabra reservada    1          16        
 ,                    coma                 1          19        
 res                  Palabra reservada    1          21        
@@ -26,40 +25,31 @@ if                   Palabra reservada    2          15
 34.34                real                 2          24        
 -                    operador             2          32        
 +                    operador             2          35        
+++                   incremento           2          35        
 +                    operador             2          36        
 +                    operador             2          37        
+++                   incremento           2          37        
 +                    operador             2          38        
 +                    operador             2          39        
 -                    operador             2          40        
+--                   decremento           2          40        
 -                    operador             2          41        
 -                    operador             2          42        
+--                   decremento           2          42        
 -                    operador             2          43        
 -                    operador             2          44        
 cin                  Palabra reservada    3          1         
->                    operador             3          5         
 >                    mayor_que            3          5         
->                    operador             3          6         
 >                    mayor_que            3          6         
->                    operador             3          7         
 >=                   mayor_igual          3          7         
 >                    mayor_que            3          7         
-=                    operador             3          8         
-<                    operador             3          9         
 <                    menor_que            3          9         
-<                    operador             3          10        
 <                    menor_que            3          10        
-<                    operador             3          11        
 <=                   menor_igual          3          11        
 <                    menor_que            3          11        
-=                    operador             3          12        
 ==                   igual_igual          3          12        
-=                    operador             3          13        
-=                    operador             3          14        
 ==                   igual_igual          3          14        
-=                    operador             3          15        
-!                    operador             3          16        
 !=                   diferente_de         3          16        
-=                    operador             3          17        
 {                    llave_abierta        4          1         
 int                  Palabra reservada    5          1         
 x                    Palabra reservada    5          5         
@@ -80,20 +70,16 @@ gfkh                 Palabra reservada    8          1
 int                  Palabra reservada    9          2         
 real                 Palabra reservada    10         1         
 x                    Palabra reservada    12         1         
-=                    operador             12         2         
 ;                    punto_y_coma         12         5         
 y                    Palabra reservada    13         1         
-=                    operador             13         2         
 +                    operador             13         4         
 -                    operador             13         6         
 ;                    punto_y_coma         13         8         
 z                    Palabra reservada    14         1         
-=                    operador             14         2         
 y                    Palabra reservada    14         3         
 +                    operador             14         4         
 ;                    punto_y_coma         14         6         
 a                    Palabra reservada    15         1         
-=                    operador             15         2         
 24.0                 real                 15         3         
 +                    operador             15         7         
 -                    operador             15         9         
@@ -104,33 +90,27 @@ a                    Palabra reservada    15         1
 ;                    punto_y_coma         15         20        
 if                   Palabra reservada    16         1         
 (                    parentesis           16         4         
->                    operador             16         6         
 >                    mayor_que            16         6         
 )                    parentesis           16         8         
 y                    Palabra reservada    17         9         
-=                    operador             17         10        
 a                    Palabra reservada    17         11        
 +                    operador             17         12        
 ;                    punto_y_coma         17         14        
 else                 Palabra reservada    18         3         
 if                   Palabra reservada    19         7         
 (                    parentesis           19         9         
->                    operador             19         11        
 >                    mayor_que            19         11        
 )                    parentesis           19         13        
 b                    Palabra reservada    20         14        
-=                    operador             20         15        
 3.2                  real                 20         16        
 ;                    punto_y_coma         20         19        
 else                 Palabra reservada    21         8         
 b                    Palabra reservada    22         12        
-=                    operador             22         13        
 5.0                  real                 22         14        
 ;                    punto_y_coma         22         17        
 end                  Palabra reservada    23         8         
 ;                    punto_y_coma         23         11        
 y                    Palabra reservada    24         8         
-=                    operador             24         9         
 y                    Palabra reservada    24         10        
 +                    operador             24         11        
 ;                    punto_y_coma         24         13        
@@ -138,7 +118,6 @@ end                  Palabra reservada    25         1
 ;                    punto_y_coma         25         4         
 do                   Palabra reservada    26         1         
 y                    Palabra reservada    27         1         
-=                    operador             27         2         
 (                    parentesis           27         3         
 y                    Palabra reservada    27         4         
 +                    operador             27         5         
@@ -149,17 +128,13 @@ y                    Palabra reservada    27         4
 until                Palabra reservada    28         1         
 (                    parentesis           28         6         
 y                    Palabra reservada    28         7         
-=                    operador             28         8         
 ==                   igual_igual          28         8         
-=                    operador             28         9         
 )                    parentesis           28         11        
 ;                    punto_y_coma         28         12        
 while                Palabra reservada    29         1         
 (                    parentesis           29         6         
 y                    Palabra reservada    29         7         
-=                    operador             29         8         
 ==                   igual_igual          29         8         
-=                    operador             29         9         
 )                    parentesis           29         11        
 {                    llave_abierta        29         12        
 cout                 Palabra reservada    30         1         
@@ -178,7 +153,6 @@ se                   Palabra reservada    38         7
 termino              Palabra reservada    38         10        
 while                Palabra reservada    39         1         
 int                  Palabra reservada    40         1         
-!                    operador             40         5         
 45.67                real                 40         14        
 ;                    punto_y_coma         40         19        
 then                 Palabra reservada    41         1         

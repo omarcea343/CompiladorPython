@@ -7,7 +7,7 @@ from string import digits
 # Definir patrones para los tokens
 PATRONES_TOKENS = {
     'IDENTIFICADOR': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'OPERADOR': r"[-*/%+=<>!&|^~?]",
+    'OPERADOR': r"\-\*|/\*|\*/|\*|/|\+|-",
     'PARENTESIS': r"[()]",
     'COMA': r",",
     'PUNTO_Y_COMA': r";",
@@ -24,6 +24,8 @@ PATRONES_TOKENS = {
     'IGUAL_IGUAL': r"==",
     'DIFERENTE_DE': r"!=",
     'ASIGNACION': r":=",
+    'INCREMENTO': r"\+\+",
+    'DECREMENTO': r"--",
 }
 
 # Enumeración para los tipos de token
@@ -50,7 +52,6 @@ class TipoToken(Enum):
     MENOR_IGUAL = 20
     DIFERENTE_DE = 21
     ASIGNACION = 22
-    MODULO = 23
 
 PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
 
@@ -69,16 +70,16 @@ def procesar_token(patron, tipo_token, contenido, errores_lexicos):
         if tipo_token == "IDENTIFICADOR":
             tipo_token = "PALABRA_RESERVADA" if token in PALABRAS_RESERVADAS else "IDENTIFICADOR"
             if re.match(r"^\d", token):
-                errores_lexicos.append(f"Error léxico: el identificador '{token}' no puede comenzar con un número en la línea {linea}, columna {columna}.")
+                errores_lexicos.append(f"Error lexico: el identificador '{token}' no puede comenzar con un numero en la linea {linea}, columna {columna}.")
                 continue
             if re.search(r"[^\w]", token):
-                errores_lexicos.append(f"Error léxico: el identificador '{token}' contiene caracteres no válidos en la línea {linea}, columna {columna}.")
+                errores_lexicos.append(f"Error lexico: el identificador '{token}' contiene caracteres no validos en la linea {linea}, columna {columna}.")
                 continue
         elif tipo_token == 'REAL' and not re.match(r"\d+\.\d+\b|\d+\b\.\b\d+|\d+\b", token):
-            errores_lexicos.append(f"Error léxico: '{token}' no es un número real válido en la línea {linea}, columna {columna}.")
+            errores_lexicos.append(f"Error lexico: '{token}' no es un número real valido en la linea {linea}, columna {columna}.")
             continue
         elif tipo_token == 'REAL' and not re.match(r"\d+\.\d+\b", token):
-            errores_lexicos.append(f"Error léxico: '{token}' no es un número real válido en la línea {linea}, columna {columna}.")
+            errores_lexicos.append(f"Error lexico: '{token}' no es un numero real valido en la linea {linea}, columna {columna}.")
             continue
 
         tokens.append({
@@ -128,6 +129,6 @@ if __name__ == '__main__':
     escribir_archivo("ResultadosLexico.txt", f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n" + "-" * 60 + "\n" + "\n".join([f"{token_tipo['token']:<20} {('Palabra reservada' if token_tipo['tipo'] == 'PALABRA_RESERVADA' else token_tipo['tipo'].lower()):<20} {token_tipo['linea']:<10} {token_tipo['columna']:<10}" for token_tipo in tokens]))
     if errores_lexicos:
         escribir_archivo("ErroresLexico.txt", "\n".join(errores_lexicos))
-        print(f"Se han encontrado errores léxicos. Consulte el archivo 'ErroresLexico.txt' para más información.")
+        print(f"Se han encontrado errores lexicos. Consulte el archivo 'ErroresLexico.txt' para mas informacion.")
     else:
-        print("No se han encontrado errores léxicos.")
+        print("No se han encontrado errores lexicos.")
