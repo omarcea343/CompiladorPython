@@ -119,6 +119,48 @@ def procesar_tokens(contenido):
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
 
+def detectar_errores_lexicos(tokens):
+    """
+    Detecta errores léxicos adicionales en la lista de tokens y devuelve una lista de tuplas con la información de cada error,
+    ordenadas por orden de aparición en el archivo.
+    """
+    errores_con_posicion = []
+    for i, token in enumerate(tokens):
+        if token[1] == TipoToken.REAL and '.' not in token[0]:
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real sin punto decimal."))
+        elif token[1] == TipoToken.REAL and token[0].count('.') > 1:
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real con más de un punto decimal."))
+        elif token[1] == TipoToken.REAL and token[0].startswith('.'):
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real mal formado."))
+        elif token[1] == TipoToken.REAL and token[0].endswith('.'):
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real mal formado."))
+        elif token[1] == TipoToken.ENTERO and token[0].startswith('0') and len(token[0]) > 1:
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número octal mal formado."))
+        elif token[1] == TipoToken.OPERADOR and token[0] not in ['+', '-', '*', '/', '=', '<', '>', '+=', '-=', '*=', '/=', '==', '<=', '>=', '!=']:
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un operador no soportado."))
+        elif token[1] == TipoToken.PARENTESIS and token[0] not in ['(', ')']:
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un paréntesis no soportado."))
+        elif token[1] == TipoToken.COMA and token[0] != ',':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una coma no soportada."))
+        elif token[1] == TipoToken.PUNTO_Y_COMA and token[0] != ';':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un punto y coma no soportado."))
+        elif token[1] == TipoToken.INCREMENTO and token[0] != '++':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un incremento no soportado."))
+        elif token[1] == TipoToken.DECREMENTO and token[0] != '--':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un decremento no soportado."))
+        elif token[1] == TipoToken.PORCENTAJE and token[0] != '%':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un operador no soportado."))
+        elif token[1] == TipoToken.ASIGNACION and token[0] != ':=':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una asignación no soportada."))
+        elif token[1] == TipoToken.LLAVE_ABIERTA and token[0] != '{':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una llave abierta no soportada."))
+        elif token[1] == TipoToken.LLAVE_CERRADA and token[0] != '}':
+            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una llave cerrada no soportada."))
+    # Ordenar la lista de tuplas por posición en el archivo y devolver solo los errores
+    errores_ordenados = [error for _, error in sorted(errores_con_posicion, key=lambda x: x[0])]
+    return errores_ordenados
+
+
 if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
     nombre_archivo = sys.argv[1] if len(sys.argv) > 1 else input("Introduce el nombre del archivo: ")
@@ -135,6 +177,9 @@ if __name__ == '__main__':
     try:
         # Procesar los tokens en el contenido del archivo
         tokens = procesar_tokens(contenido)
+        
+        # Detectar errores léxicos y escribirlos en un archivo de texto
+        detectar_errores_lexicos(tokens)
         
         # Imprimir y guardar los tokens encontrados
         with open("ResultadosLexico.txt", "w") as archivo_salida:

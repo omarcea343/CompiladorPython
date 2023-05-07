@@ -3,8 +3,6 @@ import re
 import os.path
 from enum import Enum
 from string import digits
-import re
-
 
 # Lista de palabras reservadas
 PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
@@ -12,7 +10,7 @@ PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repe
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
     'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'operador':r"\-\*|/\*|\*/|\*|/",
+    'operador': r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
@@ -22,8 +20,7 @@ PATRONES_TOKEN = {
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+',
-
+    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+'
 }
 
 # Enumeración para los tipos de token
@@ -76,12 +73,13 @@ def procesar_token(descripcion, patron, contenido):
                 tipo_token = TipoToken.PALABRA_RESERVADA
             else:
                 tipo_token = TipoToken.IDENTIFICADOR
-        elif tipo_token == TipoToken.REAL:
+        elif descripcion == 'real':
             if not re.match(r"\d+\.\d+\b", token):
                 continue
         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
         
     return tokens_con_posicion
+
 
 def procesar_tokens(contenido):
     """
@@ -207,8 +205,6 @@ def procesar_tokens(contenido):
                         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
-
-
 
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
