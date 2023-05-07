@@ -68,49 +68,65 @@ def procesar_token(descripcion, patron, contenido):
 
         yield (match.start(), (token, tipo_token, linea, columna))
 
+
+
 def procesar_tokens(contenido):
     """
     Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
     ordenadas por orden de aparición en el archivo.
     """
-
     tokens_con_posicion = []
     for descripcion, patron in PATRONES_TOKEN.items():
-        if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:
+        if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:                      
             if descripcion in ['real']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
-        
+
                     if not token:
                         continue  # Ignorar el token si está vacío
-        
-                    if "." in token:
-                        partes = token.split(".")
-            
-                        if len(partes) == 2 and partes[1].isdigit():
-                            tipo_token = TipoToken.REAL
+
+                    try:
+                        if "." in token:
+                            partes = token.split(".")
+                
+                            if len(partes) == 2 and partes[1].isdigit():
+                                tipo_token = TipoToken.REAL
+                            else:
+                                raise ValueError("No hay número después del punto decimal")
                         else:
-                            print("Ignorar si no hay número después del punto:", token)
-                            continue  # Ignorar el token si no hay un número después del punto decimal
-            
-                    else:
-                        tipo_token = TipoToken.ENTERO
-        
+                            tipo_token = TipoToken.ENTERO
+                    except ValueError as e:
+                        mensaje_error = f"Error léxico: {e} en el token {token}"
+                        with open("ErroresLexico.txt", "a") as f:
+                            f.write(mensaje_error + "\n")
+                        continue  # Ignorar el token si hay un error léxico
+
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-         
+            
             elif descripcion == 'identificador':
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
-                    print("IDENTIF "+token)
+
+                    if not token:
+                        continue  # Ignorar el token si está vacío
+
+                    if not token.isalnum():
+                        mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
+                        with open("ErroresLexico.txt", "a") as f:
+                            f.write(mensaje_error + "\n")
+                        continue  # Ignorar el token si hay un error léxico
+
                     if token in PALABRAS_RESERVADAS:
                         tipo_token = TipoToken.PALABRA_RESERVADA
                     else:
                         tipo_token = TipoToken.IDENTIFICADOR
+
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+            
             elif descripcion in ['incremento', 'decremento']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
@@ -133,68 +149,39 @@ def procesar_tokens(contenido):
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             elif descripcion in ['simbolos']:
-                 for match in re.finditer(patron, contenido):
+                for match in re.finditer(patron, contenido):
                     token = match.group(0)
                     if token == '<':
                         tipo_token = TipoToken.MENOR
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '<=':
                         tipo_token = TipoToken.MENOR_IGUAL
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '>=':
                         tipo_token = TipoToken.MAYOR_IGUAL
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '>':
                         tipo_token = TipoToken.MAYOR_QUE
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '==':
                         tipo_token = TipoToken.IGUAL_IGUAL
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '!=':
                         tipo_token = TipoToken.DIFERENTE_DE
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == ':=':
                         tipo_token = TipoToken.ASIGNACION
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '=':
                         tipo_token = TipoToken.IGUAL
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '--':
                         tipo_token = TipoToken.DECREMENTO
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '-':
                         tipo_token = TipoToken.OPERADOR
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '++':
                         tipo_token = TipoToken.INCREMENTO
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
                     elif token == '+':
                         tipo_token = TipoToken.OPERADOR
-                        linea = contenido.count('\n', 0, match.start()) + 1
-                        columna = match.start() - contenido.rfind('\n', 0, match.start())
-                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    else:
+                        with open('ErroresLexico.txt', 'a') as f:
+                            f.write(f'Token no válido: {token}\n')
+                        continue
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna))) 
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
 
