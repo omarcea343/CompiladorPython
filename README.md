@@ -1,3 +1,11 @@
 # CompiladorPython
 
 Modelo basico de un analizador Lexico desarrollado con Python para un lenguaje Tiny-Extended basado en C.
+
+## Caracteristicas
+
+Genera dos archivos:
+- ResultadosLexico.txt
+- ErroresLexico.txt
+
+Ademas incluye dos archivos de prueba para generar resultados que incluyan errores.
