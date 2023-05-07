@@ -133,15 +133,8 @@ def procesar_tokens(contenido):
     return tokens_ordenados, errores_lexicos
 
 def leer_archivo(nombre_archivo):
-    """
-    Lee el contenido de un archivo.
+    #Lee el contenido de un archivo.
 
-    Args:
-        nombre_archivo (str): El nombre del archivo.
-
-    Returns:
-        str: El contenido del archivo.
-    """
     if not os.path.isfile(nombre_archivo):
         print("El archivo especificado no existe.")
         sys.exit(1)
@@ -150,23 +143,14 @@ def leer_archivo(nombre_archivo):
     return contenido
 
 def escribir_archivo(nombre_archivo, contenido):
-    """
-    Escribe el contenido en un archivo.
-
-    Args:
-        nombre_archivo (str): El nombre del archivo.
-        contenido (str): El contenido a escribir en el archivo.
-    """
+    #Escribe el contenido en un archivo.
+    
     with open(nombre_archivo, "w") as archivo_salida:
         archivo_salida.write(contenido)
 
 def imprimir_tokens(tokens):
-    """
-    Imprime los tokens en la consola.
+    #Imprime los tokens en la consola.
 
-    Args:
-        tokens (list): La lista de objetos de token.
-    """
     print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
     print("-" * 60)
     for token_tipo in tokens:

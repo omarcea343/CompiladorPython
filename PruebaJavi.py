@@ -9,18 +9,18 @@ PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repe
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'operador': r"\-\*|/\*|\*/|\*|/",
+    'operador':r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
     'comentario_de_linea': r"//.*",
     'comentario_de_bloque': r"/\*.*?\*/",
-    'real':  r"\b\d+(?:\.\d+)?\b",
+    'real':  r"\b\d+\.?\d*\b",
+    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+'
+    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+',
 }
 
 # Enumeración para los tipos de token
@@ -68,18 +68,9 @@ def procesar_token(descripcion, patron, contenido):
         linea = contenido.count('\n', 0, match.start()) + 1
         columna = match.start() - contenido.rfind('\n', 0, match.start())
 
-        if tipo_token == TipoToken.IDENTIFICADOR:
-            if token in PALABRAS_RESERVADAS:
-                tipo_token = TipoToken.PALABRA_RESERVADA
-            else:
-                tipo_token = TipoToken.IDENTIFICADOR
-        elif descripcion == 'real':
-            if not re.match(r"\d+\.\d+\b", token):
-                continue
         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
         
     return tokens_con_posicion
-
 
 def procesar_tokens(contenido):
     """
@@ -90,9 +81,33 @@ def procesar_tokens(contenido):
     tokens_con_posicion = []
     for descripcion, patron in PATRONES_TOKEN.items():
         if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:
-            if descripcion == 'identificador':
+            if descripcion in ['real']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
+        
+                    if not token:
+                        continue  # Ignorar el token si está vacío
+        
+                    if "." in token:
+                        partes = token.split(".")
+            
+                        if len(partes) == 2 and partes[1].isdigit():
+                            tipo_token = TipoToken.REAL
+                        else:
+                            print("Ignorar si no hay número después del punto:", token)
+                            continue  # Ignorar el token si no hay un número después del punto decimal
+            
+                    else:
+                        tipo_token = TipoToken.ENTERO
+        
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+         
+            elif descripcion == 'identificador':
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    print("IDENTIF "+token)
                     if token in PALABRAS_RESERVADAS:
                         tipo_token = TipoToken.PALABRA_RESERVADA
                     else:
@@ -121,25 +136,6 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-
-            elif descripcion in ['real']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-
-                    if token == "":
-                        continue  # Ignorar el token si está vacío
-                    if "." in token:
-                        partes = token.split(".")
-                        if len(partes) == 2 and partes[1].isdigit() and not re.search(r'\.[a-zA-Z]+', token):
-                            tipo_token = TipoToken.REAL
-                        else:
-                            continue  # Ignorar el token si no hay un número después del punto decimal o hay letras después del punto
-                    else:
-                        tipo_token = TipoToken.ENTERO
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-
             elif descripcion in ['simbolos']:
                  for match in re.finditer(patron, contenido):
                     token = match.group(0)
@@ -205,6 +201,8 @@ def procesar_tokens(contenido):
                         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
+
+
 
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]

@@ -2,28 +2,25 @@ import sys
 import re
 import os.path
 from enum import Enum
+from string import digits
 
 # Lista de palabras reservadas
 PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'operador': r"[\+\-\*/=<>]",
+    'operador':r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
     'comentario_de_linea': r"//.*",
     'comentario_de_bloque': r"/\*.*?\*/",
-    'entero': r"\b\d+\b",
-    'real': r"\b\d+\.\d+\b",
-    'incremento': r"\+\+",
-    'decremento': r"--",
+    'real':  r"\b\d+\.?\d*\b",
+    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'asignacion': r":="
-
+    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+',
 }
 
 # Enumeración para los tipos de token
@@ -42,6 +39,14 @@ class TipoToken(Enum):
     DECREMENTO = 12
     LLAVE_ABIERTA = 13
     LLAVE_CERRADA = 14
+    MAYOR_QUE = 15
+    MAYOR_IGUAL = 16
+    IGUAL = 17
+    IGUAL_IGUAL = 18
+    MENOR = 19
+    MENOR_IGUAL = 20
+    DIFERENTE_DE = 21
+    ASIGNACION = 22
 
 def eliminar_comentarios(contenido):
     """
@@ -62,7 +67,9 @@ def procesar_token(descripcion, patron, contenido):
         token = match.group(0)
         linea = contenido.count('\n', 0, match.start()) + 1
         columna = match.start() - contenido.rfind('\n', 0, match.start())
+
         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+        
     return tokens_con_posicion
 
 def procesar_tokens(contenido):
@@ -74,9 +81,33 @@ def procesar_tokens(contenido):
     tokens_con_posicion = []
     for descripcion, patron in PATRONES_TOKEN.items():
         if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:
-            if descripcion == 'identificador':
+            if descripcion in ['real']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
+        
+                    if not token:
+                        continue  # Ignorar el token si está vacío
+        
+                    if "." in token:
+                        partes = token.split(".")
+            
+                        if len(partes) == 2 and partes[1].isdigit():
+                            tipo_token = TipoToken.REAL
+                        else:
+                            print("Ignorar si no hay número después del punto:", token)
+                            continue  # Ignorar el token si no hay un número después del punto decimal
+            
+                    else:
+                        tipo_token = TipoToken.ENTERO
+        
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+         
+            elif descripcion == 'identificador':
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    print("IDENTIF "+token)
                     if token in PALABRAS_RESERVADAS:
                         tipo_token = TipoToken.PALABRA_RESERVADA
                     else:
@@ -98,13 +129,6 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['asignacion']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TipoToken.OPERADOR
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             elif descripcion in ['llave_abierta', 'llave_cerrada']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
@@ -112,89 +136,128 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+            elif descripcion in ['simbolos']:
+                 for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    if token == '<':
+                        tipo_token = TipoToken.MENOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '<=':
+                        tipo_token = TipoToken.MENOR_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '>=':
+                        tipo_token = TipoToken.MAYOR_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '>':
+                        tipo_token = TipoToken.MAYOR_QUE
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '==':
+                        tipo_token = TipoToken.IGUAL_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '!=':
+                        tipo_token = TipoToken.DIFERENTE_DE
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == ':=':
+                        tipo_token = TipoToken.ASIGNACION
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '=':
+                        tipo_token = TipoToken.IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '--':
+                        tipo_token = TipoToken.DECREMENTO
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '-':
+                        tipo_token = TipoToken.OPERADOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '++':
+                        tipo_token = TipoToken.INCREMENTO
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '+':
+                        tipo_token = TipoToken.OPERADOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
+
+
 
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
 
-def detectar_errores_lexicos(tokens):
-    """
-    Detecta errores léxicos adicionales en la lista de tokens y devuelve una lista de tuplas con la información de cada error,
-    ordenadas por orden de aparición en el archivo.
-    """
-    errores_con_posicion = []
-    for i, token in enumerate(tokens):
-        if token[1] == TipoToken.REAL and '.' not in token[0]:
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real sin punto decimal."))
-        elif token[1] == TipoToken.REAL and token[0].count('.') > 1:
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real con más de un punto decimal."))
-        elif token[1] == TipoToken.REAL and token[0].startswith('.'):
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real mal formado."))
-        elif token[1] == TipoToken.REAL and token[0].endswith('.'):
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número real mal formado."))
-        elif token[1] == TipoToken.ENTERO and token[0].startswith('0') and len(token[0]) > 1:
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un número octal mal formado."))
-        elif token[1] == TipoToken.OPERADOR and token[0] not in ['+', '-', '*', '/', '=', '<', '>', '+=', '-=', '*=', '/=', '==', '<=', '>=', '!=']:
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un operador no soportado."))
-        elif token[1] == TipoToken.PARENTESIS and token[0] not in ['(', ')']:
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un paréntesis no soportado."))
-        elif token[1] == TipoToken.COMA and token[0] != ',':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una coma no soportada."))
-        elif token[1] == TipoToken.PUNTO_Y_COMA and token[0] != ';':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un punto y coma no soportado."))
-        elif token[1] == TipoToken.INCREMENTO and token[0] != '++':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un incremento no soportado."))
-        elif token[1] == TipoToken.DECREMENTO and token[0] != '--':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un decremento no soportado."))
-        elif token[1] == TipoToken.PORCENTAJE and token[0] != '%':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es un operador no soportado."))
-        elif token[1] == TipoToken.ASIGNACION and token[0] != ':=':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una asignación no soportada."))
-        elif token[1] == TipoToken.LLAVE_ABIERTA and token[0] != '{':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una llave abierta no soportada."))
-        elif token[1] == TipoToken.LLAVE_CERRADA and token[0] != '}':
-            errores_con_posicion.append((i, f"Error léxico: el token '{token[0]}' es una llave cerrada no soportada."))
-    # Ordenar la lista de tuplas por posición en el archivo y devolver solo los errores
-    errores_ordenados = [error for _, error in sorted(errores_con_posicion, key=lambda x: x[0])]
-    return errores_ordenados
+def leer_archivo(nombre_archivo):
+    #Lee el contenido de un archivo.
 
+    if not os.path.isfile(nombre_archivo):
+        print("El archivo especificado no existe.")
+        sys.exit(1)
+    with open(nombre_archivo, "r") as archivo:
+        contenido = archivo.read()
+    return contenido
+
+def imprimir_tokens(tokens):
+    """
+    Imprime los tokens encontrados.
+
+    Args:
+        tokens (list): Una lista de tuplas de tokens.
+    """
+    print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
+    print("-" * 60)
+    for token, tipo_token, linea, columna in tokens:
+        tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
+        print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
+
+def escribir_tokens_en_archivo(tokens):
+    """
+    Escribe los tokens encontrados en un archivo de texto.
+
+    Args:
+        tokens (list): Una lista de tuplas de tokens.
+    """
+    with open("ResultadosLexico.txt", "w") as archivo_salida:
+        archivo_salida.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
+        archivo_salida.write("-" * 60 + "\n")
+        for token, tipo_token, linea, columna in tokens:
+            tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
+            archivo_salida.write(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}\n")
 
 if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
     nombre_archivo = sys.argv[1] if len(sys.argv) > 1 else input("Introduce el nombre del archivo: ")
-    
-    # Verificar si el archivo existe
-    if not os.path.isfile(nombre_archivo):
-        print("El archivo especificado no existe.")
-        sys.exit(1)
-    
-    # Leer el contenido del archivo
-    with open(nombre_archivo, "r") as archivo:
-        contenido = archivo.read()
-    
+    contenido = leer_archivo(nombre_archivo)
+
     try:
         # Procesar los tokens en el contenido del archivo
         tokens = procesar_tokens(contenido)
-        
-        # Detectar errores léxicos y escribirlos en un archivo de texto
-        detectar_errores_lexicos(tokens)
-        
+
         # Imprimir y guardar los tokens encontrados
-        with open("ResultadosLexico.txt", "w") as archivo_salida:
-            archivo_salida.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
-            archivo_salida.write("-" * 60 + "\n")
-            for token, tipo_token, linea, columna in tokens:
-                tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
-                archivo_salida.write(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}\n")
-                print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
-                if tipo_token == TipoToken.LLAVE_ABIERTA:
-                    archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format("{", "Llave abierta", linea, columna))
-                    print("{:<20} {:<20} {:<10} {:<10}".format("{", "Llave abierta", linea, columna))
-                elif tipo_token == TipoToken.LLAVE_CERRADA:
-                    archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format("}", "Llave cerrada", linea, columna))
-                    print("{:<20} {:<20} {:<10} {:<10}".format("}", "Llave cerrada", linea, columna)) 
+        imprimir_tokens(tokens)
+        escribir_tokens_en_archivo(tokens)
+
     except Exception as e:
         # Escribir el mensaje de error en un archivo de texto
         with open("ErroresLexico.txt", "w") as archivo_errores:
