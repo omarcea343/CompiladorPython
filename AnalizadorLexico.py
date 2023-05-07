@@ -263,3 +263,4 @@ if __name__ == '__main__':
         with open("ErroresLexico.txt", "w") as archivo_errores:
             archivo_errores.write(str(e))
         print("Se ha producido un error durante el procesamiento de los tokens. Consulte el archivo 'ErroresLexico.txt' para más información.")
+        
