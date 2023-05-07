@@ -2,6 +2,9 @@ import sys
 import re
 import os.path
 from enum import Enum
+from string import digits
+import re
+
 
 # Lista de palabras reservadas
 PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
@@ -9,18 +12,17 @@ PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repe
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
     'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
-    'operador':r"\+\+|--|\+\*|\-\*|/\*|\*/|==|[+\-]|\*|/|=|<|>",
+    'operador':r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
     'comentario_de_linea': r"//.*",
     'comentario_de_bloque': r"/\*.*?\*/",
-    'entero': r"\b\d+\b",
-    'real': r"\b\d+\.\d+\b",
+    'real':  r"\b\d+(?:\.\d+)?\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'asignacion': r"=="
+    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+',
 
 }
 
@@ -40,6 +42,14 @@ class TipoToken(Enum):
     DECREMENTO = 12
     LLAVE_ABIERTA = 13
     LLAVE_CERRADA = 14
+    MAYOR_QUE = 15
+    MAYOR_IGUAL = 16
+    IGUAL = 17
+    IGUAL_IGUAL = 18
+    MENOR = 19
+    MENOR_IGUAL = 20
+    DIFERENTE_DE = 21
+    ASIGNACION = 22
 
 def eliminar_comentarios(contenido):
     """
@@ -60,7 +70,17 @@ def procesar_token(descripcion, patron, contenido):
         token = match.group(0)
         linea = contenido.count('\n', 0, match.start()) + 1
         columna = match.start() - contenido.rfind('\n', 0, match.start())
+
+        if tipo_token == TipoToken.IDENTIFICADOR:
+            if token in PALABRAS_RESERVADAS:
+                tipo_token = TipoToken.PALABRA_RESERVADA
+            else:
+                tipo_token = TipoToken.IDENTIFICADOR
+        elif tipo_token == TipoToken.REAL:
+            if not re.match(r"\d+\.\d+\b", token):
+                continue
         tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+        
     return tokens_con_posicion
 
 def procesar_tokens(contenido):
@@ -96,13 +116,6 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['asignacion']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TipoToken.OPERADOR
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             elif descripcion in ['llave_abierta', 'llave_cerrada']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
@@ -110,8 +123,92 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+
+            elif descripcion in ['real']:
+                for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+
+                    if token == "":
+                        continue  # Ignorar el token si está vacío
+                    if "." in token:
+                        partes = token.split(".")
+                        if len(partes) == 2 and partes[1].isdigit() and not re.search(r'\.[a-zA-Z]+', token):
+                            tipo_token = TipoToken.REAL
+                        else:
+                            continue  # Ignorar el token si no hay un número después del punto decimal o hay letras después del punto
+                    else:
+                        tipo_token = TipoToken.ENTERO
+                    linea = contenido.count('\n', 0, match.start()) + 1
+                    columna = match.start() - contenido.rfind('\n', 0, match.start())
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+
+            elif descripcion in ['simbolos']:
+                 for match in re.finditer(patron, contenido):
+                    token = match.group(0)
+                    if token == '<':
+                        tipo_token = TipoToken.MENOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '<=':
+                        tipo_token = TipoToken.MENOR_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '>=':
+                        tipo_token = TipoToken.MAYOR_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '>':
+                        tipo_token = TipoToken.MAYOR_QUE
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '==':
+                        tipo_token = TipoToken.IGUAL_IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '!=':
+                        tipo_token = TipoToken.DIFERENTE_DE
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == ':=':
+                        tipo_token = TipoToken.ASIGNACION
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '=':
+                        tipo_token = TipoToken.IGUAL
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '--':
+                        tipo_token = TipoToken.DECREMENTO
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '-':
+                        tipo_token = TipoToken.OPERADOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '++':
+                        tipo_token = TipoToken.INCREMENTO
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+                    elif token == '+':
+                        tipo_token = TipoToken.OPERADOR
+                        linea = contenido.count('\n', 0, match.start()) + 1
+                        columna = match.start() - contenido.rfind('\n', 0, match.start())
+                        tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             else:
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
+
+
 
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
@@ -142,12 +239,7 @@ if __name__ == '__main__':
                 tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
                 archivo_salida.write(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}\n")
                 print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
-                if tipo_token == TipoToken.LLAVE_ABIERTA:
-                    archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format("{", "Llave abierta", linea, columna))
-                    print("{:<20} {:<20} {:<10} {:<10}".format("{", "Llave abierta", linea, columna))
-                elif tipo_token == TipoToken.LLAVE_CERRADA:
-                    archivo_salida.write("{:<20} {:<20} {:<10} {:<10}\n".format("}", "Llave cerrada", linea, columna))
-                    print("{:<20} {:<20} {:<10} {:<10}".format("}", "Llave cerrada", linea, columna)) 
+
     except Exception as e:
         # Escribir el mensaje de error en un archivo de texto
         with open("ErroresLexico.txt", "w") as archivo_errores:
