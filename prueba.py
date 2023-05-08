@@ -83,15 +83,27 @@ def manejar_error_lexico(mensaje_error):
 
 def procesar_tokens(contenido):
     tokens_con_posicion = []
-    for patron, tipo_token in PATRONES_TOKEN.items():
+    for descripcion, patron in PATRONES_TOKEN.items():
+        if descripcion == 'identificador':
+            tipo_token = TipoToken.IDENTIFICADOR
+        elif descripcion == 'palabra_reservada':
+            tipo_token = TipoToken.PALABRA_RESERVADA
+        elif descripcion == 'entero':
+            tipo_token = TipoToken.ENTERO
+        elif descripcion == 'real':
+            tipo_token = TipoToken.REAL
+        elif descripcion == 'simbolo':
+            tipo_token = TipoToken.SIMBOLO
+        else:
+            continue
         for match in re.finditer(patron, contenido):
             token = match.group(0)
             if not token:
                 continue
             if tipo_token == TipoToken.IDENTIFICADOR:
                 if not token.isalnum():
-                    mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
-                    manejar_error_lexico(mensaje_error)
+                    with open('ErroresLexico.txt', 'a') as f:
+                        f.write(f'Error léxico: el identificador {token} contiene caracteres no alfanuméricos\n')
                     continue
                 if token in PALABRAS_RESERVADAS:
                     tipo_token = TipoToken.PALABRA_RESERVADA
@@ -101,20 +113,41 @@ def procesar_tokens(contenido):
                     if len(partes) == 2 and partes[1].isdigit():
                         tipo_token = TipoToken.REAL
                     else:
-                        mensaje_error = f"Error léxico: No hay número después del punto decimal en el token {token}"
-                        manejar_error_lexico(mensaje_error)
+                        with open('ErroresLexico.txt', 'a') as f:
+                            f.write(f'Error léxico: No hay número después del punto decimal en el token {token}\n')
                         continue
                 else:
                     tipo_token = TipoToken.ENTERO
             elif tipo_token == TipoToken.SIMBOLO:
-                if token in PATRONES_TOKEN:
-                    tipo_token = PATRONES_TOKEN[token]
+                SIMBOLOS_TOKEN = {
+                    '+': TipoToken.SUMA,
+                    '-': TipoToken.RESTA,
+                    '*': TipoToken.MULTIPLICACION,
+                    '/': TipoToken.DIVISION,
+                    '=': TipoToken.ASIGNACION,
+                    '==': TipoToken.COMPARACION,
+                    '!=': TipoToken.DIFERENTE,
+                    '<': TipoToken.MENOR_QUE,
+                    '>': TipoToken.MAYOR_QUE,
+                    '<=': TipoToken.MENOR_IGUAL_QUE,
+                    '>=': TipoToken.MAYOR_IGUAL_QUE,
+                    '(': TipoToken.PARENTESIS_IZQUIERDO,
+                    ')': TipoToken.PARENTESIS_DERECHO,
+                    '{': TipoToken.LLAVE_IZQUIERDA,
+                    '}': TipoToken.LLAVE_DERECHA,
+                    ',': TipoToken.COMA,
+                    ';': TipoToken.PUNTO_Y_COMA,
+                    '%': TipoToken.MODULO,
+                    '++': TipoToken.INCREMENTO,
+                    '--': TipoToken.DECREMENTO
+                }
+                if token in SIMBOLOS_TOKEN:
+                    tipo_token = SIMBOLOS_TOKEN[token]
             linea = contenido.count('\n', 0, match.start()) + 1
             columna = match.start() - contenido.rfind('\n', 0, match.start())
             tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
-
 
 def leer_archivo(nombre_archivo):
     #Lee el contenido de un archivo.
