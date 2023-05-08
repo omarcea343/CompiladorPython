@@ -158,47 +158,39 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['simbolos']:
+            elif descripcion == 'simbolos':
+                # Procesar los símbolos y agregarlos a la lista de tokens
+                TIPOS_SIMBOLOS = {
+                    '<': TipoToken.MENOR,
+                    '<=': TipoToken.MENOR_IGUAL,
+                    '>=': TipoToken.MAYOR_IGUAL,
+                    '>': TipoToken.MAYOR_QUE,
+                    '==': TipoToken.IGUAL_IGUAL,
+                    '!=': TipoToken.DIFERENTE_DE,
+                    ':=': TipoToken.ASIGNACION,
+                    '=': TipoToken.IGUAL,
+                    '--': TipoToken.DECREMENTO,
+                    '-': TipoToken.OPERADOR,
+                    '++': TipoToken.INCREMENTO,
+                    '+': TipoToken.OPERADOR,
+                }
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
-                    if token == '<':
-                        tipo_token = TipoToken.MENOR
-                    elif token == '<=':
-                        tipo_token = TipoToken.MENOR_IGUAL
-                    elif token == '>=':
-                        tipo_token = TipoToken.MAYOR_IGUAL
-                    elif token == '>':
-                        tipo_token = TipoToken.MAYOR_QUE
-                    elif token == '==':
-                        tipo_token = TipoToken.IGUAL_IGUAL
-                    elif token == '!=':
-                        tipo_token = TipoToken.DIFERENTE_DE
-                    elif token == ':=':
-                        tipo_token = TipoToken.ASIGNACION
-                    elif token == '=':
-                        tipo_token = TipoToken.IGUAL
-                    elif token == '--':
-                        tipo_token = TipoToken.DECREMENTO
-                    elif token == '-':
-                        tipo_token = TipoToken.OPERADOR
-                    elif token == '++':
-                        tipo_token = TipoToken.INCREMENTO
-                    elif token == '+':
-                        tipo_token = TipoToken.OPERADOR
-                    else:
-                        mensaje_error = f'Token no válido: {token}'
+                    tipo_token = TIPOS_SIMBOLOS.get(token, None)
+                    if tipo_token is None:
+                        mensaje_error = f"Error léxico: símbolo no reconocido {token}"
                         manejar_error_lexico(mensaje_error)
-                        continue
+                        continue  # Ignorar el token si hay un error léxico
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna))) 
-            else:
-                tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
-
+                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+        else:
+            # Manejar el caso en que la descripción del token no está en ninguna categoría conocida
+            mensaje_error = f"Error léxico: descripción de token no reconocida {descripcion}"
+            manejar_error_lexico(mensaje_error)
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
-
 
 def leer_archivo(nombre_archivo):
     #Lee el contenido de un archivo.

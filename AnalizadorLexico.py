@@ -68,9 +68,21 @@ def procesar_token(descripcion, patron, contenido):
 
         yield (match.start(), (token, tipo_token, linea, columna))
 
+def manejar_error_lexico(mensaje_error):
+    print(f"Manejando error léxico: {mensaje_error}")
 
+    # Verificar si el archivo de errores existe
+    if not os.path.exists("ErroresLexico.txt"):
+        # Si no existe, crear el archivo
+        with open("ErroresLexico.txt", "w") as f:
+            f.write("Archivo de errores léxicos\n")
+
+    # Escribir el mensaje de error en el archivo
+    with open("ErroresLexico.txt", "a") as f:
+        f.write(mensaje_error + "\n")
 
 def procesar_tokens(contenido):
+    print("Procesando tokens...")
     """
     Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
     ordenadas por orden de aparición en el archivo.
@@ -97,8 +109,7 @@ def procesar_tokens(contenido):
                             tipo_token = TipoToken.ENTERO
                     except ValueError as e:
                         mensaje_error = f"Error léxico: {e} en el token {token}"
-                        with open("ErroresLexico.txt", "a") as f:
-                            f.write(mensaje_error + "\n")
+                        manejar_error_lexico(mensaje_error)
                         continue  # Ignorar el token si hay un error léxico
 
                     linea = contenido.count('\n', 0, match.start()) + 1
@@ -114,8 +125,7 @@ def procesar_tokens(contenido):
 
                     if not token.isalnum():
                         mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
-                        with open("ErroresLexico.txt", "a") as f:
-                            f.write(mensaje_error + "\n")
+                        manejar_error_lexico(mensaje_error)
                         continue  # Ignorar el token si hay un error léxico
 
                     if token in PALABRAS_RESERVADAS:
@@ -183,7 +193,7 @@ def procesar_tokens(contenido):
                     for match in re.finditer(patron, contenido):
                         token = match.group(0)
                         with open('ErroresLexico.txt', 'a') as f:
-                            f.write(f'Token no valido: {token}\n')  
+                            f.write(f'Token no valido: {token}\n')
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
