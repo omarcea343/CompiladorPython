@@ -1,0 +1,12 @@
+'int' es una palabra reservada en la fila 1, columna 1
+'x' es un identificador en la fila 1, columna 5
+'=' es un operador en la fila 1, columna 6
+'1' es un identificador en la fila 1, columna 7
+'123' es un identificador en la fila 1, columna 9
+';' es un punto y coma en la fila 1, columna 12'then' es una palabra reservada en la fila 2, columna 1
+'if' es una palabra reservada en la fila 2, columna 6
+'/' es un operador en la fila 3, columna 1
+'/' es un operador en la fila 3, columna 2
+'Hola' es un identificador en la fila 3, columna 3
+'Mundo' es un identificador en la fila 3, columna 8
+'{' es un paréntesis en la fila 3, columna 13
