@@ -1,1 +1,3 @@
 Error léxico: descripción de token no reconocida real
+Error léxico: descripción de token no reconocida comentario_de_linea
+Error léxico: descripción de token no reconocida comentario_de_bloque

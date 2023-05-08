@@ -158,7 +158,7 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion == 'simbolos':
+            elif descripcion in ['simbolos']:
                 # Procesar los símbolos y agregarlos a la lista de tokens
                 TIPOS_SIMBOLOS = {
                     '<': TipoToken.MENOR,
