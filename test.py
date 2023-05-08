@@ -26,27 +26,34 @@ PATRONES_TOKEN = {
 # Enumeración para los tipos de token
 class TipoToken(Enum):
     PALABRA_RESERVADA = 1
-    OPERADOR = 2
-    PARENTESIS = 3
-    COMA = 4
-    PUNTO_Y_COMA = 5
-    COMENTARIO_DE_LINEA = 6
-    COMENTARIO_DE_BLOQUE = 7
-    ENTERO = 8
-    REAL = 9
-    IDENTIFICADOR = 10
-    INCREMENTO = 11
-    DECREMENTO = 12
-    LLAVE_ABIERTA = 13
-    LLAVE_CERRADA = 14
-    MAYOR_QUE = 15
-    MAYOR_IGUAL = 16
-    IGUAL = 17
-    IGUAL_IGUAL = 18
-    MENOR = 19
-    MENOR_IGUAL = 20
+    IDENTIFICADOR = 2
+    ENTERO = 3
+    REAL = 4
+    CADENA = 5
+    LLAVE_ABIERTA = 6
+    LLAVE_CERRADA = 7
+    PARENTESIS_ABIERTO = 8
+    PARENTESIS_CERRADO = 9
+    CORCHETE_ABIERTO = 10
+    CORCHETE_CERRADO = 11
+    PUNTO_Y_COMA = 12
+    COMA = 13
+    PUNTO = 14
+    DOS_PUNTOS = 15
+    MENOR = 16
+    MENOR_IGUAL = 17
+    MAYOR_IGUAL = 18
+    MAYOR_QUE = 19
+    IGUAL_IGUAL = 20
     DIFERENTE_DE = 21
     ASIGNACION = 22
+    IGUAL = 23
+    OPERADOR = 24
+    INCREMENTO = 25
+    DECREMENTO = 26
+    PORCENTAJE = 27
+    ERROR_LEXICO = 28
+
     
 def eliminar_comentarios(contenido):
     #Elimina los comentarios de línea y de bloque del contenido.
@@ -67,6 +74,65 @@ def procesar_token(descripcion, patron, contenido):
         columna = match.start() - contenido.rfind('\n', 0, match.start())
 
         yield (match.start(), (token, tipo_token, linea, columna))
+
+def manejar_error_lexico(mensaje_error):
+    print(f"Manejando error léxico: {mensaje_error}")
+
+    # Verificar si el archivo de errores existe
+    if not os.path.exists("ErroresLexico.txt"):
+        # Si no existe, crear el archivo
+        with open("ErroresLexico.txt", "w") as f:
+            f.write("Archivo de errores léxicos\n")
+
+    # Escribir el mensaje de error en el archivo
+    with open("ErroresLexico.txt", "a") as f:
+        f.write(mensaje_error + "\n")
+        
+def buscar_errores_lexicos(contenido):
+    # Busca errores léxicos en el contenido del archivo y devuelve una lista de tuplas con la información de cada error,
+    # ordenadas por orden de aparición en el archivo.
+
+    errores_lexicos = []
+    for match in re.finditer(r"\b\S+\b", contenido):
+        token = match.group(0)
+        if token not in PALABRAS_RESERVADAS and not re.match(r"\d+(\.\d+)?", token) and not re.match(r"[a-zA-Z_][a-zA-Z0-9_]*", token):
+            linea = contenido.count('\n', 0, match.start()) + 1
+            columna = match.start() - contenido.rfind('\n', 0, match.start())
+            mensaje_error = f"Error léxico: token '{token}' no reconocido en la línea {linea}, columna {columna}."
+            manejar_error_lexico(mensaje_error)
+            errores_lexicos.append((match.start(), mensaje_error))
+
+    return errores_lexicos
+        
+def leer_archivo(nombre_archivo):
+    #Lee el contenido de un archivo.
+
+    if not os.path.isfile(nombre_archivo):
+        print("El archivo especificado no existe.")
+        sys.exit(1)
+    with open(nombre_archivo, "r") as archivo:
+        contenido = archivo.read()
+    return contenido
+
+def imprimir_tokens(tokens):
+    #Imprime los tokens encontrados.
+
+    print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
+    print("-" * 60)
+    for token, tipo_token, linea, columna in tokens:
+        tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
+        print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
+
+def escribir_tokens_en_archivo(tokens):
+    #Escribe los tokens encontrados en un archivo de texto.
+
+    with open("ResultadosLexico.txt", "w") as archivo_salida:
+        archivo_salida.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
+        archivo_salida.write("-" * 60 + "\n")
+        for token, tipo_token, linea, columna in tokens:
+            tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
+            archivo_salida.write(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}\n")
+
 
 def procesar_tokens(contenido):
     print("Procesando tokens...")
@@ -186,143 +252,6 @@ def procesar_tokens(contenido):
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
 
-def manejar_error_lexico(mensaje_error):
-    print(f"Manejando error léxico: {mensaje_error}")
-
-    # Verificar si el archivo de errores existe
-    if not os.path.exists("ErroresLexico.txt"):
-        # Si no existe, crear el archivo
-        with open("ErroresLexico.txt", "w") as f:
-            f.write("Archivo de errores léxicos\n")
-
-    # Escribir el mensaje de error en el archivo
-    with open("ErroresLexico.txt", "a") as f:
-        f.write(mensaje_error + "\n")
-        
-def leer_archivo(nombre_archivo):
-    #Lee el contenido de un archivo.
-
-    if not os.path.isfile(nombre_archivo):
-        print("El archivo especificado no existe.")
-        sys.exit(1)
-    with open(nombre_archivo, "r") as archivo:
-        contenido = archivo.read()
-    return contenido
-
-def imprimir_tokens(tokens):
-    #Imprime los tokens encontrados.
-
-    print(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}")
-    print("-" * 60)
-    for token, tipo_token, linea, columna in tokens:
-        tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
-        print(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}")
-
-def escribir_tokens_en_archivo(tokens):
-    #Escribe los tokens encontrados en un archivo de texto.
-
-    with open("ResultadosLexico.txt", "w") as archivo_salida:
-        archivo_salida.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
-        archivo_salida.write("-" * 60 + "\n")
-        for token, tipo_token, linea, columna in tokens:
-            tipo = "Palabra reservada" if tipo_token == TipoToken.PALABRA_RESERVADA else tipo_token.name.replace("_", " ").lower()
-            archivo_salida.write(f"{token:<20} {tipo:<20} {linea:<10} {columna:<10}\n")
-
-def buscar_errores_lexicos(contenido):
-    """
-    Busca errores léxicos en el contenido del archivo y los escribe en un archivo de texto.
-    """
-    tokens_con_posicion = []
-    for descripcion, patron in PATRONES_TOKEN.items():
-        if descripcion == 'comentario_de_linea' or descripcion == 'comentario_de_bloque':
-            continue
-        elif descripcion == 'identificador':
-            for match in re.finditer(patron, contenido):
-                token = match.group(0)
-                if token in PALABRAS_RESERVADAS:
-                    tipo_token = TipoToken.PALABRA_RESERVADA
-                else:
-                    tipo_token = TipoToken.IDENTIFICADOR
-                linea = contenido.count('\n', 0, match.start()) + 1
-                columna = match.start() - contenido.rfind('\n', 0, match.start())
-                tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        elif descripcion == 'real':
-            for match in re.finditer(patron, contenido):
-                token = match.group(0)
-                tipo_token = TipoToken.REAL
-                linea = contenido.count('\n', 0, match.start()) + 1
-                columna = match.start() - contenido.rfind('\n', 0, match.start())
-                tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        elif descripcion in ['llave_abierta', 'llave_cerrada']:
-            for match in re.finditer(patron, contenido):
-                token = match.group(0)
-                if token == '{':
-                    tipo_token = TipoToken.LLAVE_ABIERTA
-                else:
-                    tipo_token = TipoToken.LLAVE_CERRADA
-                linea = contenido.count('\n', 0, match.start()) + 1
-                columna = match.start() - contenido.rfind('\n', 0, match.start())
-                tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        elif descripcion in ['mayor_igual', 'menor_igual', 'igual_igual', 'diferente_de', 'asignacion', 'mayor_que', 'menor_que', 'operador', 'incremento', 'decremento', 'porcentaje']:
-            if descripcion == 'operador':
-                patron = r"\-\*|/\*|\*/|\*|/"
-            elif descripcion == 'incremento':
-                patron = r"\+\+"
-            elif descripcion == 'decremento':
-                patron = r"\-\-"
-            elif descripcion == 'porcentaje':
-                patron = r"\%"
-            elif descripcion == 'asignacion':
-                patron = r":="
-            elif descripcion == 'mayor_igual':
-                patron = r">="
-            elif descripcion == 'menor_igual':
-                patron = r"<="
-            elif descripcion == 'igual_igual':
-                patron = r"=="
-            elif descripcion == 'diferente_de':
-                patron = r"!="
-            elif descripcion == 'mayor_que':
-                patron = r">"
-            elif descripcion == 'menor_que':
-                patron = r"<"
-            for match in re.finditer(patron, contenido):
-                token = match.group(0)
-                if token == '<':
-                    tipo_token = TipoToken.MENOR
-                elif token == '<=':
-                    tipo_token = TipoToken.MENOR_IGUAL
-                elif token == '>=':
-                    tipo_token = TipoToken.MAYOR_IGUAL
-                elif token == '>':
-                    tipo_token = TipoToken.MAYOR_QUE
-                elif token == '==':
-                    tipo_token = TipoToken.IGUAL_IGUAL
-                elif token == '!=':
-                    tipo_token = TipoToken.DIFERENTE_DE
-                elif token == ':=':
-                    tipo_token = TipoToken.ASIGNACION
-                elif token == '=':
-                    tipo_token = TipoToken.IGUAL
-                elif token == '--':
-                    tipo_token = TipoToken.DECREMENTO
-                elif token == '-':
-                    tipo_token = TipoToken.OPERADOR
-                elif token == '++':
-                    tipo_token = TipoToken.INCREMENTO
-                elif token == '+':
-                    tipo_token = TipoToken.OPERADOR
-                linea = contenido.count('\n', 0, match.start()) + 1
-                columna = match.start() - contenido.rfind('\n', 0, match.start())
-                tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        else:
-            for match in re.finditer(patron, contenido):
-                token = match.group(0)
-                with open('ErroresLexico.txt', 'a') as f:
-                    f.write(f'Token no válido: {token}\n')
-    # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
-    tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
-    return tokens_ordenados
 
 if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
@@ -330,12 +259,6 @@ if __name__ == '__main__':
     contenido = leer_archivo(nombre_archivo)
     contenido_sin_comentarios = eliminar_comentarios(contenido)
     
-    errores_lexicos = buscar_errores_lexicos(contenido_sin_comentarios)
-    if errores_lexicos:
-        print("Se han encontrado errores léxicos. Consulte el archivo 'ErroresLexico.txt' para más información.")
-    else:
-        print("No se han encontrado errores léxicos.")
-
     try:
         #Procesar los tokens en el contenido del archivo sin comentarios
         tokens = procesar_tokens(contenido_sin_comentarios)
@@ -343,6 +266,12 @@ if __name__ == '__main__':
         # Imprimir y guardar los tokens encontrados
         imprimir_tokens(tokens)
         escribir_tokens_en_archivo(tokens)
+        
+        errores_lexicos = buscar_errores_lexicos(contenido_sin_comentarios)
+        if errores_lexicos:
+            print("Se han encontrado errores léxicos. Consulte el archivo 'ErroresLexico.txt' para más información.")
+        else:
+            print("No se han encontrado errores léxicos.")
 
     except Exception as e:
         # Escribir el mensaje de error en un archivo de texto
