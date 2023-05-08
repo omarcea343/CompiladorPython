@@ -240,7 +240,7 @@ if __name__ == '__main__':
         tokens = procesar_tokens(contenido_sin_comentarios)
         
         # Imprimir y guardar los tokens encontrados
-        #imprimir_tokens(tokens)
+        imprimir_tokens(tokens)
         escribir_tokens_en_archivo(tokens)
 
     except Exception as e:
