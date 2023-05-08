@@ -76,7 +76,7 @@ def procesar_token(descripcion, patron, contenido):
         if tipo_token is not None:
             yield (match.start(), (token, tipo_token, linea, columna))
         else:
-            mensaje_error = f"Error léxico: token '{token}' no reconocido en la línea {linea}, columna {columna}."
+            mensaje_error = f"Error lexico: token '{token}' no reconocido en la línea {linea}, columna {columna}."
             manejar_error_lexico(mensaje_error)
             yield (match.start(), (token, TipoToken.ERROR_LEXICO, linea, columna))
 
