@@ -82,115 +82,39 @@ def manejar_error_lexico(mensaje_error):
         f.write(mensaje_error + "\n")
 
 def procesar_tokens(contenido):
-    print("Procesando tokens...")
-    """
-    Procesa los tokens en el contenido del archivo y devuelve una lista de tuplas con la información de cada token,
-    ordenadas por orden de aparición en el archivo.
-    """
     tokens_con_posicion = []
-    for descripcion, patron in PATRONES_TOKEN.items():
-        if descripcion not in ['comentario_de_linea', 'comentario_de_bloque']:                      
-            if descripcion in ['real']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-
-                    if not token:
-                        continue  # Ignorar el token si está vacío
-
-                    try:
-                        if "." in token:
-                            partes = token.split(".")
-                
-                            if len(partes) == 2 and partes[1].isdigit():
-                                tipo_token = TipoToken.REAL
-                            else:
-                                raise ValueError("No hay número después del punto decimal")
-                        else:
-                            tipo_token = TipoToken.ENTERO
-                    except ValueError as e:
-                        mensaje_error = f"Error léxico: {e} en el token {token}"
-                        manejar_error_lexico(mensaje_error)
-                        continue  # Ignorar el token si hay un error léxico
-
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            
-            elif descripcion == 'identificador':
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-
-                    if not token:
-                        continue  # Ignorar el token si está vacío
-
-                    if not token.isalnum():
-                        mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
-                        manejar_error_lexico(mensaje_error)
-                        continue  # Ignorar el token si hay un error léxico
-
-                    if token in PALABRAS_RESERVADAS:
-                        tipo_token = TipoToken.PALABRA_RESERVADA
+    for patron, tipo_token in PATRONES_TOKEN.items():
+        for match in re.finditer(patron, contenido):
+            token = match.group(0)
+            if not token:
+                continue
+            if tipo_token == TipoToken.IDENTIFICADOR:
+                if not token.isalnum():
+                    mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
+                    manejar_error_lexico(mensaje_error)
+                    continue
+                if token in PALABRAS_RESERVADAS:
+                    tipo_token = TipoToken.PALABRA_RESERVADA
+            elif tipo_token == TipoToken.REAL:
+                if "." in token:
+                    partes = token.split(".")
+                    if len(partes) == 2 and partes[1].isdigit():
+                        tipo_token = TipoToken.REAL
                     else:
-                        tipo_token = TipoToken.IDENTIFICADOR
-
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            
-            elif descripcion in ['incremento', 'decremento']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TipoToken.INCREMENTO if descripcion == 'incremento' else TipoToken.DECREMENTO
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['porcentaje']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TipoToken.OPERADOR
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['llave_abierta', 'llave_cerrada']:
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TipoToken.LLAVE_ABIERTA if descripcion == 'llave_abierta' else TipoToken.LLAVE_CERRADA
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-            elif descripcion in ['simbolos']:
-                # Procesar los símbolos y agregarlos a la lista de tokens
-                TIPOS_SIMBOLOS = {
-                    '<': TipoToken.MENOR,
-                    '<=': TipoToken.MENOR_IGUAL,
-                    '>=': TipoToken.MAYOR_IGUAL,
-                    '>': TipoToken.MAYOR_QUE,
-                    '==': TipoToken.IGUAL_IGUAL,
-                    '!=': TipoToken.DIFERENTE_DE,
-                    ':=': TipoToken.ASIGNACION,
-                    '=': TipoToken.IGUAL,
-                    '--': TipoToken.DECREMENTO,
-                    '-': TipoToken.OPERADOR,
-                    '++': TipoToken.INCREMENTO,
-                    '+': TipoToken.OPERADOR,
-                }
-                for match in re.finditer(patron, contenido):
-                    token = match.group(0)
-                    tipo_token = TIPOS_SIMBOLOS.get(token, None)
-                    if tipo_token is None:
-                        mensaje_error = f"Error léxico: símbolo no reconocido {token}"
+                        mensaje_error = f"Error léxico: No hay número después del punto decimal en el token {token}"
                         manejar_error_lexico(mensaje_error)
-                        continue  # Ignorar el token si hay un error léxico
-                    linea = contenido.count('\n', 0, match.start()) + 1
-                    columna = match.start() - contenido.rfind('\n', 0, match.start())
-                    tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
-        else:
-            # Manejar el caso en que la descripción del token no está en ninguna categoría conocida
-            mensaje_error = f"Error léxico: descripción de token no reconocida {descripcion}"
-            manejar_error_lexico(mensaje_error)
-    # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
+                        continue
+                else:
+                    tipo_token = TipoToken.ENTERO
+            elif tipo_token == TipoToken.SIMBOLO:
+                if token in PATRONES_TOKEN:
+                    tipo_token = PATRONES_TOKEN[token]
+            linea = contenido.count('\n', 0, match.start()) + 1
+            columna = match.start() - contenido.rfind('\n', 0, match.start())
+            tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
+
 
 def leer_archivo(nombre_archivo):
     #Lee el contenido de un archivo.
