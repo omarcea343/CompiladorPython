@@ -175,16 +175,16 @@ def procesar_tokens(contenido):
                         tipo_token = TipoToken.INCREMENTO
                     elif token == '+':
                         tipo_token = TipoToken.OPERADOR
-                    else:
-                        with open('ErroresLexico.txt', 'a') as f:
-                            f.write(f'Token no válido: {token}\n')
-                        continue
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna))) 
             else:
+                if not descripcion in ['operador','parentesis','coma', 'punto_y_coma','comentario_de_linea','comentario_de_bloque','real','identificador','llave_abierta','llave_cerrada','porcentaje','simbolos']:
+                    for match in re.finditer(patron, contenido):
+                        token = match.group(0)
+                        with open('ErroresLexico.txt', 'a') as f:
+                            f.write(f'Token no valido: {token}\n')  
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
-
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados

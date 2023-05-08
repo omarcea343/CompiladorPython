@@ -229,6 +229,8 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
         resultadosPanel = new javax.swing.JPanel();
         consolaTextPane = new javax.swing.JTextPane();
         erroresPanel = new javax.swing.JPanel();
+        ScrollPaneErrores = new javax.swing.JScrollPane();
+        TextPaneErrores = new javax.swing.JTextPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         codigCompTextPane = new javax.swing.JTextPane();
         menuBar = new javax.swing.JMenuBar();
@@ -358,15 +360,17 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
 
         ErrResTabbedPane.addTab("Resultados", resultadosPanel);
 
+        ScrollPaneErrores.setViewportView(TextPaneErrores);
+
         javax.swing.GroupLayout erroresPanelLayout = new javax.swing.GroupLayout(erroresPanel);
         erroresPanel.setLayout(erroresPanelLayout);
         erroresPanelLayout.setHorizontalGroup(
             erroresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1115, Short.MAX_VALUE)
+            .addComponent(ScrollPaneErrores, javax.swing.GroupLayout.DEFAULT_SIZE, 1115, Short.MAX_VALUE)
         );
         erroresPanelLayout.setVerticalGroup(
             erroresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 87, Short.MAX_VALUE)
+            .addComponent(ScrollPaneErrores, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
         );
 
         ErrResTabbedPane.addTab("Errores", erroresPanel);
@@ -725,8 +729,9 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Operación completada con éxito", "Mensaje de información", JOptionPane.INFORMATION_MESSAGE);
                     consolaTextPane.setText(consolaTextPane.getText() + "\nAVISO: Archivo creado y guardado exitosamente.");
                     // Ruta al script de Python
-                    String scriptPath = "C:/Users/Omar/Desktop/Compilador/Compilador/src/comp/lexico.py";
-
+                    String scriptPath = "C:/Users/Omar/Desktop/Compiladora/IDECompilador/src/comp/lexico.py";
+                    String rutaErrores = "C:/Users/Omar/Desktop/Compiladora/IDECompilador/ErroresLexico.txt";
+                
                     // Argumentos que se pasarán al script
                     String[] scriptArgs = new String[]{ruta};
 
@@ -772,13 +777,31 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
                     } catch (IOException e) {
                         System.err.println("Error al leer el archivo: " + e.getMessage());
                     }
+
+                    // Se usa un try-with-resources para asegurarse de que el archivo se cierre correctamente
+                    try (BufferedReader br = new BufferedReader(new FileReader(rutaErrores))) {
+
+                        String contenidoArchivo = "";
+                        String lineaActual;
+
+                        // Se lee el archivo línea por línea y se almacena el contenido en una variable
+                        while ((lineaActual = br.readLine()) != null) {
+                            contenidoArchivo += lineaActual + "\n";
+                        }
+
+                        // Se obtiene el JTextPane y se establece su contenido con el contenido del archivo
+                        TextPaneErrores.setText(contenidoArchivo);
+
+                    } catch (IOException e) {
+                        System.err.println("Error al leer el archivo: " + e.getMessage());
+                    }
                 } catch (Exception ers2) {
                 }
             }
         } else if (!codigCompTextPane.getText().equals("") && !this.ruta.equals("") && !this.getTitle().equals("Sin_titulo.txt")) {
             ruta = ruta;
             // Ruta al script de Python
-            String scriptPath = "C:/Users/Omar/Desktop/Compilador/Compilador/src/comp/lexico.py";
+            String scriptPath = "C:/Users/Javier/Documents/NetBeansProjects/Compilador/src/comp/lexico.py";
 
             // Argumentos que se pasarán al script
             String[] scriptArgs = new String[]{ruta};
@@ -807,6 +830,7 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
             }
 
             String rutaArchivo = "ResultadosLexico.txt";
+            String rutaErrores = "C:/Users/Javier/Documents/NetBeansProjects/Compilador/ErroresLexico.txt";
 
             // Se usa un try-with-resources para asegurarse de que el archivo se cierre correctamente
             try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
@@ -821,6 +845,24 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
 
                 // Se obtiene el JTextPane y se establece su contenido con el contenido del archivo
                 lexicoTextPane.setText(contenidoArchivo);
+
+            } catch (IOException e) {
+                System.err.println("Error al leer el archivo: " + e.getMessage());
+            }
+
+            // Se usa un try-with-resources para asegurarse de que el archivo se cierre correctamente
+            try (BufferedReader br = new BufferedReader(new FileReader(rutaErrores))) {
+
+                String contenidoArchivo = "";
+                String lineaActual;
+
+                // Se lee el archivo línea por línea y se almacena el contenido en una variable
+                while ((lineaActual = br.readLine()) != null) {
+                    contenidoArchivo += lineaActual + "\n";
+                }
+
+                // Se obtiene el JTextPane y se establece su contenido con el contenido del archivo
+                TextPaneErrores.setText(contenidoArchivo);
 
             } catch (IOException e) {
                 System.err.println("Error al leer el archivo: " + e.getMessage());
@@ -1056,8 +1098,10 @@ public class CompiladorMDIApplication extends javax.swing.JFrame {
     private javax.swing.JTextPane CodIntermTextPane;
     private javax.swing.JTabbedPane ErrResTabbedPane;
     private javax.swing.JMenuItem NuevoMenuItem;
+    private javax.swing.JScrollPane ScrollPaneErrores;
     private javax.swing.JTextPane SemanticoTextPane;
     private javax.swing.JTextPane SintacticoTextPane;
+    private javax.swing.JTextPane TextPaneErrores;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu archivoMenu;
     private javax.swing.JMenu ayudaMenu;
