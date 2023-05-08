@@ -73,7 +73,13 @@ def procesar_token(descripcion, patron, contenido):
         linea = contenido.count('\n', 0, match.start()) + 1
         columna = match.start() - contenido.rfind('\n', 0, match.start())
 
-        yield (match.start(), (token, tipo_token, linea, columna))
+        if tipo_token is not None:
+            yield (match.start(), (token, tipo_token, linea, columna))
+        else:
+            mensaje_error = f"Error léxico: token '{token}' no reconocido en la línea {linea}, columna {columna}."
+            manejar_error_lexico(mensaje_error)
+            yield (match.start(), (token, TipoToken.ERROR_LEXICO, linea, columna))
+
 
 def manejar_error_lexico(mensaje_error):
     print(f"Manejando error léxico: {mensaje_error}")
@@ -251,7 +257,6 @@ def procesar_tokens(contenido):
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
-
 
 if __name__ == '__main__':
     # Obtener el nombre del archivo de entrada
