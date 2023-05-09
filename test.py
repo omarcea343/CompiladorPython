@@ -29,7 +29,7 @@ PATRONES_TOKEN = {
     'comentario_de_bloque': r"/\*.*?\*/",
     'real':  r"\b\d+\.\d+\b|\b\d+\.\b|\b\.\d+\b",
     'entero': r"\b\d+\b",
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
+    'identificador': r"\b[a-zA-Z_0-9][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
@@ -79,15 +79,13 @@ def obtener_tokens(nombre_archivo):
                                     tokens.append((valor[:i], 'ENTERO', numero_linea, numero_columna))
                                     tokens.append((valor[i:], 'IDENTIFICADOR', numero_linea, numero_columna + i))
                                 else:
-                                    tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                        elif token_nombre == 'real':
-                            if not re.match(r"^\d+\.\d+$", valor):
-                                errores.append((valor, numero_linea, numero_columna))
-                            tokens.append((valor, 'REAL', numero_linea, numero_columna))
-                        elif token_nombre == 'entero':
-                            if not re.match(r"^\d+$", valor):
-                                errores.append((valor, numero_linea, numero_columna))
-                            tokens.append((valor, 'ENTERO', numero_linea, numero_columna))
+                                    tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))                        
+                        elif token_nombre in ['real', 'entero']:
+                            patron_entero = r"\b\d+[a-zA-Z]*\b"
+                            if re.match(patron_entero, valor):
+                                tokens.append((valor, 'ENTERO', numero_linea, numero_columna))
+                            else:
+                                tokens.append((valor, 'REAL', numero_linea, numero_columna))
                         else:
                             tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                         numero_columna += len(valor)
@@ -119,7 +117,7 @@ def obtener_tokens(nombre_archivo):
 
 
 
-if __name__ == '____':
+if __name__ == '__main__':
     if len(sys.argv) > 1:
         nombre_archivo = sys.argv[1]
         tokens = obtener_tokens(nombre_archivo)

@@ -21,17 +21,19 @@ PALABRAS_RESERVADAS = {
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
-    'operador': r"\-\*|/\*|\*/|\*|/",
+    'operador':r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
-    'real': r"\b\d+\.\d*\b|\b\d*\.\d+\b",
+    'comentario_de_linea': r"//.*",
+    'comentario_de_bloque': r"/\*.*?\*/",
+    'real':  r"\b\d+\.\d+\b|\b\d+\.\b|\b\.\d+\b",
     'entero': r"\b\d+\b",
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
+    'identificador': r"\b[a-zA-Z_0-9][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'simbolos': r'>=|>|<=|<|!=|:=|=|--|-|\+\+|\+',
+    'simbolos': r'>=|>|<=|<|==|!=|:=|=|--|-|\+\+|\+',
 }
 
 def eliminar_comentarios(contenido_archivo):
@@ -70,11 +72,20 @@ def obtener_tokens(nombre_archivo):
                             if valor in PALABRAS_RESERVADAS:
                                 tokens.append((valor.lower(), PALABRAS_RESERVADAS[valor], numero_linea, numero_columna))
                             else:
-                                tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                        elif token_nombre == 'real':
-                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                        elif token_nombre == 'entero':
-                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                                if re.match(r"^\d", valor): # Verificar si el identificador comienza con un número
+                                    for i, c in enumerate(valor):
+                                        if not c.isdigit():
+                                            break
+                                    tokens.append((valor[:i], 'ENTERO', numero_linea, numero_columna))
+                                    tokens.append((valor[i:], 'IDENTIFICADOR', numero_linea, numero_columna + i))
+                                else:
+                                    tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))                        
+                        elif token_nombre in ['real', 'entero']:
+                            patron_entero = r"\b\d+[a-zA-Z]*\b"
+                            if re.match(patron_entero, valor):
+                                tokens.append((valor, 'ENTERO', numero_linea, numero_columna))
+                            else:
+                                tokens.append((valor, 'REAL', numero_linea, numero_columna))
                         else:
                             tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                         numero_columna += len(valor)
@@ -103,6 +114,7 @@ def obtener_tokens(nombre_archivo):
 
     except FileNotFoundError:
         print(f"El archivo {nombre_archivo} no existe")
+
 
 
 if __name__ == '__main__':
