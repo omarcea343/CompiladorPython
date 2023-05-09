@@ -22,8 +22,8 @@ while                PALABRA RESERVADA    2          9
 )                    PARENTESIS           2          14        
 if                   PALABRA RESERVADA    2          15        
 +                    SIMBOLOS             2          17        
-34.34                REAL                 2          18        
-34.34                REAL                 2          24        
+34.34                ENTERO               2          18        
+34.34                ENTERO               2          24        
 34                   ENTERO               2          30        
 -                    SIMBOLOS             2          32        
 34                   ENTERO               2          33        
@@ -40,8 +40,7 @@ cin                  PALABRA RESERVADA    3          1
 <                    SIMBOLOS             3          9         
 <                    SIMBOLOS             3          10        
 <=                   SIMBOLOS             3          11        
-=                    SIMBOLOS             3          13        
-=                    SIMBOLOS             3          14        
+==                   SIMBOLOS             3          13        
 =                    SIMBOLOS             3          15        
 !=                   SIMBOLOS             3          16        
 {                    LLAVE_ABIERTA        4          1         
@@ -83,7 +82,7 @@ y                    IDENTIFICADOR        14         3
 ;                    PUNTO_Y_COMA         14         6         
 a                    IDENTIFICADOR        15         1         
 =                    SIMBOLOS             15         2         
-24.0                 REAL                 15         3         
+24.0                 ENTERO               15         3         
 +                    SIMBOLOS             15         7         
 4                    ENTERO               15         8         
 -                    SIMBOLOS             15         9         
@@ -118,12 +117,12 @@ if                   PALABRA RESERVADA    19         7
 )                    PARENTESIS           19         13        
 b                    IDENTIFICADOR        20         14        
 =                    SIMBOLOS             20         15        
-3.2                  REAL                 20         16        
+3.2                  ENTERO               20         16        
 ;                    PUNTO_Y_COMA         20         19        
 else                 PALABRA RESERVADA    21         8         
 b                    IDENTIFICADOR        22         12        
 =                    SIMBOLOS             22         13        
-5.0                  REAL                 22         14        
+5.0                  ENTERO               22         14        
 ;                    PUNTO_Y_COMA         22         17        
 end                  PALABRA RESERVADA    23         8         
 ;                    PUNTO_Y_COMA         23         11        
@@ -151,16 +150,14 @@ y                    IDENTIFICADOR        27         4
 until                PALABRA RESERVADA    28         1         
 (                    PARENTESIS           28         6         
 y                    IDENTIFICADOR        28         7         
-=                    SIMBOLOS             28         8         
-=                    SIMBOLOS             28         9         
+==                   SIMBOLOS             28         8         
 5                    ENTERO               28         10        
 )                    PARENTESIS           28         11        
 ;                    PUNTO_Y_COMA         28         12        
 while                PALABRA RESERVADA    29         1         
 (                    PARENTESIS           29         6         
 y                    IDENTIFICADOR        29         7         
-=                    SIMBOLOS             29         8         
-=                    SIMBOLOS             29         9         
+==                   SIMBOLOS             29         8         
 0                    ENTERO               29         10        
 )                    PARENTESIS           29         11        
 {                    LLAVE_ABIERTA        29         12        
@@ -177,7 +174,7 @@ termino              IDENTIFICADOR        38         10
 while                PALABRA RESERVADA    39         1         
 int                  PALABRA RESERVADA    40         1         
 ert67                IDENTIFICADOR        40         8         
-45.67                REAL                 40         14        
+45.67                ENTERO               40         14        
 ;                    PUNTO_Y_COMA         40         19        
 then                 PALABRA RESERVADA    41         1         
 mas                  IDENTIFICADOR        42         1         
