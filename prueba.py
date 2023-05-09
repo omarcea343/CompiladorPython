@@ -2,7 +2,7 @@ import re
 import sys
 
 # Lista de palabras reservadas
-PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "", "", "cout", "real", "int", "boolean"]
+PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
@@ -12,7 +12,7 @@ PATRONES_TOKEN = {
     'punto_y_coma': r";",
     'real':  r"\b\d+\.\d*\b|\b\d*\.\d+\b",
     'entero': r"\b\d+\b",
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-_]*\b",
+    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
@@ -52,7 +52,7 @@ def obtener_tokens(nombre_archivo):
                     texto = texto[len(valor):]
                     if token_nombre == 'identificador':
                         if valor in PALABRAS_RESERVADAS:
-                            tokens.append((valor.upper(), token_nombre.upper(), numero_linea, numero_columna))
+                            tokens.append((valor.lower(), "PALABRA RESERVADA", numero_linea, numero_columna))
                         else:
                             tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                     elif token_nombre == 'real':

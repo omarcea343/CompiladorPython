@@ -1,11 +1,9 @@
 Error lexico en la linea 1, columna 15: &
+Error lexico en la linea 1, columna 24: @
 Error lexico en la linea 1, columna 41: 2
 Error lexico en la linea 1, columna 42: 5
 Error lexico en la linea 1, columna 70: .
 Error lexico en la linea 1, columna 76: .
-Error lexico en la linea 2, columna 28: .
-Error lexico en la linea 2, columna 106: .
-Error lexico en la linea 2, columna 136: .
 Error lexico en la linea 8, columna 6: !
 Error lexico en la linea 8, columna 7: 4
 Error lexico en la linea 8, columna 8: 5
