@@ -19,5 +19,5 @@ python AnalizadorLexico.py archivoPrueba2.txt
 ```
 
 ```sh
-python AnalizadorLexico.py [ArchivoALeer.txt]
+python [AnalizadorNombre.py] [ArchivoALeer.txt]
 ```
