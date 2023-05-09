@@ -98,14 +98,14 @@ def obtener_tokens(nombre_archivo):
                     numero_columna += 1
 
         # Escribir resultados en archivo
-        with open(f"{nombre_archivo}_resultados.txt", "w") as archivo_resultados:
+        with open(f"resultados.txt", "w") as archivo_resultados:
             archivo_resultados.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
             archivo_resultados.write("-" * 60 + "\n")
             for token in tokens:
                 archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
 
         # Escribir errores en archivo
-        with open(f"{nombre_archivo}_errores.txt", "w") as archivo_errores:
+        with open(f"errores.txt", "w") as archivo_errores:
             for error in errores:
                 if error[0].strip():
                     archivo_errores.write(f"Error lexico en la linea {error[1]}, columna {error[2]}: {error[0]}\n")
