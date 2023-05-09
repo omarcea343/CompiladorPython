@@ -76,8 +76,8 @@ def obtener_tokens(nombre_archivo):
 
         # Escribir resultados en archivo
         with open(f"{nombre_archivo}_resultados.txt", "w") as archivo_resultados:
-            archivo_resultados.write("Token                Tipo                 Linea      Columna\n")
-            archivo_resultados.write("-----------------------------------------------------------\n")
+            archivo_resultados.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
+            archivo_resultados.write("-" * 60 + "\n")
             for token in tokens:
                 archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
 

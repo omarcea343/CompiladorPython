@@ -1,5 +1,5 @@
-Token                Tipo                 Linea      Columna
------------------------------------------------------------
+Token                Tipo                 Linea      Columna   
+------------------------------------------------------------
 int                  PALABRA RESERVADA    1          1         
 vector               IDENTIFICADOR        1          5         
 ,                    COMA                 1          11        
