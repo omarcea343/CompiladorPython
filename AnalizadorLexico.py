@@ -27,8 +27,8 @@ PATRONES_TOKEN = {
     'punto_y_coma': r";",
     'comentario_de_linea': r"//.*",
     'comentario_de_bloque': r"/\*.*?\*/",
+    'entero': r"\b\d+\b(?!\.)",
     'real':  r"\b\d+\.\d+\b|\b\d+\.\b|\b\.\d+\b",
-    'entero': r"\b\d+\b",
     'identificador': r"\b[a-zA-Z_0-9][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
@@ -81,7 +81,7 @@ def obtener_tokens(nombre_archivo):
                                 else:
                                     tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))                        
                         elif token_nombre in ['real', 'entero']:
-                            patron_entero = r"\b\d+[a-zA-Z]*\b"
+                            patron_entero = r"\b\d+\b(?!\.)"
                             if re.match(patron_entero, valor):
                                 tokens.append((valor, 'ENTERO', numero_linea, numero_columna))
                             else:
