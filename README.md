@@ -9,3 +9,15 @@ Genera dos archivos:
 - ErroresLexico.txt
 
 Ademas incluye dos archivos de prueba para generar resultados que incluyan errores.
+
+##Ejecucion
+
+Ejecuta el siguiente comando en el mismo directorio del archivo principal.
+
+```sh
+python AnalizadorLexico.py archivoPrueba2.txt
+```
+
+```sh
+python AnalizadorLexico.py [ArchivoALeer.txt]
+```
