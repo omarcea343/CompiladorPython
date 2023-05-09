@@ -1,184 +1,184 @@
-Token                Tipo                 Linea      Columna   
-------------------------------------------------------------
-int                  PALABRA RESERVADA    1          1         
-vector               IDENTIFICADOR        1          5         
-,                    COMA                 1          11        
-su                   IDENTIFICADOR        1          13        
-mas                  IDENTIFICADOR        1          16        
-,                    COMA                 1          19        
-res                  IDENTIFICADOR        1          21        
-tas                  IDENTIFICADOR        1          25        
-,                    COMA                 1          28        
-suma1                IDENTIFICADOR        1          29        
-,                    COMA                 1          34        
-suma2                IDENTIFICADOR        1          35        
-,                    COMA                 1          40        
-25                   ENTERO               1          41        
-ert                  IDENTIFICADOR        1          43        
-;                    PUNTO_Y_COMA         1          46        
-main                 PALABRA RESERVADA    2          1         
-if                   PALABRA RESERVADA    2          6         
-(                    PARENTESIS           2          8         
-while                PALABRA RESERVADA    2          9         
-)                    PARENTESIS           2          14        
-if                   PALABRA RESERVADA    2          15        
-+                    SIMBOLOS             2          17        
-34.34                REAL                 2          18        
-34.34                REAL                 2          24        
-34                   ENTERO               2          30        
--                    SIMBOLOS             2          32        
-34                   ENTERO               2          33        
-++                   SIMBOLOS             2          35        
-++                   SIMBOLOS             2          37        
-+                    SIMBOLOS             2          39        
---                   SIMBOLOS             2          40        
---                   SIMBOLOS             2          42        
--                    SIMBOLOS             2          44        
-cin                  PALABRA RESERVADA    3          1         
->                    SIMBOLOS             3          5         
->                    SIMBOLOS             3          6         
->=                   SIMBOLOS             3          7         
-<                    SIMBOLOS             3          9         
-<                    SIMBOLOS             3          10        
-<=                   SIMBOLOS             3          11        
-==                   SIMBOLOS             3          13        
-=                    SIMBOLOS             3          15        
-!=                   SIMBOLOS             3          16        
-{                    LLAVE_ABIERTA        4          1         
-int                  PALABRA RESERVADA    5          1         
-x                    IDENTIFICADOR        5          5         
-,                    COMA                 5          6         
-y                    IDENTIFICADOR        5          7         
-,                    COMA                 5          8         
-z                    IDENTIFICADOR        5          9         
-;                    PUNTO_Y_COMA         5          10        
-real                 PALABRA RESERVADA    6          1         
-a                    IDENTIFICADOR        6          6         
-,                    COMA                 6          7         
-b                    IDENTIFICADOR        6          9         
-,                    COMA                 6          10        
-c                    IDENTIFICADOR        6          12        
-;                    PUNTO_Y_COMA         6          13        
-cin                  PALABRA RESERVADA    7          1         
-gfkh                 IDENTIFICADOR        8          1         
-int                  PALABRA RESERVADA    9          2         
-real                 PALABRA RESERVADA    10         1         
-x                    IDENTIFICADOR        12         1         
-=                    SIMBOLOS             12         2         
-23                   ENTERO               12         3         
-;                    PUNTO_Y_COMA         12         5         
-y                    IDENTIFICADOR        13         1         
-=                    SIMBOLOS             13         2         
-2                    ENTERO               13         3         
-+                    SIMBOLOS             13         4         
-3                    ENTERO               13         5         
--                    SIMBOLOS             13         6         
-1                    ENTERO               13         7         
-;                    PUNTO_Y_COMA         13         8         
-z                    IDENTIFICADOR        14         1         
-=                    SIMBOLOS             14         2         
-y                    IDENTIFICADOR        14         3         
-+                    SIMBOLOS             14         4         
-7                    ENTERO               14         5         
-;                    PUNTO_Y_COMA         14         6         
-a                    IDENTIFICADOR        15         1         
-=                    SIMBOLOS             15         2         
-24.0                 REAL                 15         3         
-+                    SIMBOLOS             15         7         
-4                    ENTERO               15         8         
--                    SIMBOLOS             15         9         
-1                    ENTERO               15         10        
-*                    OPERADOR             15         11        
-3                    ENTERO               15         12        
-/                    OPERADOR             15         13        
-2                    ENTERO               15         14        
-+                    SIMBOLOS             15         15        
-34                   ENTERO               15         16        
--                    SIMBOLOS             15         18        
-1                    ENTERO               15         19        
-;                    PUNTO_Y_COMA         15         20        
-if                   PALABRA RESERVADA    16         1         
-(                    PARENTESIS           16         4         
-2                    ENTERO               16         5         
->                    SIMBOLOS             16         6         
-3                    ENTERO               16         7         
-)                    PARENTESIS           16         8         
-y                    IDENTIFICADOR        17         9         
-=                    SIMBOLOS             17         10        
-a                    IDENTIFICADOR        17         11        
-+                    SIMBOLOS             17         12        
-3                    ENTERO               17         13        
-;                    PUNTO_Y_COMA         17         14        
-else                 PALABRA RESERVADA    18         3         
-if                   PALABRA RESERVADA    19         7         
-(                    PARENTESIS           19         9         
-4                    ENTERO               19         10        
->                    SIMBOLOS             19         11        
-2                    ENTERO               19         12        
-)                    PARENTESIS           19         13        
-b                    IDENTIFICADOR        20         14        
-=                    SIMBOLOS             20         15        
-3.2                  REAL                 20         16        
-;                    PUNTO_Y_COMA         20         19        
-else                 PALABRA RESERVADA    21         8         
-b                    IDENTIFICADOR        22         12        
-=                    SIMBOLOS             22         13        
-5.0                  REAL                 22         14        
-;                    PUNTO_Y_COMA         22         17        
-end                  PALABRA RESERVADA    23         8         
-;                    PUNTO_Y_COMA         23         11        
-y                    IDENTIFICADOR        24         8         
-=                    SIMBOLOS             24         9         
-y                    IDENTIFICADOR        24         10        
-+                    SIMBOLOS             24         11        
-1                    ENTERO               24         12        
-;                    PUNTO_Y_COMA         24         13        
-end                  PALABRA RESERVADA    25         1         
-;                    PUNTO_Y_COMA         25         4         
-do                   PALABRA RESERVADA    26         1         
-y                    IDENTIFICADOR        27         1         
-=                    SIMBOLOS             27         2         
-(                    PARENTESIS           27         3         
-y                    IDENTIFICADOR        27         4         
-+                    SIMBOLOS             27         5         
-1                    ENTERO               27         6         
-)                    PARENTESIS           27         7         
-*                    OPERADOR             27         8         
-2                    ENTERO               27         9         
-+                    SIMBOLOS             27         10        
-1                    ENTERO               27         11        
-;                    PUNTO_Y_COMA         27         12        
-until                PALABRA RESERVADA    28         1         
-(                    PARENTESIS           28         6         
-y                    IDENTIFICADOR        28         7         
-==                   SIMBOLOS             28         8         
-5                    ENTERO               28         10        
-)                    PARENTESIS           28         11        
-;                    PUNTO_Y_COMA         28         12        
-while                PALABRA RESERVADA    29         1         
-(                    PARENTESIS           29         6         
-y                    IDENTIFICADOR        29         7         
-==                   SIMBOLOS             29         8         
-0                    ENTERO               29         10        
-)                    PARENTESIS           29         11        
-{                    LLAVE_ABIERTA        29         12        
-cout                 PALABRA RESERVADA    30         1         
-x                    IDENTIFICADOR        30         6         
-;                    PUNTO_Y_COMA         30         7         
-}                    LLAVE_CERRADA        31         1         
-;                    PUNTO_Y_COMA         31         2         
-}                    LLAVE_CERRADA        32         1         
-if                   PALABRA RESERVADA    38         1         
-ya                   IDENTIFICADOR        38         4         
-se                   IDENTIFICADOR        38         7         
-termino              IDENTIFICADOR        38         10        
-while                PALABRA RESERVADA    39         1         
-int                  PALABRA RESERVADA    40         1         
-45                   ENTERO               40         6         
-ert67                IDENTIFICADOR        40         8         
-45.67                REAL                 40         14        
-;                    PUNTO_Y_COMA         40         19        
-then                 PALABRA RESERVADA    41         1         
-mas                  IDENTIFICADOR        42         1         
-lienas               IDENTIFICADOR        42         5         
-while                PALABRA RESERVADA    43         1         
+Token                | Tipo                 | Posicion            
+---------------------|----------------------|---------------------
+int                  | PALABRA_RESERVADA    | Linea  1, Columna  1
+vector               | IDENTIFICADOR        | Linea  1, Columna  5
+,                    | COMA                 | Linea  1, Columna 11
+su                   | IDENTIFICADOR        | Linea  1, Columna 13
+mas                  | IDENTIFICADOR        | Linea  1, Columna 16
+,                    | COMA                 | Linea  1, Columna 19
+res                  | IDENTIFICADOR        | Linea  1, Columna 21
+tas                  | IDENTIFICADOR        | Linea  1, Columna 25
+,                    | COMA                 | Linea  1, Columna 28
+suma1                | IDENTIFICADOR        | Linea  1, Columna 29
+,                    | COMA                 | Linea  1, Columna 34
+suma2                | IDENTIFICADOR        | Linea  1, Columna 35
+,                    | COMA                 | Linea  1, Columna 40
+25                   | ENTERO               | Linea  1, Columna 41
+ert                  | IDENTIFICADOR        | Linea  1, Columna 43
+;                    | PUNTO_Y_COMA         | Linea  1, Columna 46
+main                 | PALABRA_RESERVADA    | Linea  2, Columna  1
+if                   | PALABRA_RESERVADA    | Linea  2, Columna  6
+(                    | PARENTESIS           | Linea  2, Columna  8
+while                | PALABRA_RESERVADA    | Linea  2, Columna  9
+)                    | PARENTESIS           | Linea  2, Columna 14
+if                   | PALABRA_RESERVADA    | Linea  2, Columna 15
++                    | OPERADOR             | Linea  2, Columna 17
+34.34                | REAL                 | Linea  2, Columna 18
+34.34                | REAL                 | Linea  2, Columna 24
+34                   | ENTERO               | Linea  2, Columna 30
+-                    | OPERADOR             | Linea  2, Columna 32
+34                   | ENTERO               | Linea  2, Columna 33
+++                   | INCREMENTO           | Linea  2, Columna 35
+++                   | INCREMENTO           | Linea  2, Columna 37
++                    | OPERADOR             | Linea  2, Columna 39
+--                   | DECREMENTO           | Linea  2, Columna 40
+--                   | DECREMENTO           | Linea  2, Columna 42
+-                    | OPERADOR             | Linea  2, Columna 44
+cin                  | PALABRA_RESERVADA    | Linea  3, Columna  1
+>                    | MAYOR_QUE            | Linea  3, Columna  5
+>                    | MAYOR_QUE            | Linea  3, Columna  6
+>=                   | MAYOR_IGUAL          | Linea  3, Columna  7
+<                    | MENOR                | Linea  3, Columna  9
+<                    | MENOR                | Linea  3, Columna 10
+<=                   | MENOR_IGUAL          | Linea  3, Columna 11
+==                   | IGUAL_IGUAL          | Linea  3, Columna 13
+=                    | IGUAL                | Linea  3, Columna 15
+!=                   | DIFERENTE_DE         | Linea  3, Columna 16
+{                    | LLAVE_ABIERTA        | Linea  4, Columna  1
+int                  | PALABRA_RESERVADA    | Linea  5, Columna  1
+x                    | IDENTIFICADOR        | Linea  5, Columna  5
+,                    | COMA                 | Linea  5, Columna  6
+y                    | IDENTIFICADOR        | Linea  5, Columna  7
+,                    | COMA                 | Linea  5, Columna  8
+z                    | IDENTIFICADOR        | Linea  5, Columna  9
+;                    | PUNTO_Y_COMA         | Linea  5, Columna 10
+real                 | PALABRA_RESERVADA    | Linea  6, Columna  1
+a                    | IDENTIFICADOR        | Linea  6, Columna  6
+,                    | COMA                 | Linea  6, Columna  7
+b                    | IDENTIFICADOR        | Linea  6, Columna  9
+,                    | COMA                 | Linea  6, Columna 10
+c                    | IDENTIFICADOR        | Linea  6, Columna 12
+;                    | PUNTO_Y_COMA         | Linea  6, Columna 13
+cin                  | PALABRA_RESERVADA    | Linea  7, Columna  1
+gfkh                 | IDENTIFICADOR        | Linea  8, Columna  1
+int                  | PALABRA_RESERVADA    | Linea  9, Columna  2
+real                 | PALABRA_RESERVADA    | Linea 10, Columna  1
+x                    | IDENTIFICADOR        | Linea 12, Columna  1
+=                    | IGUAL                | Linea 12, Columna  2
+23                   | ENTERO               | Linea 12, Columna  3
+;                    | PUNTO_Y_COMA         | Linea 12, Columna  5
+y                    | IDENTIFICADOR        | Linea 13, Columna  1
+=                    | IGUAL                | Linea 13, Columna  2
+2                    | ENTERO               | Linea 13, Columna  3
++                    | OPERADOR             | Linea 13, Columna  4
+3                    | ENTERO               | Linea 13, Columna  5
+-                    | OPERADOR             | Linea 13, Columna  6
+1                    | ENTERO               | Linea 13, Columna  7
+;                    | PUNTO_Y_COMA         | Linea 13, Columna  8
+z                    | IDENTIFICADOR        | Linea 14, Columna  1
+=                    | IGUAL                | Linea 14, Columna  2
+y                    | IDENTIFICADOR        | Linea 14, Columna  3
++                    | OPERADOR             | Linea 14, Columna  4
+7                    | ENTERO               | Linea 14, Columna  5
+;                    | PUNTO_Y_COMA         | Linea 14, Columna  6
+a                    | IDENTIFICADOR        | Linea 15, Columna  1
+=                    | IGUAL                | Linea 15, Columna  2
+24.0                 | REAL                 | Linea 15, Columna  3
++                    | OPERADOR             | Linea 15, Columna  7
+4                    | ENTERO               | Linea 15, Columna  8
+-                    | OPERADOR             | Linea 15, Columna  9
+1                    | ENTERO               | Linea 15, Columna 10
+*                    | OPERADOR             | Linea 15, Columna 11
+3                    | ENTERO               | Linea 15, Columna 12
+/                    | OPERADOR             | Linea 15, Columna 13
+2                    | ENTERO               | Linea 15, Columna 14
++                    | OPERADOR             | Linea 15, Columna 15
+34                   | ENTERO               | Linea 15, Columna 16
+-                    | OPERADOR             | Linea 15, Columna 18
+1                    | ENTERO               | Linea 15, Columna 19
+;                    | PUNTO_Y_COMA         | Linea 15, Columna 20
+if                   | PALABRA_RESERVADA    | Linea 16, Columna  1
+(                    | PARENTESIS           | Linea 16, Columna  4
+2                    | ENTERO               | Linea 16, Columna  5
+>                    | MAYOR_QUE            | Linea 16, Columna  6
+3                    | ENTERO               | Linea 16, Columna  7
+)                    | PARENTESIS           | Linea 16, Columna  8
+y                    | IDENTIFICADOR        | Linea 17, Columna  9
+=                    | IGUAL                | Linea 17, Columna 10
+a                    | IDENTIFICADOR        | Linea 17, Columna 11
++                    | OPERADOR             | Linea 17, Columna 12
+3                    | ENTERO               | Linea 17, Columna 13
+;                    | PUNTO_Y_COMA         | Linea 17, Columna 14
+else                 | PALABRA_RESERVADA    | Linea 18, Columna  3
+if                   | PALABRA_RESERVADA    | Linea 19, Columna  7
+(                    | PARENTESIS           | Linea 19, Columna  9
+4                    | ENTERO               | Linea 19, Columna 10
+>                    | MAYOR_QUE            | Linea 19, Columna 11
+2                    | ENTERO               | Linea 19, Columna 12
+)                    | PARENTESIS           | Linea 19, Columna 13
+b                    | IDENTIFICADOR        | Linea 20, Columna 14
+=                    | IGUAL                | Linea 20, Columna 15
+3.2                  | REAL                 | Linea 20, Columna 16
+;                    | PUNTO_Y_COMA         | Linea 20, Columna 19
+else                 | PALABRA_RESERVADA    | Linea 21, Columna  8
+b                    | IDENTIFICADOR        | Linea 22, Columna 12
+=                    | IGUAL                | Linea 22, Columna 13
+5.0                  | REAL                 | Linea 22, Columna 14
+;                    | PUNTO_Y_COMA         | Linea 22, Columna 17
+end                  | PALABRA_RESERVADA    | Linea 23, Columna  8
+;                    | PUNTO_Y_COMA         | Linea 23, Columna 11
+y                    | IDENTIFICADOR        | Linea 24, Columna  8
+=                    | IGUAL                | Linea 24, Columna  9
+y                    | IDENTIFICADOR        | Linea 24, Columna 10
++                    | OPERADOR             | Linea 24, Columna 11
+1                    | ENTERO               | Linea 24, Columna 12
+;                    | PUNTO_Y_COMA         | Linea 24, Columna 13
+end                  | PALABRA_RESERVADA    | Linea 25, Columna  1
+;                    | PUNTO_Y_COMA         | Linea 25, Columna  4
+do                   | PALABRA_RESERVADA    | Linea 26, Columna  1
+y                    | IDENTIFICADOR        | Linea 27, Columna  1
+=                    | IGUAL                | Linea 27, Columna  2
+(                    | PARENTESIS           | Linea 27, Columna  3
+y                    | IDENTIFICADOR        | Linea 27, Columna  4
++                    | OPERADOR             | Linea 27, Columna  5
+1                    | ENTERO               | Linea 27, Columna  6
+)                    | PARENTESIS           | Linea 27, Columna  7
+*                    | OPERADOR             | Linea 27, Columna  8
+2                    | ENTERO               | Linea 27, Columna  9
++                    | OPERADOR             | Linea 27, Columna 10
+1                    | ENTERO               | Linea 27, Columna 11
+;                    | PUNTO_Y_COMA         | Linea 27, Columna 12
+until                | PALABRA_RESERVADA    | Linea 28, Columna  1
+(                    | PARENTESIS           | Linea 28, Columna  6
+y                    | IDENTIFICADOR        | Linea 28, Columna  7
+==                   | IGUAL_IGUAL          | Linea 28, Columna  8
+5                    | ENTERO               | Linea 28, Columna 10
+)                    | PARENTESIS           | Linea 28, Columna 11
+;                    | PUNTO_Y_COMA         | Linea 28, Columna 12
+while                | PALABRA_RESERVADA    | Linea 29, Columna  1
+(                    | PARENTESIS           | Linea 29, Columna  6
+y                    | IDENTIFICADOR        | Linea 29, Columna  7
+==                   | IGUAL_IGUAL          | Linea 29, Columna  8
+0                    | ENTERO               | Linea 29, Columna 10
+)                    | PARENTESIS           | Linea 29, Columna 11
+{                    | LLAVE_ABIERTA        | Linea 29, Columna 12
+cout                 | PALABRA_RESERVADA    | Linea 30, Columna  1
+x                    | IDENTIFICADOR        | Linea 30, Columna  6
+;                    | PUNTO_Y_COMA         | Linea 30, Columna  7
+}                    | LLAVE_CERRADA        | Linea 31, Columna  1
+;                    | PUNTO_Y_COMA         | Linea 31, Columna  2
+}                    | LLAVE_CERRADA        | Linea 32, Columna  1
+if                   | PALABRA_RESERVADA    | Linea 38, Columna  1
+ya                   | IDENTIFICADOR        | Linea 38, Columna  4
+se                   | IDENTIFICADOR        | Linea 38, Columna  7
+termino              | IDENTIFICADOR        | Linea 38, Columna 10
+while                | PALABRA_RESERVADA    | Linea 39, Columna  1
+int                  | PALABRA_RESERVADA    | Linea 40, Columna  1
+45                   | ENTERO               | Linea 40, Columna  6
+ert67                | IDENTIFICADOR        | Linea 40, Columna  8
+45.67                | REAL                 | Linea 40, Columna 14
+;                    | PUNTO_Y_COMA         | Linea 40, Columna 19
+then                 | PALABRA_RESERVADA    | Linea 41, Columna  1
+mas                  | IDENTIFICADOR        | Linea 42, Columna  1
+lienas               | IDENTIFICADOR        | Linea 42, Columna  5
+while                | PALABRA_RESERVADA    | Linea 43, Columna  1
