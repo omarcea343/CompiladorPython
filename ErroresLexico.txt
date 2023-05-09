@@ -1,2 +1,0 @@
-Archivo de errores léxicos
-Error léxico: No hay número después del punto decimal en el token 32.
