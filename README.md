@@ -10,7 +10,7 @@ Genera dos archivos:
 
 Ademas incluye dos archivos de prueba para generar resultados que incluyan errores.
 
-##Ejecucion
+## Ejecucion
 
 Ejecuta el siguiente comando en el mismo directorio del archivo principal.
 
