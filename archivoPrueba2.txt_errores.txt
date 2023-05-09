@@ -1,0 +1,12 @@
+Error lexico en la linea 1: &
+Error lexico en la linea 1: 2
+Error lexico en la linea 1: 5
+Error lexico en la linea 1: .
+Error lexico en la linea 1: .
+Error lexico en la linea 2: .
+Error lexico en la linea 2: .
+Error lexico en la linea 2: .
+Error lexico en la linea 8: !
+Error lexico en la linea 8: 4
+Error lexico en la linea 8: 5
+Error lexico en la linea 8: .
