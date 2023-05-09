@@ -27,23 +27,21 @@ PATRONES_TOKEN = {
     'punto_y_coma': r";",
     'real': r"\b\d+\.\d*\b|\b\d*\.\d+\b",
     'entero': r"\b\d+\b",
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
+    'identificador': r"[a-zA-Z_][a-zA-Z0-9_]*",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
     'simbolos': r'>=|>|<=|<|!=|:=|=|--|-|\+\+|\+',
 }
 
-
 def eliminar_comentarios(contenido_archivo):
-    # Eliminar comentarios de línea
+    # Elim comentarios de línea
     contenido_archivo = re.sub(r"//.*", "", contenido_archivo)
 
     # Eliminar comentarios de bloque
     contenido_archivo = re.sub(r"/\*.*?\*/", "", contenido_archivo, flags=re.DOTALL)
 
     return contenido_archivo
-
 
 def obtener_tokens(nombre_archivo):
     try:
@@ -54,42 +52,43 @@ def obtener_tokens(nombre_archivo):
 
         tokens = []
         errores = []
-        numero_linea = 1
-        numero_columna = 1
 
-        while contenido_archivo:
-            match = None
+        for numero_linea, linea in enumerate(contenido_archivo.split('\n'), start=1):
+            numero_columna = 1
 
-            for token_nombre, patron in PATRONES_TOKEN.items():
-                regex = re.compile(patron)
-                match = regex.match(contenido_archivo)
+            while linea:
+                match = None
 
-                if match:
-                    valor = match.group(0)
-                    contenido_archivo = contenido_archivo[len(valor):]
-                    if token_nombre == 'identificador':
-                        if valor in PALABRAS_RESERVADAS:
-                            tokens.append((valor.lower(), PALABRAS_RESERVADAS[valor], numero_linea, numero_columna))
+                for token_nombre, patron in PATRONES_TOKEN.items():
+                    regex = re.compile(patron)
+                    match = regex.match(linea)
+
+                    if match:
+                        valor = match.group(0)
+                        linea = linea[len(valor):]
+                        if token_nombre == 'identificador':
+                            if valor in PALABRAS_RESERVADAS:
+                                tokens.append((valor.lower(), PALABRAS_RESERVADAS[valor], numero_linea, numero_columna))
+                            else:
+                                if re.match(r"\d+[a-zA-Z_][a-zA-Z0-9_]*", valor):
+                                    tokens.append((valor[:-1], 'ENTERO', numero_linea, numero_columna))
+                                    tokens.append((valor[-1], 'IDENTIFICADOR', numero_linea, numero_columna + len(valor) - 1))
+                                else:
+                                    tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                        elif token_nombre == 'real':
+                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                        elif token_nombre == 'entero':
+                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                         else:
                             tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    elif token_nombre == 'real':
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    elif token_nombre == 'entero':
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    else:
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    numero_columna += len(valor)
-                    break
+                        numero_columna += len(valor)
+                        break
 
-            if not match:
-                if contenido_archivo[0] != '\n':
-                    errores.append((contenido_archivo[0], numero_linea, numero_columna))
-                contenido_archivo = contenido_archivo[1:]
-                numero_columna += 1
-
-                if contenido_archivo and contenido_archivo[0] == '\n':
-                    numero_linea += 1
-                    numero_columna = 1
+                if not match:
+                    if linea[0] != '\n':
+                        errores.append((linea[0], numero_linea, numero_columna))
+                    linea = linea[1:]
+                    numero_columna += 1
 
         # Escribir resultados en archivo
         with open(f"{nombre_archivo}_resultados.txt", "w") as archivo_resultados:
@@ -98,16 +97,17 @@ def obtener_tokens(nombre_archivo):
             for token in tokens:
                 archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
 
-        # Esbir errores en archivo
+        # Escribir errores en archivo
         with open(f"{nombre_archivo}_errores.txt", "w") as archivo_errores:
             for error in errores:
                 if error[0].strip():
                     archivo_errores.write(f"Error lexico en la linea {error[1]}, columna {error[2]}: {error[0]}\n")
-                    
+
         return tokens
 
     except FileNotFoundError:
         print(f"El archivo {nombre_archivo} no existe")
+
 
 
 if __name__ == '__main__':
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         tokens = obtener_tokens(nombre_archivo)
 
         for token in tokens:
-            print(token[0], token[1], token[2], token[3], sep="\t")
+            print(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}")
 
     else:
         print("Debe proporcionar el nombre de un archivo como argumento.")

@@ -15,171 +15,171 @@ suma2                IDENTIFICADOR        1          35
 ,                    COMA                 1          40        
 ert                  IDENTIFICADOR        1          43        
 ;                    PUNTO_Y_COMA         1          46        
-main                 PALABRA RESERVADA    1          48        
-if                   PALABRA RESERVADA    1          53        
-(                    PARENTESIS           1          55        
-while                PALABRA RESERVADA    1          56        
-)                    PARENTESIS           1          61        
-if                   PALABRA RESERVADA    1          62        
-+                    SIMBOLOS             1          64        
-34.34                REAL                 1          65        
-34.34                REAL                 1          71        
-34                   ENTERO               1          77        
--                    SIMBOLOS             1          79        
-34                   ENTERO               1          80        
-++                   SIMBOLOS             1          82        
-++                   SIMBOLOS             1          84        
-+                    SIMBOLOS             1          86        
---                   SIMBOLOS             1          87        
---                   SIMBOLOS             1          89        
--                    SIMBOLOS             1          91        
-cin                  PALABRA RESERVADA    1          93        
->                    SIMBOLOS             1          97        
->                    SIMBOLOS             1          98        
->=                   SIMBOLOS             1          99        
-<                    SIMBOLOS             1          101       
-<                    SIMBOLOS             1          102       
-<=                   SIMBOLOS             1          103       
-=                    SIMBOLOS             1          105       
-=                    SIMBOLOS             1          106       
-=                    SIMBOLOS             1          107       
-!=                   SIMBOLOS             1          108       
-{                    LLAVE_ABIERTA        1          111       
-int                  PALABRA RESERVADA    1          113       
-x                    IDENTIFICADOR        1          117       
-,                    COMA                 1          118       
-y                    IDENTIFICADOR        1          119       
-,                    COMA                 1          120       
-z                    IDENTIFICADOR        1          121       
-;                    PUNTO_Y_COMA         1          122       
-real                 PALABRA RESERVADA    1          124       
-a                    IDENTIFICADOR        1          129       
-,                    COMA                 1          130       
-b                    IDENTIFICADOR        1          132       
-,                    COMA                 1          133       
-c                    IDENTIFICADOR        1          135       
-;                    PUNTO_Y_COMA         1          136       
-cin                  PALABRA RESERVADA    1          138       
-gfkh                 IDENTIFICADOR        1          142       
-int                  PALABRA RESERVADA    1          148       
-real                 PALABRA RESERVADA    1          152       
-x                    IDENTIFICADOR        2          2         
-=                    SIMBOLOS             2          3         
-23                   ENTERO               2          4         
-;                    PUNTO_Y_COMA         2          6         
-y                    IDENTIFICADOR        2          8         
-=                    SIMBOLOS             2          9         
-2                    ENTERO               2          10        
-+                    SIMBOLOS             2          11        
-3                    ENTERO               2          12        
--                    SIMBOLOS             2          13        
-1                    ENTERO               2          14        
-;                    PUNTO_Y_COMA         2          15        
-z                    IDENTIFICADOR        2          17        
-=                    SIMBOLOS             2          18        
-y                    IDENTIFICADOR        2          19        
-+                    SIMBOLOS             2          20        
-7                    ENTERO               2          21        
-;                    PUNTO_Y_COMA         2          22        
-a                    IDENTIFICADOR        2          24        
-=                    SIMBOLOS             2          25        
-24.0                 REAL                 2          26        
-+                    SIMBOLOS             2          30        
-4                    ENTERO               2          31        
+main                 PALABRA RESERVADA    2          1         
+if                   PALABRA RESERVADA    2          6         
+(                    PARENTESIS           2          8         
+while                PALABRA RESERVADA    2          9         
+)                    PARENTESIS           2          14        
+if                   PALABRA RESERVADA    2          15        
++                    SIMBOLOS             2          17        
+34.34                REAL                 2          18        
+34.34                REAL                 2          24        
+34                   ENTERO               2          30        
 -                    SIMBOLOS             2          32        
-1                    ENTERO               2          33        
-*                    OPERADOR             2          34        
-3                    ENTERO               2          35        
-/                    OPERADOR             2          36        
-2                    ENTERO               2          37        
-+                    SIMBOLOS             2          38        
-34                   ENTERO               2          39        
--                    SIMBOLOS             2          41        
-1                    ENTERO               2          42        
-;                    PUNTO_Y_COMA         2          43        
-if                   PALABRA RESERVADA    2          45        
-(                    PARENTESIS           2          48        
-2                    ENTERO               2          49        
->                    SIMBOLOS             2          50        
-3                    ENTERO               2          51        
-)                    PARENTESIS           2          52        
-y                    IDENTIFICADOR        2          62        
-=                    SIMBOLOS             2          63        
-a                    IDENTIFICADOR        2          64        
-+                    SIMBOLOS             2          65        
-3                    ENTERO               2          66        
-;                    PUNTO_Y_COMA         2          67        
-else                 PALABRA RESERVADA    2          71        
-if                   PALABRA RESERVADA    2          82        
-(                    PARENTESIS           2          84        
-4                    ENTERO               2          85        
->                    SIMBOLOS             2          86        
-2                    ENTERO               2          87        
-)                    PARENTESIS           2          88        
-b                    IDENTIFICADOR        2          103       
-=                    SIMBOLOS             2          104       
-3.2                  REAL                 2          105       
-;                    PUNTO_Y_COMA         2          108       
-else                 PALABRA RESERVADA    2          117       
-b                    IDENTIFICADOR        2          133       
-=                    SIMBOLOS             2          134       
-5.0                  REAL                 2          135       
-;                    PUNTO_Y_COMA         2          138       
-end                  PALABRA RESERVADA    2          147       
-;                    PUNTO_Y_COMA         2          150       
-y                    IDENTIFICADOR        2          159       
-=                    SIMBOLOS             2          160       
-y                    IDENTIFICADOR        2          161       
-+                    SIMBOLOS             2          162       
-1                    ENTERO               2          163       
-;                    PUNTO_Y_COMA         2          164       
-end                  PALABRA RESERVADA    2          166       
-;                    PUNTO_Y_COMA         2          169       
-do                   PALABRA RESERVADA    2          171       
-y                    IDENTIFICADOR        2          174       
-=                    SIMBOLOS             2          175       
-(                    PARENTESIS           2          176       
-y                    IDENTIFICADOR        2          177       
-+                    SIMBOLOS             2          178       
-1                    ENTERO               2          179       
-)                    PARENTESIS           2          180       
-*                    OPERADOR             2          181       
-2                    ENTERO               2          182       
-+                    SIMBOLOS             2          183       
-1                    ENTERO               2          184       
-;                    PUNTO_Y_COMA         2          185       
-until                PALABRA RESERVADA    2          187       
-(                    PARENTESIS           2          192       
-y                    IDENTIFICADOR        2          193       
-=                    SIMBOLOS             2          194       
-=                    SIMBOLOS             2          195       
-5                    ENTERO               2          196       
-)                    PARENTESIS           2          197       
-;                    PUNTO_Y_COMA         2          198       
-while                PALABRA RESERVADA    2          200       
-(                    PARENTESIS           2          205       
-y                    IDENTIFICADOR        2          206       
-=                    SIMBOLOS             2          207       
-=                    SIMBOLOS             2          208       
-0                    ENTERO               2          209       
-)                    PARENTESIS           2          210       
-{                    LLAVE_ABIERTA        2          211       
-cout                 PALABRA RESERVADA    2          213       
-x                    IDENTIFICADOR        2          218       
-;                    PUNTO_Y_COMA         2          219       
-}                    LLAVE_CERRADA        2          221       
-;                    PUNTO_Y_COMA         2          222       
-}                    LLAVE_CERRADA        2          224       
-if                   PALABRA RESERVADA    7          2         
-ya                   IDENTIFICADOR        7          5         
-se                   IDENTIFICADOR        7          8         
-termino              IDENTIFICADOR        7          11        
-while                PALABRA RESERVADA    7          19        
-int                  PALABRA RESERVADA    8          2         
-ert67                IDENTIFICADOR        8          9         
-45.67                REAL                 8          15        
-;                    PUNTO_Y_COMA         8          20        
-then                 PALABRA RESERVADA    8          22        
-mas                  IDENTIFICADOR        9          2         
-lienas               IDENTIFICADOR        9          6         
-while                PALABRA RESERVADA    9          13        
+34                   ENTERO               2          33        
+++                   SIMBOLOS             2          35        
+++                   SIMBOLOS             2          37        
++                    SIMBOLOS             2          39        
+--                   SIMBOLOS             2          40        
+--                   SIMBOLOS             2          42        
+-                    SIMBOLOS             2          44        
+cin                  PALABRA RESERVADA    3          1         
+>                    SIMBOLOS             3          5         
+>                    SIMBOLOS             3          6         
+>=                   SIMBOLOS             3          7         
+<                    SIMBOLOS             3          9         
+<                    SIMBOLOS             3          10        
+<=                   SIMBOLOS             3          11        
+=                    SIMBOLOS             3          13        
+=                    SIMBOLOS             3          14        
+=                    SIMBOLOS             3          15        
+!=                   SIMBOLOS             3          16        
+{                    LLAVE_ABIERTA        4          1         
+int                  PALABRA RESERVADA    5          1         
+x                    IDENTIFICADOR        5          5         
+,                    COMA                 5          6         
+y                    IDENTIFICADOR        5          7         
+,                    COMA                 5          8         
+z                    IDENTIFICADOR        5          9         
+;                    PUNTO_Y_COMA         5          10        
+real                 PALABRA RESERVADA    6          1         
+a                    IDENTIFICADOR        6          6         
+,                    COMA                 6          7         
+b                    IDENTIFICADOR        6          9         
+,                    COMA                 6          10        
+c                    IDENTIFICADOR        6          12        
+;                    PUNTO_Y_COMA         6          13        
+cin                  PALABRA RESERVADA    7          1         
+gfkh                 IDENTIFICADOR        8          1         
+int                  PALABRA RESERVADA    9          2         
+real                 PALABRA RESERVADA    10         1         
+x                    IDENTIFICADOR        12         1         
+=                    SIMBOLOS             12         2         
+23                   ENTERO               12         3         
+;                    PUNTO_Y_COMA         12         5         
+y                    IDENTIFICADOR        13         1         
+=                    SIMBOLOS             13         2         
+2                    ENTERO               13         3         
++                    SIMBOLOS             13         4         
+3                    ENTERO               13         5         
+-                    SIMBOLOS             13         6         
+1                    ENTERO               13         7         
+;                    PUNTO_Y_COMA         13         8         
+z                    IDENTIFICADOR        14         1         
+=                    SIMBOLOS             14         2         
+y                    IDENTIFICADOR        14         3         
++                    SIMBOLOS             14         4         
+7                    ENTERO               14         5         
+;                    PUNTO_Y_COMA         14         6         
+a                    IDENTIFICADOR        15         1         
+=                    SIMBOLOS             15         2         
+24.0                 REAL                 15         3         
++                    SIMBOLOS             15         7         
+4                    ENTERO               15         8         
+-                    SIMBOLOS             15         9         
+1                    ENTERO               15         10        
+*                    OPERADOR             15         11        
+3                    ENTERO               15         12        
+/                    OPERADOR             15         13        
+2                    ENTERO               15         14        
++                    SIMBOLOS             15         15        
+34                   ENTERO               15         16        
+-                    SIMBOLOS             15         18        
+1                    ENTERO               15         19        
+;                    PUNTO_Y_COMA         15         20        
+if                   PALABRA RESERVADA    16         1         
+(                    PARENTESIS           16         4         
+2                    ENTERO               16         5         
+>                    SIMBOLOS             16         6         
+3                    ENTERO               16         7         
+)                    PARENTESIS           16         8         
+y                    IDENTIFICADOR        17         9         
+=                    SIMBOLOS             17         10        
+a                    IDENTIFICADOR        17         11        
++                    SIMBOLOS             17         12        
+3                    ENTERO               17         13        
+;                    PUNTO_Y_COMA         17         14        
+else                 PALABRA RESERVADA    18         3         
+if                   PALABRA RESERVADA    19         7         
+(                    PARENTESIS           19         9         
+4                    ENTERO               19         10        
+>                    SIMBOLOS             19         11        
+2                    ENTERO               19         12        
+)                    PARENTESIS           19         13        
+b                    IDENTIFICADOR        20         14        
+=                    SIMBOLOS             20         15        
+3.2                  REAL                 20         16        
+;                    PUNTO_Y_COMA         20         19        
+else                 PALABRA RESERVADA    21         8         
+b                    IDENTIFICADOR        22         12        
+=                    SIMBOLOS             22         13        
+5.0                  REAL                 22         14        
+;                    PUNTO_Y_COMA         22         17        
+end                  PALABRA RESERVADA    23         8         
+;                    PUNTO_Y_COMA         23         11        
+y                    IDENTIFICADOR        24         8         
+=                    SIMBOLOS             24         9         
+y                    IDENTIFICADOR        24         10        
++                    SIMBOLOS             24         11        
+1                    ENTERO               24         12        
+;                    PUNTO_Y_COMA         24         13        
+end                  PALABRA RESERVADA    25         1         
+;                    PUNTO_Y_COMA         25         4         
+do                   PALABRA RESERVADA    26         1         
+y                    IDENTIFICADOR        27         1         
+=                    SIMBOLOS             27         2         
+(                    PARENTESIS           27         3         
+y                    IDENTIFICADOR        27         4         
++                    SIMBOLOS             27         5         
+1                    ENTERO               27         6         
+)                    PARENTESIS           27         7         
+*                    OPERADOR             27         8         
+2                    ENTERO               27         9         
++                    SIMBOLOS             27         10        
+1                    ENTERO               27         11        
+;                    PUNTO_Y_COMA         27         12        
+until                PALABRA RESERVADA    28         1         
+(                    PARENTESIS           28         6         
+y                    IDENTIFICADOR        28         7         
+=                    SIMBOLOS             28         8         
+=                    SIMBOLOS             28         9         
+5                    ENTERO               28         10        
+)                    PARENTESIS           28         11        
+;                    PUNTO_Y_COMA         28         12        
+while                PALABRA RESERVADA    29         1         
+(                    PARENTESIS           29         6         
+y                    IDENTIFICADOR        29         7         
+=                    SIMBOLOS             29         8         
+=                    SIMBOLOS             29         9         
+0                    ENTERO               29         10        
+)                    PARENTESIS           29         11        
+{                    LLAVE_ABIERTA        29         12        
+cout                 PALABRA RESERVADA    30         1         
+x                    IDENTIFICADOR        30         6         
+;                    PUNTO_Y_COMA         30         7         
+}                    LLAVE_CERRADA        31         1         
+;                    PUNTO_Y_COMA         31         2         
+}                    LLAVE_CERRADA        32         1         
+if                   PALABRA RESERVADA    38         1         
+ya                   IDENTIFICADOR        38         4         
+se                   IDENTIFICADOR        38         7         
+termino              IDENTIFICADOR        38         10        
+while                PALABRA RESERVADA    39         1         
+int                  PALABRA RESERVADA    40         1         
+ert67                IDENTIFICADOR        40         8         
+45.67                REAL                 40         14        
+;                    PUNTO_Y_COMA         40         19        
+then                 PALABRA RESERVADA    41         1         
+mas                  IDENTIFICADOR        42         1         
+lienas               IDENTIFICADOR        42         5         
+while                PALABRA RESERVADA    43         1         

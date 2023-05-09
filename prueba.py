@@ -1,16 +1,31 @@
 import re
 import sys
 
-# Lista de palabras reservadas
-PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "cin", "cout", "real", "int", "boolean"]
+# Diccionario de palabras reservadas
+PALABRAS_RESERVADAS = {
+    "main": "PALABRA RESERVADA",
+    "if": "PALABRA RESERVADA",
+    "then": "PALABRA RESERVADA",
+    "else": "PALABRA RESERVADA",
+    "end": "PALABRA RESERVADA",
+    "do": "PALABRA RESERVADA",
+    "while": "PALABRA RESERVADA",
+    "repeat": "PALABRA RESERVADA",
+    "until": "PALABRA RESERVADA",
+    "cin": "PALABRA RESERVADA",
+    "cout": "PALABRA RESERVADA",
+    "real": "PALABRA RESERVADA",
+    "int": "PALABRA RESERVADA",
+    "boolean": "PALABRA RESERVADA"
+}
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
-    'operador':r"\-\*|/\*|\*/|\*|/",
+    'operador': r"\-\*|/\*|\*/|\*|/",
     'parentesis': r"[()]",
     'coma': r",",
     'punto_y_coma': r";",
-    'real':  r"\b\d+\.\d*\b|\b\d*\.\d+\b",
+    'real': r"\b\d+\.\d*\b|\b\d*\.\d+\b",
     'entero': r"\b\d+\b",
     'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
     'llave_abierta': r"\{",
@@ -19,60 +34,57 @@ PATRONES_TOKEN = {
     'simbolos': r'>=|>|<=|<|!=|:=|=|--|-|\+\+|\+',
 }
 
-def eliminar_comentarios(texto):
+def eliminar_comentarios(contenido_archivo):
     # Elim comentarios de línea
-    texto = re.sub(r"//.*", "", texto)
+    contenido_archivo = re.sub(r"//.*", "", contenido_archivo)
 
     # Eliminar comentarios de bloque
-    texto = re.sub(r"/\*.*?\*/", "", texto, flags=re.DOTALL)
+    contenido_archivo = re.sub(r"/\*.*?\*/", "", contenido_archivo, flags=re.DOTALL)
 
-    return texto
+    return contenido_archivo
 
 def obtener_tokens(nombre_archivo):
     try:
         with open(nombre_archivo) as archivo:
-            texto = archivo.read()
+            contenido_archivo = archivo.read()
 
-        texto = eliminar_comentarios(texto)
+        contenido_archivo = eliminar_comentarios(contenido_archivo)
 
         tokens = []
         errores = []
-        numero_linea = 1
-        numero_columna = 1
 
-        while texto:
-            match = None
+        for numero_linea, linea in enumerate(contenido_archivo.split('\n'), start=1):
+            numero_columna = 1
 
-            for token_nombre, patron in PATRONES_TOKEN.items():
-                regex = re.compile(patron)
-                match = regex.match(texto)
+            while linea:
+                match = None
 
-                if match:
-                    valor = match.group(0)
-                    texto = texto[len(valor):]
-                    if token_nombre == 'identificador':
-                        if valor in PALABRAS_RESERVADAS:
-                            tokens.append((valor.lower(), "PALABRA RESERVADA", numero_linea, numero_columna))
+                for token_nombre, patron in PATRONES_TOKEN.items():
+                    regex = re.compile(patron)
+                    match = regex.match(linea)
+
+                    if match:
+                        valor = match.group(0)
+                        linea = linea[len(valor):]
+                        if token_nombre == 'identificador':
+                            if valor in PALABRAS_RESERVADAS:
+                                tokens.append((valor.lower(), PALABRAS_RESERVADAS[valor], numero_linea, numero_columna))
+                            else:
+                                tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                        elif token_nombre == 'real':
+                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                        elif token_nombre == 'entero':
+                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                         else:
                             tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    elif token_nombre == 'real':
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    elif token_nombre == 'entero':
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    else:
-                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
-                    numero_columna += len(valor)
-                    break
+                        numero_columna += len(valor)
+                        break
 
-            if not match:
-                if texto[0] != '\n':
-                    errores.append((texto[0], numero_linea, numero_columna))
-                texto = texto[1:]
-                numero_columna += 1
-
-                if texto and texto[0] == '\n':
-                    numero_linea += 1
-                    numero_columna = 1
+                if not match:
+                    if linea[0] != '\n':
+                        errores.append((linea[0], numero_linea, numero_columna))
+                    linea = linea[1:]
+                    numero_columna += 1
 
         # Escribir resultados en archivo
         with open(f"{nombre_archivo}_resultados.txt", "w") as archivo_resultados:
@@ -81,7 +93,7 @@ def obtener_tokens(nombre_archivo):
             for token in tokens:
                 archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
 
-        # Esbir errores en archivo
+        # Escribir errores en archivo
         with open(f"{nombre_archivo}_errores.txt", "w") as archivo_errores:
             for error in errores:
                 if error[0].strip():
@@ -91,6 +103,7 @@ def obtener_tokens(nombre_archivo):
 
     except FileNotFoundError:
         print(f"El archivo {nombre_archivo} no existe")
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
