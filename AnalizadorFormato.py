@@ -115,14 +115,25 @@ def obtener_tokens(nombre_archivo):
                                     tokens.append((valor[i:], TipoToken.IDENTIFICADOR, numero_linea, numero_columna + i))
                                 else:
                                     tokens.append((valor, TipoToken.IDENTIFICADOR, numero_linea, numero_columna))
+
                         elif token_nombre in ['real', 'entero']:
                             patron_entero = r"\b\d+\b(?!\.)"
                             patron_real = r"\b\d+\.\d*\b|\b\d*\.\d+\b"
                             if re.match(patron_entero, valor):
                                 tokens.append((valor, TipoToken.ENTERO, numero_linea, numero_columna))
                             elif re.match(patron_real, valor):
-                                
-                                tokens.append((valor, TipoToken.REAL, numero_linea, numero_columna))
+                                if "." in valor:
+                                    partes = valor.split(".")
+                                    if len(partes) == 2 and partes[1].isdigit():
+                                        tokens.append((valor, TipoToken.REAL, numero_linea, numero_columna))
+                                    else:
+                                        errores.append((valor, numero_linea, numero_columna))
+                                else:
+                                    tokens.append((valor, TipoToken.ENTERO, numero_linea, numero_columna))
+                            else:
+                                errores.append((valor, numero_linea, numero_columna))
+                            numero_columna += len(valor)
+                            break
                         else:
                             if token_nombre == 'simbolos':
                                 if valor == '>=':
