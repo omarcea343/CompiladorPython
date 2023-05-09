@@ -73,9 +73,8 @@ class TipoToken(Enum):
     ASIGNACION = 22
 
 def eliminar_comentarios(contenido_archivo):
-    # Elim comentarios de línea
+    # Eliminar comentarios de línea
     contenido_archivo = re.sub(r"//.*", "", contenido_archivo)
-
     # Eliminar comentarios de bloque
     contenido_archivo = re.sub(r"/\*.*?\*/", "", contenido_archivo, flags=re.DOTALL)
 
@@ -118,9 +117,11 @@ def obtener_tokens(nombre_archivo):
                                     tokens.append((valor, TipoToken.IDENTIFICADOR, numero_linea, numero_columna))
                         elif token_nombre in ['real', 'entero']:
                             patron_entero = r"\b\d+\b(?!\.)"
+                            patron_real = r"\b\d+\.\d*\b|\b\d*\.\d+\b"
                             if re.match(patron_entero, valor):
                                 tokens.append((valor, TipoToken.ENTERO, numero_linea, numero_columna))
-                            else:
+                            elif re.match(patron_real, valor):
+                                
                                 tokens.append((valor, TipoToken.REAL, numero_linea, numero_columna))
                         else:
                             if token_nombre == 'simbolos':
@@ -162,13 +163,6 @@ def obtener_tokens(nombre_archivo):
                     numero_columna += 1
 
         # Escribir resultados en archivo
-        """
-        with open(f"resultados.txt", "w") as archivo_resultados:
-            archivo_resultados.write(f"{'Token':<20} {'Tipo':<20} {'Linea':<10} {'Columna':<10}\n")
-            archivo_resultados.write("-" * 60 + "\n")
-            for token in tokens:
-                archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
-        """
         with open("resultados.txt", "w") as archivo_resultados:
             archivo_resultados.write("{:<20} | {:<20} | {:<20}\n".format("Token", "Tipo", "Posicion"))
             archivo_resultados.write("-" * 21 + "|" + "-" * 22 + "|" + "-" * 21 + "\n")
@@ -187,8 +181,6 @@ def obtener_tokens(nombre_archivo):
 
     except FileNotFoundError:
         print(f"El archivo {nombre_archivo} no existe")
-
-
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
