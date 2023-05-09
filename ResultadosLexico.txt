@@ -13,6 +13,8 @@ suma1                identificador        1          29
 ,                    coma                 1          34        
 suma2                identificador        1          35        
 ,                    coma                 1          40        
+25                   entero               1          35        
+ert                  identificador        1          41        
 ;                    punto y coma         1          46        
 main                 Palabra reservada    2          1         
 if                   Palabra reservada    2          6         
@@ -172,6 +174,8 @@ se                   identificador        38         7
 termino              identificador        38         10        
 while                Palabra reservada    39         1         
 int                  Palabra reservada    40         1         
+45                   entero               40         1         
+ert67                identificador        40         6         
 45.67                real                 40         14        
 ;                    punto y coma         40         19        
 then                 Palabra reservada    41         1         

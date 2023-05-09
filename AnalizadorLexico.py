@@ -16,7 +16,7 @@ PATRONES_TOKEN = {
     'comentario_de_linea': r"//.*",
     'comentario_de_bloque': r"/\*.*?\*/",
     'real':  r"\b\d+\.?\d*\b",
-    'identificador': r"\b[a-zA-Z_][a-zA-Z0-9_]*\b",
+    'identificador': r"\b\d*[a-zA-Z]+\w*\b",
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
@@ -116,7 +116,7 @@ def procesar_tokens(contenido):
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
             
-            elif descripcion == 'identificador':
+            elif descripcion in ['identificador']:
                 for match in re.finditer(patron, contenido):
                     token = match.group(0)
 
@@ -125,8 +125,24 @@ def procesar_tokens(contenido):
 
                     if not token.isalnum():
                         mensaje_error = f"Error léxico: el identificador {token} contiene caracteres no alfanuméricos"
-                        manejar_error_lexico(mensaje_error)
+                        with open("ErroresLexico.txt", "a") as f:
+                            f.write(mensaje_error + "\n")
                         continue  # Ignorar el token si hay un error léxico
+
+                    if token[0].isdigit():
+                        # Token inicia con números, separar la parte numérica y el resto
+                        indice = 0
+                        while indice < len(token) and token[indice].isdigit():
+                            indice += 1
+                        parte_numerica = token[:indice]
+                        resto = token[indice:]
+
+                        # Agregar la parte numérica como un token de tipo ENTERO
+                        tipo_token_numerico = TipoToken.ENTERO
+                        tokens_con_posicion.append((match.start(), (parte_numerica, tipo_token_numerico, linea, columna)))
+
+                        # Reasignar el token al resto como un identificador
+                        token = resto
 
                     if token in PALABRAS_RESERVADAS:
                         tipo_token = TipoToken.PALABRA_RESERVADA
@@ -136,6 +152,7 @@ def procesar_tokens(contenido):
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna)))
+
             
             elif descripcion in ['incremento', 'decremento']:
                 for match in re.finditer(patron, contenido):
@@ -185,19 +202,20 @@ def procesar_tokens(contenido):
                         tipo_token = TipoToken.INCREMENTO
                     elif token == '+':
                         tipo_token = TipoToken.OPERADOR
+                    else:
+                        mensaje_error = f'Token no válido: {token}'
+                        manejar_error_lexico(mensaje_error)
+                        continue
                     linea = contenido.count('\n', 0, match.start()) + 1
                     columna = match.start() - contenido.rfind('\n', 0, match.start())
                     tokens_con_posicion.append((match.start(), (token, tipo_token, linea, columna))) 
             else:
-                if not descripcion in ['operador','parentesis','coma', 'punto_y_coma','comentario_de_linea','comentario_de_bloque','real','identificador','llave_abierta','llave_cerrada','porcentaje','simbolos']:
-                    for match in re.finditer(patron, contenido):
-                        token = match.group(0)
-                        with open('ErroresLexico.txt', 'a') as f:
-                            f.write(f'Token no valido: {token}\n')
                 tokens_con_posicion.extend(procesar_token(descripcion, patron, contenido))
+
     # Ordenar la lista de tuplas por posición en el archivo y devolver solo los tokens
     tokens_ordenados = [token for _, token in sorted(tokens_con_posicion, key=lambda x: x[0])]
     return tokens_ordenados
+
 
 def leer_archivo(nombre_archivo):
     #Lee el contenido de un archivo.
