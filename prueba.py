@@ -2,7 +2,7 @@ import re
 import sys
 
 # Lista de palabras reservadas
-PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "until", "", "cout", "real", "int", "boolean"]
+PALABRAS_RESERVADAS = ["main", "if", "then", "else", "end", "do", "while", "repeat", "", "", "cout", "real", "int", "boolean"]
 
 # Definir patrones para los tokens
 PATRONES_TOKEN = {
@@ -16,7 +16,7 @@ PATRONES_TOKEN = {
     'llave_abierta': r"\{",
     'llave_cerrada': r"\}",
     'porcentaje': r"\%",
-    'simbolos': r'>=|>|<=|<|==!=|:=|=|--|-|\+\+|\+',
+    'simbolos': r'>=|>|<=|<|!=|:=|=|--|-|\+\+|\+',
 }
 
 def eliminar_comentarios(texto):
@@ -38,6 +38,7 @@ def obtener_tokens(nombre_archivo):
         tokens = []
         errores = []
         numero_linea = 1
+        numero_columna = 1
 
         while texto:
             match = None
@@ -51,35 +52,40 @@ def obtener_tokens(nombre_archivo):
                     texto = texto[len(valor):]
                     if token_nombre == 'identificador':
                         if valor in PALABRAS_RESERVADAS:
-                            tokens.append((valor.upper(), valor, numero_linea))
+                            tokens.append((valor.upper(), token_nombre.upper(), numero_linea, numero_columna))
                         else:
-                            tokens.append(('IDENTIFICADOR', valor, numero_linea))
+                            tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                     elif token_nombre == 'real':
-                        tokens.append(('REAL', valor, numero_linea))
+                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                     elif token_nombre == 'entero':
-                        tokens.append(('ENTERO', valor, numero_linea))
+                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
                     else:
-                        tokens.append((token_nombre.upper(), valor, numero_linea))
+                        tokens.append((valor, token_nombre.upper(), numero_linea, numero_columna))
+                    numero_columna += len(valor)
                     break
 
             if not match:
                 if texto[0] != '\n':
-                    errores.append((texto[0], numero_linea))
+                    errores.append((texto[0], numero_linea, numero_columna))
                 texto = texto[1:]
+                numero_columna += 1
 
                 if texto and texto[0] == '\n':
                     numero_linea += 1
+                    numero_columna = 1
 
         # Escribir resultados en archivo
         with open(f"{nombre_archivo}_resultados.txt", "w") as archivo_resultados:
+            archivo_resultados.write("Token                Tipo                 Linea      Columna\n")
+            archivo_resultados.write("-----------------------------------------------------------\n")
             for token in tokens:
-                archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10}\n")
+                archivo_resultados.write(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}\n")
 
-        # Escribir errores en archivo
+        # Esbir errores en archivo
         with open(f"{nombre_archivo}_errores.txt", "w") as archivo_errores:
             for error in errores:
                 if error[0].strip():
-                    archivo_errores.write(f"Error lexico en la linea {error[1]}: {error[0]}\n")
+                    archivo_errores.write(f"Error lexico en la linea {error[1]}, columna {error[2]}: {error[0]}\n")
 
         return tokens
 
@@ -92,7 +98,7 @@ if __name__ == '__main__':
         tokens = obtener_tokens(nombre_archivo)
 
         for token in tokens:
-            print(token)
+            print(f"{token[0]:<20} {token[1]:<20} {token[2]:<10} {token[3]:<10}")
 
     else:
         print("Debe proporcionar el nombre de un archivo como argumento.")

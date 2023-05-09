@@ -1,161 +1,165 @@
-INT                  int                  1         
-IDENTIFICADOR        vector               1         
-COMA                 ,                    1         
-IDENTIFICADOR        su                   1         
-IDENTIFICADOR        mas                  1         
-COMA                 ,                    1         
-IDENTIFICADOR        res@tas              1         
-COMA                 ,                    1         
-IDENTIFICADOR        suma1                1         
-COMA                 ,                    1         
-IDENTIFICADOR        suma2                1         
-COMA                 ,                    1         
-IDENTIFICADOR        ert                  1         
-PUNTO_Y_COMA         ;                    1         
-MAIN                 main                 1         
-IF                   if                   1         
-PARENTESIS           (                    1         
-WHILE                while                1         
-PARENTESIS           )                    1         
-IF                   if                   1         
-SIMBOLOS             +                    1         
-REAL                 34.34                1         
-REAL                 34.34                1         
-ENTERO               34                   1         
-SIMBOLOS             -                    1         
-ENTERO               34                   1         
-SIMBOLOS             ++                   1         
-SIMBOLOS             ++                   1         
-SIMBOLOS             +                    1         
-SIMBOLOS             --                   1         
-SIMBOLOS             --                   1         
-SIMBOLOS             -                    1         
-IDENTIFICADOR        cin                  1         
-SIMBOLOS             >                    1         
-SIMBOLOS             >                    1         
-SIMBOLOS             >=                   1         
-SIMBOLOS             <                    1         
-SIMBOLOS             <                    1         
-SIMBOLOS             <=                   1         
-SIMBOLOS             =                    1         
-SIMBOLOS             ==!=                 1         
-LLAVE_ABIERTA        {                    1         
-INT                  int                  1         
-IDENTIFICADOR        x                    1         
-COMA                 ,                    1         
-IDENTIFICADOR        y                    1         
-COMA                 ,                    1         
-IDENTIFICADOR        z                    1         
-PUNTO_Y_COMA         ;                    1         
-REAL                 real                 1         
-IDENTIFICADOR        a                    1         
-COMA                 ,                    1         
-IDENTIFICADOR        b                    1         
-COMA                 ,                    1         
-IDENTIFICADOR        c                    1         
-PUNTO_Y_COMA         ;                    1         
-IDENTIFICADOR        cin                  1         
-IDENTIFICADOR        gfkh                 1         
-INT                  int                  1         
-REAL                 real                 1         
-IDENTIFICADOR        x=23                 2         
-PUNTO_Y_COMA         ;                    2         
-IDENTIFICADOR        y=2                  2         
-SIMBOLOS             +                    2         
-ENTERO               3                    2         
-SIMBOLOS             -                    2         
-ENTERO               1                    2         
-PUNTO_Y_COMA         ;                    2         
-IDENTIFICADOR        z=y                  2         
-SIMBOLOS             +                    2         
-ENTERO               7                    2         
-PUNTO_Y_COMA         ;                    2         
-IDENTIFICADOR        a=24                 2         
-ENTERO               0                    2         
-SIMBOLOS             +                    2         
-ENTERO               4                    2         
-SIMBOLOS             -                    2         
-ENTERO               1                    2         
-OPERADOR             *                    2         
-ENTERO               3                    2         
-OPERADOR             /                    2         
-ENTERO               2                    2         
-SIMBOLOS             +                    2         
-ENTERO               34                   2         
-SIMBOLOS             -                    2         
-ENTERO               1                    2         
-PUNTO_Y_COMA         ;                    2         
-IF                   if                   2         
-PARENTESIS           (                    2         
-ENTERO               2                    2         
-SIMBOLOS             >                    2         
-ENTERO               3                    2         
-PARENTESIS           )                    2         
-IDENTIFICADOR        y=a                  2         
-SIMBOLOS             +                    2         
-ENTERO               3                    2         
-PUNTO_Y_COMA         ;                    2         
-ELSE                 else                 2         
-IF                   if                   2         
-PARENTESIS           (                    2         
-ENTERO               4                    2         
-SIMBOLOS             >                    2         
-ENTERO               2                    2         
-PARENTESIS           )                    2         
-IDENTIFICADOR        b=3                  2         
-ENTERO               2                    2         
-PUNTO_Y_COMA         ;                    2         
-ELSE                 else                 2         
-IDENTIFICADOR        b=5                  2         
-ENTERO               0                    2         
-PUNTO_Y_COMA         ;                    2         
-END                  end                  2         
-PUNTO_Y_COMA         ;                    2         
-IDENTIFICADOR        y=y                  2         
-SIMBOLOS             +                    2         
-ENTERO               1                    2         
-PUNTO_Y_COMA         ;                    2         
-END                  end                  2         
-PUNTO_Y_COMA         ;                    2         
-DO                   do                   2         
-IDENTIFICADOR        y                    2         
-SIMBOLOS             =                    2         
-PARENTESIS           (                    2         
-IDENTIFICADOR        y                    2         
-SIMBOLOS             +                    2         
-ENTERO               1                    2         
-PARENTESIS           )                    2         
-OPERADOR             *                    2         
-ENTERO               2                    2         
-SIMBOLOS             +                    2         
-ENTERO               1                    2         
-PUNTO_Y_COMA         ;                    2         
-UNTIL                until                2         
-PARENTESIS           (                    2         
-IDENTIFICADOR        y==5                 2         
-PARENTESIS           )                    2         
-PUNTO_Y_COMA         ;                    2         
-WHILE                while                2         
-PARENTESIS           (                    2         
-IDENTIFICADOR        y==0                 2         
-PARENTESIS           )                    2         
-LLAVE_ABIERTA        {                    2         
-COUT                 cout                 2         
-IDENTIFICADOR        x                    2         
-PUNTO_Y_COMA         ;                    2         
-LLAVE_CERRADA        }                    2         
-PUNTO_Y_COMA         ;                    2         
-LLAVE_CERRADA        }                    2         
-IF                   if                   7         
-IDENTIFICADOR        ya                   7         
-IDENTIFICADOR        se                   7         
-IDENTIFICADOR        termino              7         
-WHILE                while                7         
-INT                  int                  8         
-IDENTIFICADOR        ert67                8         
-REAL                 45.67                8         
-PUNTO_Y_COMA         ;                    8         
-THEN                 then                 8         
-IDENTIFICADOR        mas                  9         
-IDENTIFICADOR        lienas               9         
-WHILE                while                9         
+Token                Tipo                 Linea      Columna
+-----------------------------------------------------------
+INT                  IDENTIFICADOR        1          1         
+IDENTIFICADOR        IDENTIFICADOR        1          5         
+COMA                 ,                    1          11        
+IDENTIFICADOR        IDENTIFICADOR        1          13        
+IDENTIFICADOR        IDENTIFICADOR        1          16        
+COMA                 ,                    1          19        
+IDENTIFICADOR        IDENTIFICADOR        1          21        
+COMA                 ,                    1          28        
+IDENTIFICADOR        IDENTIFICADOR        1          29        
+COMA                 ,                    1          34        
+IDENTIFICADOR        IDENTIFICADOR        1          35        
+COMA                 ,                    1          40        
+IDENTIFICADOR        IDENTIFICADOR        1          43        
+PUNTO_Y_COMA         ;                    1          46        
+MAIN                 IDENTIFICADOR        1          48        
+IF                   IDENTIFICADOR        1          53        
+PARENTESIS           (                    1          55        
+WHILE                IDENTIFICADOR        1          56        
+PARENTESIS           )                    1          61        
+IF                   IDENTIFICADOR        1          62        
+SIMBOLOS             +                    1          64        
+REAL                 REAL                 1          65        
+REAL                 REAL                 1          71        
+ENTERO               ENTERO               1          77        
+SIMBOLOS             -                    1          79        
+ENTERO               ENTERO               1          80        
+SIMBOLOS             ++                   1          82        
+SIMBOLOS             ++                   1          84        
+SIMBOLOS             +                    1          86        
+SIMBOLOS             --                   1          87        
+SIMBOLOS             --                   1          89        
+SIMBOLOS             -                    1          91        
+IDENTIFICADOR        IDENTIFICADOR        1          93        
+SIMBOLOS             >                    1          97        
+SIMBOLOS             >                    1          98        
+SIMBOLOS             >=                   1          99        
+SIMBOLOS             <                    1          101       
+SIMBOLOS             <                    1          102       
+SIMBOLOS             <=                   1          103       
+SIMBOLOS             =                    1          105       
+SIMBOLOS             =                    1          106       
+SIMBOLOS             =                    1          107       
+SIMBOLOS             !=                   1          108       
+LLAVE_ABIERTA        {                    1          111       
+INT                  IDENTIFICADOR        1          113       
+IDENTIFICADOR        IDENTIFICADOR        1          117       
+COMA                 ,                    1          118       
+IDENTIFICADOR        IDENTIFICADOR        1          119       
+COMA                 ,                    1          120       
+IDENTIFICADOR        IDENTIFICADOR        1          121       
+PUNTO_Y_COMA         ;                    1          122       
+REAL                 IDENTIFICADOR        1          124       
+IDENTIFICADOR        IDENTIFICADOR        1          129       
+COMA                 ,                    1          130       
+IDENTIFICADOR        IDENTIFICADOR        1          132       
+COMA                 ,                    1          133       
+IDENTIFICADOR        IDENTIFICADOR        1          135       
+PUNTO_Y_COMA         ;                    1          136       
+IDENTIFICADOR        IDENTIFICADOR        1          138       
+IDENTIFICADOR        IDENTIFICADOR        1          142       
+INT                  IDENTIFICADOR        1          148       
+REAL                 IDENTIFICADOR        1          152       
+IDENTIFICADOR        IDENTIFICADOR        2          2         
+PUNTO_Y_COMA         ;                    2          6         
+IDENTIFICADOR        IDENTIFICADOR        2          8         
+SIMBOLOS             +                    2          11        
+ENTERO               ENTERO               2          12        
+SIMBOLOS             -                    2          13        
+ENTERO               ENTERO               2          14        
+PUNTO_Y_COMA         ;                    2          15        
+IDENTIFICADOR        IDENTIFICADOR        2          17        
+SIMBOLOS             +                    2          20        
+ENTERO               ENTERO               2          21        
+PUNTO_Y_COMA         ;                    2          22        
+IDENTIFICADOR        IDENTIFICADOR        2          24        
+ENTERO               ENTERO               2          29        
+SIMBOLOS             +                    2          30        
+ENTERO               ENTERO               2          31        
+SIMBOLOS             -                    2          32        
+ENTERO               ENTERO               2          33        
+OPERADOR             *                    2          34        
+ENTERO               ENTERO               2          35        
+OPERADOR             /                    2          36        
+ENTERO               ENTERO               2          37        
+SIMBOLOS             +                    2          38        
+ENTERO               ENTERO               2          39        
+SIMBOLOS             -                    2          41        
+ENTERO               ENTERO               2          42        
+PUNTO_Y_COMA         ;                    2          43        
+IF                   IDENTIFICADOR        2          45        
+PARENTESIS           (                    2          48        
+ENTERO               ENTERO               2          49        
+SIMBOLOS             >                    2          50        
+ENTERO               ENTERO               2          51        
+PARENTESIS           )                    2          52        
+IDENTIFICADOR        IDENTIFICADOR        2          62        
+SIMBOLOS             +                    2          65        
+ENTERO               ENTERO               2          66        
+PUNTO_Y_COMA         ;                    2          67        
+ELSE                 IDENTIFICADOR        2          71        
+IF                   IDENTIFICADOR        2          82        
+PARENTESIS           (                    2          84        
+ENTERO               ENTERO               2          85        
+SIMBOLOS             >                    2          86        
+ENTERO               ENTERO               2          87        
+PARENTESIS           )                    2          88        
+IDENTIFICADOR        IDENTIFICADOR        2          103       
+ENTERO               ENTERO               2          107       
+PUNTO_Y_COMA         ;                    2          108       
+ELSE                 IDENTIFICADOR        2          117       
+IDENTIFICADOR        IDENTIFICADOR        2          133       
+ENTERO               ENTERO               2          137       
+PUNTO_Y_COMA         ;                    2          138       
+END                  IDENTIFICADOR        2          147       
+PUNTO_Y_COMA         ;                    2          150       
+IDENTIFICADOR        IDENTIFICADOR        2          159       
+SIMBOLOS             +                    2          162       
+ENTERO               ENTERO               2          163       
+PUNTO_Y_COMA         ;                    2          164       
+END                  IDENTIFICADOR        2          166       
+PUNTO_Y_COMA         ;                    2          169       
+DO                   IDENTIFICADOR        2          171       
+IDENTIFICADOR        IDENTIFICADOR        2          174       
+SIMBOLOS             =                    2          175       
+PARENTESIS           (                    2          176       
+IDENTIFICADOR        IDENTIFICADOR        2          177       
+SIMBOLOS             +                    2          178       
+ENTERO               ENTERO               2          179       
+PARENTESIS           )                    2          180       
+OPERADOR             *                    2          181       
+ENTERO               ENTERO               2          182       
+SIMBOLOS             +                    2          183       
+ENTERO               ENTERO               2          184       
+PUNTO_Y_COMA         ;                    2          185       
+IDENTIFICADOR        IDENTIFICADOR        2          187       
+PARENTESIS           (                    2          192       
+IDENTIFICADOR        IDENTIFICADOR        2          193       
+PARENTESIS           )                    2          197       
+PUNTO_Y_COMA         ;                    2          198       
+WHILE                IDENTIFICADOR        2          200       
+PARENTESIS           (                    2          205       
+IDENTIFICADOR        IDENTIFICADOR        2          206       
+PARENTESIS           )                    2          210       
+LLAVE_ABIERTA        {                    2          211       
+COUT                 IDENTIFICADOR        2          213       
+IDENTIFICADOR        IDENTIFICADOR        2          218       
+PUNTO_Y_COMA         ;                    2          219       
+LLAVE_CERRADA        }                    2          221       
+PUNTO_Y_COMA         ;                    2          222       
+LLAVE_CERRADA        }                    2          224       
+IF                   IDENTIFICADOR        7          2         
+IDENTIFICADOR        IDENTIFICADOR        7          5         
+IDENTIFICADOR        IDENTIFICADOR        7          8         
+IDENTIFICADOR        IDENTIFICADOR        7          11        
+WHILE                IDENTIFICADOR        7          19        
+INT                  IDENTIFICADOR        8          2         
+IDENTIFICADOR        IDENTIFICADOR        8          9         
+REAL                 REAL                 8          15        
+PUNTO_Y_COMA         ;                    8          20        
+THEN                 IDENTIFICADOR        8          22        
+IDENTIFICADOR        IDENTIFICADOR        9          2         
+IDENTIFICADOR        IDENTIFICADOR        9          6         
+WHILE                IDENTIFICADOR        9          13        
