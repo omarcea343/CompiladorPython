@@ -1,0 +1,44 @@
+<programa> ::= <lista_declaracion>
+
+<lista_declaracion> ::= <lista_declaracion> <declaracion> | <declaracion>
+
+<declaracion> ::= <declaracion_variable> | <lista_sentencias>
+
+<declaracion_variable> ::= <tipo> <identificador> ";"
+
+<tipo> ::= "int" | "real" | "void"
+
+<lista_sentencias> ::= <lista_sentencias> <sentencia>| <vacio>
+
+<sentencia> ::= <seleccion> | <iteracion> | <repeticion> | <sent_in> | <sent_out> | <asignacion>
+
+<asignacion> ::= <identificador> <asignacion_op> <sent_expresion>
+
+<asignacion_op> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%="
+
+<sent_expresion> ::= <expresion> ";" | ";"
+
+<seleccion> ::= "if" <expresion> <sentencia> "end"
+              | "if" <expresion> <sentencia> "else" <sentencia> "end"
+
+<iteracion> ::= "while" <expresion> <sentencia> "end"
+
+<repeticion> ::= "do" <sentencia> "until" <expresion>
+
+<sent_in> ::= "cin" <identificador> ";"
+
+<sent_out> ::= "cout" <expresion> ";"
+
+<expresion> ::= <expresion_simple> <relacion_op> <expresion_simple> | <expresion_simple>
+
+<relacion_op> ::= "<=" | "<" | ">" | ">=" | "==" | "!="
+
+<expresion_simple> ::= <expresion_simple> <suma_op> <termino> | <termino>
+
+<suma_op> ::= "+" | "-" | "++" | "--" 
+
+<termino> ::= <termino> <mult_op> <factor> | <factor>
+
+<mult_op> ::= "*" | "/" | "%"
+
+<factor> ::= "(" <expresion> ")" | <numero> | <identificador>
