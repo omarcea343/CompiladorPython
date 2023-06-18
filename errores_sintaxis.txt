@@ -1,0 +1,5 @@
+Error de sintaxis en la línea 3, columna 9: Operador de asignación inválido en la línea 3.
+Error de sintaxis en la línea 3, columna 9: Sentencia inválida en la línea 3.
+Error de sintaxis en la línea 3, columna 11: Operador de asignación inválido en la línea 3.
+Error de sintaxis en la línea 3, columna 11: Sentencia inválida en la línea 3.
+Error de sintaxis en la línea 28, columna 1: Sentencia inválida en la línea 28.

@@ -1,3 +1,5 @@
+Tengo esta gramatica:
+
 <programa> ::= <lista_declaracion>
 
 <lista_declaracion> ::= <lista_declaracion> <declaracion> | <declaracion>
@@ -42,3 +44,17 @@
 <mult_op> ::= "*" | "/" | "%"
 
 <factor> ::= "(" <expresion> ")" | <numero> | <identificador>
+
+
+Puedes desarrollarme un analizador sintactico completo en python en base a esa gramatica, el analizador debe generar un arbol sintactico como salida a un archivo de texto, ademas no debe pararse en los errores sintacticos solamente guardarlos a otro archivo y seguir. Tengo esta funcion para leer los tokens generados por un analizador lexico en un archivo resultados.txt. # Función para leer los tokens desde el archivo
+def read_tokens(filename):
+    with open(filename, 'r') as file:
+        # Ignorar las dos primeras líneas
+        file.readline()
+        file.readline()
+        # Leer los tokens desde el archivo
+        tokens = []
+        for line in file:
+            token_type, value = line.strip().split('|')
+            tokens.append(Token(token_type.strip(), value.strip(), len(tokens) + 3))
+        return tokens

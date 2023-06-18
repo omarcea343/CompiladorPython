@@ -281,11 +281,11 @@ def obtener_tokens_comentarios(nombre_archivo):
 
         # Escribir resultados en archivo
         with open("resultados.txt", "w") as archivo_resultados:
-            archivo_resultados.write("{:<20} | {:<20}\n".format("Token", "Tipo"))
-            archivo_resultados.write("-" * 21 + "|" + "-" * 22 + "\n")
+            archivo_resultados.write("{:<20} | {:<20} | {:<20} | {:<20}\n".format("Token", "Tipo", "Linea", "Columna"))
+            archivo_resultados.write("-" * 21 + "|" + "-" * 22 + "|" +  "-" * 22 + "|" + "-" * 12 + "\n")
             for token in tokens:
                 valor, tipo, numero_linea, numero_columna = token
-                archivo_resultados.write("{:<20}  {:<20} \n".format(valor, tipo.name.replace('TipoToken.', '')))
+                archivo_resultados.write("{:<20} | {:<20} | {:<20} | {:<20}\n".format(valor, tipo.name.replace('TipoToken.', ''), numero_linea, numero_columna))
 
         return tokens
     
@@ -302,7 +302,7 @@ if __name__ == '__main__':
         print("\n\n ------------------ ANALISIS LEXICO -------------------------- \n\n\n")
         for token in tokens:
             valor, tipo, numero_linea, numero_columna = token
-            print("{:<20} | {:<20}\n".format(valor, tipo.name.replace('TipoToken.', '')))
+            print("{:<20} | {:<20} | {:<20} | {:<20}\n".format(valor, tipo.name.replace('TipoToken.', ''), numero_linea, numero_columna))
 
     else:
         print("Debe proporcionar el nombre de un archivo como argumento.")
