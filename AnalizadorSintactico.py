@@ -1,4 +1,7 @@
 # Clase Token para representar los tokens generados por el analizador léxico
+from asyncio.windows_events import NULL
+
+
 class Token:
     def __init__(self, tipo_token, valor, numero_linea, numero_columna):
         self.tipo_token = tipo_token
@@ -36,11 +39,31 @@ class AnalizadorSintactico:
         self.errores = []
 
     def analizar(self):
-        nodo_programa = self.programa()
-        if self.token_actual().tipo_token != 'EOF':
-            self.error("Token inesperado al final del programa.")
-        return nodo_programa
+        print(self.token_actual().valor + " eded")
+        if self.token_actual().valor == 'main':
+            self.consumir_token()
+            print(self.token_actual().valor)
+            if self.token_actual().valor == '{':
+                
+                nodo_programa = self.programa() 
 
+                if self.token_actual().tipo_token != 'EOF':
+                    self.error("Token inesperado al final del programa.")
+                return nodo_programa
+            else:
+                self.error(f"Se esperaba 'LLAVE QUE ABRE'")
+                self.consumir_token()
+                nodo_programa = self.programa()
+                if self.token_actual().tipo_token != 'EOF':
+                    self.error("Token inesperado al final del programa.")
+                return nodo_programa
+        else:
+            self.error(f"Error de Sintaxis, se esperaba 'main'")
+            self.consumir_token()
+            nodo_programa = self.programa()
+            if self.token_actual().tipo_token != 'EOF':
+               self.error("Token inesperado al final del programa.")
+            return nodo_programa
     def token_actual(self):
         if self.indice_token_actual < len(self.tokens):
             return self.tokens[self.indice_token_actual]
@@ -57,40 +80,38 @@ class AnalizadorSintactico:
 
     def programa(self):
         nodo_lista_declaracion = self.lista_declaracion()
-        return NodoSintaxis('<programa>', [nodo_lista_declaracion])
+        return NodoSintaxis('<programa>',[nodo_lista_declaracion])
 
     def lista_declaracion(self):
         nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
         print(self.token_actual().valor)
         while self.token_actual().tipo_token != 'EOF' :
-            if self.token_actual().valor in ['int', 'real', 'void','float']:
-                print("ola "+ self.token_actual().valor)
-                nodo_declaracion = NodoSintaxis('<declaracion>')
-                nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
-                nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
-                nodo_decl = self.declaracion()
-                nodo_declaracion.agregar_hijo(nodo_decl)
-                self.consumir_token()
-            else:                   
-                if self.token_actual().valor in ['if','while','do','cout','cin','until']:
-                    nodo_declaracion = NodoSintaxis('<declaracion>')
-                    nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
-                    nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
-                    nodo_do = self.lista_sentencias()
-                    nodo_declaracion.agregar_hijo(nodo_do)
-                #self.error(f"Declaración inválida en la línea {self.token_actual().numero_linea}.")                    
-                if self.token_actual().tipo_token == 'IDENTIFICADOR':
-                    nodo_declaracion = NodoSintaxis('<declaracion>')
-                    nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
-                    nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
-                    nodo_do = self.lista_sentencias()
-                    nodo_declaracion.agregar_hijo(nodo_do)                    
-                self.consumir_token()
+
+            #if self.token_actual().valor in ['int', 'real', 'void','float']:
+            #nodo_declaracion = NodoSintaxis('<declaracion>')
+            nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
+            nodo_decl = self.declaracion()
+            nodo_lista_declaracion.agregar_hijo(nodo_decl)
+            #nodo_lista_declaracion.agregar_hijo(nodo_decl)
+            #elif self.token_actual().valor in ['if','while','do','cout','cin','until']:
+             #   nodo_declaracion = NodoSintaxis('<declaracion>')
+              # nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
+               # nodo_do = self.lista_sentencias()
+                #nodo_declaracion.agregar_hijo(nodo_do)
+                #self.error(f"Declaración inválida en la línea {self.token_actual().numero_linea}.          
+            #elif self.token_actual().tipo_token == 'IDENTIFICADOR':
+             #   nodo_declaracion = NodoSintaxis('<declaracion>')
+              #  nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
+               # nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
+               # nodo_do = self.lista_sentencias()
+               # nodo_declaracion.agregar_hijo(nodo_do)                    
+            self.consumir_token()
                 
         return nodo_lista_declaracion
     def declaracion(self):
         nodo_declaracion = NodoSintaxis('<declaracion>')
         if self.token_actual().valor in ['int', 'real', 'void', 'float']:
+            print(self.token_actual().valor)
             tipo_variable = self.token_actual().valor  # Obtener el tipo de variable
             self.consumir_token()
             if self.token_actual().tipo_token == 'IDENTIFICADOR':
@@ -101,8 +122,12 @@ class AnalizadorSintactico:
                     nodo_declaracion_variable.agregar_hijo(nodo_identificador)
                     self.consumir_token()
                     if self.token_actual().valor == ',':
+                        nodo_declaracion_variable.agregar_hijo(NodoSintaxis(','))
                         self.consumir_token()
+                        if self.token_actual().tipo_token != 'IDENTIFICADOR':
+                            self.error(f"Se esperaba un identificador en la linea {self.token_actual().numero_linea}")
                 nodo_declaracion.agregar_hijo(nodo_declaracion_variable)
+                
                 if self.token_actual().valor == ';':
                     self.consumir_token()
                 else:
@@ -110,7 +135,42 @@ class AnalizadorSintactico:
             else:
                 self.error(f"Se esperaba un identificador en la línea {self.token_actual().numero_linea}.")
         else:
-            self.error(f"Declaración inválida en la línea {self.token_actual().numero_linea}.")
+            if self.token_actual().valor in ['if','while','do','cout','cin','until']:
+                #nodo_declaracion = NodoSintaxis('<declaracion>')
+                nodo_lista_sentencias = NodoSintaxis('<lista_sentencias>')
+                nodo_declaracion.agregar_hijo(nodo_lista_sentencias)
+                nodo_do = self.lista_sentencias()
+                nodo_declaracion.agregar_hijo(nodo_do)
+                #self.error(f"Declaración inválida en la línea {self.token_actual().numero_linea}.    
+            elif self.token_actual().valor == ['int','float']:
+                print(self.token_actual().valor)
+                tipo_variable = self.token_actual().valor  # Obtener el tipo de variable
+                self.consumir_token()
+                if self.token_actual().tipo_token == 'IDENTIFICADOR':
+                    nodo_tipo = NodoSintaxis('<tipo>', [NodoSintaxis(tipo_variable)])  # Agregar el nodo <tipo>
+                    nodo_declaracion_variable = NodoSintaxis('<declaracion_variable>', [nodo_tipo])  # Agregar nodo <tipo> antes de <identificador>
+                    while self.token_actual().tipo_token == 'IDENTIFICADOR':
+                        nodo_identificador = NodoSintaxis('<identificador>', [NodoSintaxis(self.token_actual().valor)])
+                        nodo_declaracion_variable.agregar_hijo(nodo_identificador)
+                        self.consumir_token()
+                        if self.token_actual().valor == ',':
+                            nodo_declaracion_variable.agregar_hijo(NodoSintaxis(','))
+                            self.consumir_token()
+                    nodo_declaracion.agregar_hijo(nodo_declaracion_variable)
+                    
+                    if self.token_actual().valor == ';':
+                        self.consumir_token()
+                    else:
+                        self.error(f"Se esperaba ';' en la línea {self.token_actual().numero_linea}.")
+                else:
+                    self.error(f"Se esperaba un identificador en la línea {self.token_actual().numero_linea}.")        
+            elif self.token_actual().tipo_token == 'IDENTIFICADOR':
+                nodo_declaracion = NodoSintaxis('<declaracion>')
+                nodo_lista_declaracion = NodoSintaxis('<lista_declaracion>')
+                nodo_lista_declaracion.agregar_hijo(nodo_declaracion)
+                nodo_do = self.lista_sentencias()
+                nodo_declaracion.agregar_hijo(nodo_do)    
+            #self.error(f"Declaración inválida en la línea {self.token_actual().numero_linea}.")
             self.consumir_token()
         return nodo_declaracion
 
@@ -122,6 +182,11 @@ class AnalizadorSintactico:
                 nodo_lista_sentencias.agregar_hijo(nodo_sent)
                 nodo_sentencia = self.sentencia()
                 nodo_sent.agregar_hijo(nodo_sentencia)
+            elif  self.token_actual().valor in ['int','float']:
+                nodo_sent = NodoSintaxis('<lista_declaracion>')
+                nodo_lista_sentencias.agregar_hijo(nodo_sent)                
+                nodo_sentencia = self.declaracion()
+                nodo_sent.agregar_hijo(nodo_sentencia)  
             elif  self.token_actual().tipo_token in ['IDENTIFICADOR']:
                 nodo_sent = NodoSintaxis('<sentencia>')
                 nodo_lista_sentencias.agregar_hijo(nodo_sent)                
@@ -233,7 +298,6 @@ class AnalizadorSintactico:
                 nodo_sentencia = self.sentencia()
                 nodo_sent.agregar_hijo(nodo_sentencia)
             if self.token_actual().valor in ['cout','cin','if','do','while']:
-                nodo_sent = NodoSintaxis('<sentencia>')
                 nodo_iteracion.agregar_hijo(nodo_sent)
                 nodo_sentencia = self.sentencia()
                 nodo_sent.agregar_hijo(nodo_sentencia)
@@ -275,6 +339,7 @@ class AnalizadorSintactico:
             nodo_expresion = self.expresion()
             nodo_repeticion.agregar_hijo(nodo_expresion)
             if self.token_actual().valor == ';':
+                nodo_expresion.agregar_hijo(NodoSintaxis(';'))
                 self.consumir_token()
             else:
                 self.error(f"Se esperaba ';' en la línea {self.token_actual().numero_linea}.")
@@ -294,6 +359,7 @@ class AnalizadorSintactico:
         else:
             self.error(f"Se esperaba un identificador en la línea {self.token_actual().numero_linea}.")
         if self.token_actual().valor == ';':
+            nodo_sent_in.agregar_hijo(NodoSintaxis(';'))
             self.consumir_token()
         else:
             self.error(f"Se esperaba ';' en la línea {self.token_actual().numero_linea}.")
@@ -307,6 +373,7 @@ class AnalizadorSintactico:
         nodo_expresion = self.expresion()
         nodo_sent_out.agregar_hijo(nodo_expresion)
         if self.token_actual().valor == ';':
+            nodo_expresion.agregar_hijo(NodoSintaxis(';'))
             self.consumir_token()
         else:
             self.error(f"Se esperaba ';' en la línea {self.token_actual().numero_linea}.")
@@ -352,10 +419,12 @@ class AnalizadorSintactico:
     def factor(self):
         nodo_factor = NodoSintaxis('<factor>')
         if self.token_actual().valor == '(':
+            nodo_factor.agregar_hijo(NodoSintaxis('('))
             self.consumir_token()
             nodo_expresion = self.expresion()
             nodo_factor.agregar_hijo(nodo_expresion)
             if self.token_actual().valor == ')':
+                nodo_factor.agregar_hijo(NodoSintaxis(')'))
                 self.consumir_token()
             else:
                 self.error(f"Se esperaba ')' en la línea {self.token_actual().numero_linea}.")
