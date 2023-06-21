@@ -1,17 +1,1 @@
-Error de sintaxis en la línea 3, columna 9: Operador de asignación inválido en la línea 3.
-Error de sintaxis en la línea 3, columna 11: Operador de asignación inválido en la línea 3.
-Error de sintaxis en la línea 4, columna 7: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 4, columna 8: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 4, columna 12: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 4, columna 24: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 4, columna 25: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 4, columna 27: Sentencia inválida en la línea 4.
-Error de sintaxis en la línea 21, columna 6: Operador de asignación inválido en la línea 21.
-Error de sintaxis en la línea 26, columna 9: Operador de asignación inválido en la línea 26.
-Error de sintaxis en la línea 27, columna 1: Sentencia inválida en la línea 27.
-Error de sintaxis en la línea 27, columna 6: Sentencia inválida en la línea 27.
-Error de sintaxis en la línea 27, columna 8: Operador de asignación inválido en la línea 27.
-Error de sintaxis en la línea 27, columna 10: Sentencia inválida en la línea 27.
-Error de sintaxis en la línea 27, columna 13: Sentencia inválida en la línea 27.
-Error de sintaxis en la línea 27, columna 14: Sentencia inválida en la línea 27.
-Error de sintaxis en la línea 28, columna 1: Sentencia inválida en la línea 28.
+Error de sintaxis en la lÃ­nea 28, columna 1: Sentencia invÃ¡lida en la lÃ­nea 28.
